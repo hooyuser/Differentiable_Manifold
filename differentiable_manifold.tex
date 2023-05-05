@@ -32,6 +32,98 @@ $$
 $$
 is also a homeomorphism. Hence, $(U,\mathbf{x})$ is a coordinate chart at point $p$.
 
+\subsection{Atlas}
+\dfn{Atlas}{
+If $\Sigma=\{(U_\alpha,\mathbf{x}_\alpha)\}_{\alpha\in A}$ is a collection of coordinate charts for the topological manifold $M$ and $\{\mathbf{x}_\alpha(U_\alpha)\}_{\alpha\in
+    A}$ is a cover of $M$, then $\Sigma$ is called an \emph{atlas} of $M$.
+}
+A topological manifold $M$ can be regarded as a topological space obtained by gluing together many open subsets $U_\alpha(\alpha\in A)$ of Euclidean spaces.
+
+Given an atlas $\Sigma=\{(U_\alpha,\mathbf{x}_\alpha)\}_{\alpha\in
+    A}$ of the topological manifold $M$, some coordinate charts in the atlas may have overlapping regions. In other words, some points in $M$ may be covered by multiple coordinate charts. Suppose $(U_\alpha,\mathbf{x}_\alpha)$ and $(U_\beta,\mathbf{x}_\beta)$ have overlapping regions, i.e.,
+\[
+    \mathbf{x}_\alpha(U_\alpha)\cap \mathbf{x}_\beta(U_\beta)\ne\varnothing.
+\]
+Then we can define transition functions
+\[
+    \mathbf{x}^{-1}_\beta\circ \mathbf{x}_{\alpha}:
+    \mathbf{x}^{-1}_\alpha(\mathbf{x}_\alpha(U_\alpha)\cap
+    \mathbf{x}_\beta(U_\beta)) \longrightarrow
+    \mathbf{x}^{-1}_\beta(\mathbf{x}_\alpha(U_\alpha)\cap
+    \mathbf{x}_\beta(U_\beta))
+\]
+and
+\[
+    \mathbf{x}^{-1}_{\alpha}\circ
+    \mathbf{x}_\beta:  \mathbf{x}^{-1}_\beta(\mathbf{x}_\alpha(U_\alpha)\cap
+    \mathbf{x}_\beta(U_\beta))\longrightarrow
+    \mathbf{x}^{-1}_\alpha(\mathbf{x}_\alpha(U_\alpha)\cap
+    \mathbf{x}_\beta(U_\beta)).
+\]
+Since the composition of two homeomorphisms is still a homeomorphism, the above two transition functions are both homeomorphisms. As mentioned earlier, a point $p$ in $M$ may be covered by multiple coordinate charts, meaning that point $p$ may have multiple local coordinates. With the help of transition functions, we can switch between multiple local coordinates of point $p$.
+
+\section{Differentiable Manifold}
+\subsection{Motivation: Defining Differentiable Functions}
+A topological manifold is a type of topological space that is locally ``very similar" to Euclidean space. Here, ``very similar" refers to a consistent topological structure. Since topological manifolds have a topology that locally behaves like the Euclidean topology, various techniques developed for the Euclidean topology can be applied to topological manifolds. 
+
+As is well known, Euclidean spaces also have many structures more refined than topology, such as the ability to define differentiable functions and compute derivatives. If a topological manifold locally inherits this more refined structure, then, similarly, we can define differentiable functions and compute derivatives on the topological manifold. We will now provide a formal definition of this more refined structure.
+
+Let $M$ be an $n$-dimensional topological manifold and $\Sigma=\{(U_\alpha,\mathbf{x}_\alpha)\}_{\alpha\in
+A}$ be an atlas of $M$. Our goal is to define differentiable functions $f:M\to \mathbb{R}^m$ on a topological manifold $M$ in a reasonable way. A natural idea is to locally pull back the domain from a subset of $M$ to $U_\alpha\subset\mathbb{R}^n$ using the coordinate chart $(U_\alpha,\mathbf{x}_\alpha)$. Specifically, we can attempt to define differentiable functions as follows: function $f:M\to \mathbb{R}^m$ is differentiable at point $p$ if and only if for any coordinate chart $(U_\alpha,\mathbf{x}_\alpha)$ covering point $p$, the composite function
+\[
+    f\circ \mathbf{x}_\alpha:U_\alpha\longrightarrow \mathbb{R}^m
+\]
+is differentiable at point $\mathbf{x}^{-1}_\alpha(p)$.
+
+\subsection{Compatible Atlas}
+This definition is theoretically valid but can be cumbersome in practice. To prove the differentiability of $f$ at point $p$, we need to verify differentiablity of $f\circ \mathbf{x}_\alpha$ for all coordinate charts $(U_\alpha,\mathbf{x}_\alpha)$ covering point $p$. 
+
+In fact, if we only consider so-called compatible atlases, the situation becomes much simpler. In this case, we only need to verify one arbatrary 
+coordinate chart covering point $p$. The following definition makes this idea precise.
+
+\dfn{Compatible Coordinate Charts and Compatible Atlas}{Two coordinate charts $(U_\alpha,\mathbf{x}_\alpha)$, $(U_\beta,\mathbf{x}_\beta)$ are called \emph{compatible} if
+\[
+    U_\alpha\cap U_\beta\ne\varnothing\implies\mathbf{x}^{-1}_\beta\circ
+\mathbf{x}_{\alpha},\;\mathbf{x}^{-1}_{\alpha}\circ \mathbf{x}_\beta
+\text{ are differentiable}.
+\]
+If any two coordinate charts in an atlas are compatible, the atlas is called a \emph{compatible atlas}. 
+}
+
+Suppose $(U_\alpha,\mathbf{x}_\alpha)$, $(U_\beta,\mathbf{x}_\beta)$ are two coordinate charts covering point $p$. Notice that
+$$
+\begin{aligned}
+f\circ \mathbf{x}_\beta &= (f\circ \mathbf{x}_\alpha)\circ(\mathbf{x}^{-1}_\alpha\circ \mathbf{x}_{\beta}),\\
+f\circ \mathbf{x}_\alpha &= (f\circ \mathbf{x}_\beta)\circ(\mathbf{x}^{-1}_\beta\circ \mathbf{x}_{\alpha}).
+\end{aligned}
+$$
+We see that $f \circ \mathbf{x}_\beta$ is differentiable if and only if $f \circ \mathbf{x}_\alpha$ is differentiable. Therefore, if the given atlas is compatible, our definition of differentiable functions can be written as: a function $f: M \to \mathbb{R}^m$ is differentiable at point $p$ if and only if there exists a coordinate chart $(U_\alpha, \mathbf{x}_\alpha)$ covering point $p$ such that the composite function
+$$
+f\circ \mathbf{x}_\alpha:U_\alpha\longrightarrow \mathbb{R}^m
+$$
+is differentiable at point $\mathbf{x}^{-1}_\alpha(p)$.
+
+\subsection{Differential Structure and Differentiable Manifold}
+Compatible atlases can be maximized.
+\dfn{Maximal Atlas of a Compatible Atlas}{
+    Let $\Sigma=\{(U_\alpha,\mathbf{x}_\alpha)\}_{\alpha\in A}$ be a compatible atlas of the topological manifold $(M, \tau)$, then
+\[
+\Sigma_{\max}=\left\{(U_\alpha,\mathbf{x}_\alpha)\mid(U_\alpha,\mathbf{x}_\alpha) \text{ is compatible with every coordinate chart in $\Sigma$}\right\}
+\]
+is called the maximal atlas of $\Sigma$.
+} 
+A maximal compatible atlas $\Sigma_{\max}$ on the topological manifold $(M, \tau)$ is called a \emph{differential structure} of $(M, \tau)$. A topological manifold equipped with a differential structure is called a differentiable manifold, denoted as the triplet $(M, \tau, \Sigma_{\max})$. Unless otherwise specified, when we talk about coordinate charts of differentiable manifolds, we always assume that the coordinate charts are taken from the differentiable manifold's own atlas.
+
+By replacing ``differentiable" with ``$C^r$-differentiable" or ``smooth", we can similarly define $C^r$-compatible atlases and smooth compatible atlases, $C^r$-differential structures and smooth structures, and $C^r$-differentiable manifolds and smooth manifolds. In the following, we will mainly discuss smooth manifolds, but the related concepts can be extended to differential manifolds and $C^r$-differential manifolds in a similar way.
+
+
+
+
+
+
+
+
+
 
 
 % \begin{Theorem}{Title}{label}

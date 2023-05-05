@@ -48,13 +48,13 @@
 \definecolor{myg}{RGB}{56, 140, 70}
 \definecolor{myb}{RGB}{45, 111, 177}
 \definecolor{myr}{RGB}{199, 68, 64}
-\definecolor{mytheorembg}{HTML}{F2F2F9}
-\definecolor{mytheoremfr}{HTML}{00007B}
+\definecolor{mytheorembg}{HTML}{fdf8ea}
+\definecolor{mytheoremfr}{HTML}{f19000}
 \definecolor{myexamplebg}{HTML}{F2FBF8}
 \definecolor{myexamplefr}{HTML}{88D6D1}
 \definecolor{myexampleti}{HTML}{2A7F7F}
-\definecolor{mydefinitbg}{HTML}{E5E5FF}
-\definecolor{mydefinitfr}{HTML}{3F3FA3}
+\definecolor{mydefinitbg}{HTML}{F2F2F9}
+\definecolor{mydefinitfr}{HTML}{00007B}
 \definecolor{notesgreen}{RGB}{0,162,0}
 \definecolor{myp}{RGB}{197, 92, 212}
 \definecolor{mygr}{HTML}{2C3338}
@@ -66,6 +66,8 @@
 \definecolor{Emerald}{HTML}{00A99D}
 \definecolor{RoyalBlue}{HTML}{0071BC}
 
+% \definecolor{mydefnewbg}{HTML}{FFF0E0}
+% \definecolor{mydefnewfr}{HTML}{FF9900}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TCOLORBOX SETUPS
@@ -260,47 +262,91 @@
 % DEFINITION BOX
 %================================
 
-\newtcbtheorem[number within=section]{Definition}{Definition}{enhanced,
-	before skip=2mm,after skip=2mm, colback=red!5,colframe=red!80!black,boxrule=0.5mm,
-	attach boxed title to top left={xshift=1cm,yshift*=1mm-\tcboxedtitleheight}, varwidth boxed title*=-3cm,
-	boxed title style={frame code={
-					\path[fill=tcbcolback]
-					([yshift=-1mm,xshift=-1mm]frame.north west)
-					arc[start angle=0,end angle=180,radius=1mm]
-					([yshift=-1mm,xshift=1mm]frame.north east)
-					arc[start angle=180,end angle=0,radius=1mm];
-					\path[left color=tcbcolback!60!black,right color=tcbcolback!60!black,
-						middle color=tcbcolback!80!black]
-					([xshift=-2mm]frame.north west) -- ([xshift=2mm]frame.north east)
-					[rounded corners=1mm]-- ([xshift=1mm,yshift=-1mm]frame.north east)
-					-- (frame.south east) -- (frame.south west)
-					-- ([xshift=-1mm,yshift=-1mm]frame.north west)
-					[sharp corners]-- cycle;
-				},interior engine=empty,
-		},
-	fonttitle=\bfseries,
-	title={#2},#1}{def}
-\newtcbtheorem[number within=chapter]{definition}{Definition}{enhanced,
-	before skip=2mm,after skip=2mm, colback=red!5,colframe=red!80!black,boxrule=0.5mm,
-	attach boxed title to top left={xshift=1cm,yshift*=1mm-\tcboxedtitleheight}, varwidth boxed title*=-3cm,
-	boxed title style={frame code={
-					\path[fill=tcbcolback]
-					([yshift=-1mm,xshift=-1mm]frame.north west)
-					arc[start angle=0,end angle=180,radius=1mm]
-					([yshift=-1mm,xshift=1mm]frame.north east)
-					arc[start angle=180,end angle=0,radius=1mm];
-					\path[left color=tcbcolback!60!black,right color=tcbcolback!60!black,
-						middle color=tcbcolback!80!black]
-					([xshift=-2mm]frame.north west) -- ([xshift=2mm]frame.north east)
-					[rounded corners=1mm]-- ([xshift=1mm,yshift=-1mm]frame.north east)
-					-- (frame.south east) -- (frame.south west)
-					-- ([xshift=-1mm,yshift=-1mm]frame.north west)
-					[sharp corners]-- cycle;
-				},interior engine=empty,
-		},
-	fonttitle=\bfseries,
-	title={#2},#1}{def}
+% \newtcbtheorem[number within=section]{Definition}{Definition}{enhanced,
+% 	before skip=2mm,after skip=2mm, colback=red!5,colframe=red!80!black,boxrule=0.5mm,
+% 	attach boxed title to top left={xshift=1cm,yshift*=1mm-\tcboxedtitleheight}, varwidth boxed title*=-3cm,
+% 	boxed title style={frame code={
+% 					\path[fill=tcbcolback]
+% 					([yshift=-1mm,xshift=-1mm]frame.north west)
+% 					arc[start angle=0,end angle=180,radius=1mm]
+% 					([yshift=-1mm,xshift=1mm]frame.north east)
+% 					arc[start angle=180,end angle=0,radius=1mm];
+% 					\path[left color=tcbcolback!60!black,right color=tcbcolback!60!black,
+% 						middle color=tcbcolback!80!black]
+% 					([xshift=-2mm]frame.north west) -- ([xshift=2mm]frame.north east)
+% 					[rounded corners=1mm]-- ([xshift=1mm,yshift=-1mm]frame.north east)
+% 					-- (frame.south east) -- (frame.south west)
+% 					-- ([xshift=-1mm,yshift=-1mm]frame.north west)
+% 					[sharp corners]-- cycle;
+% 				},interior engine=empty,
+% 		},
+% 	fonttitle=\bfseries,
+% 	title={#2},#1}{def}
+% \newtcbtheorem[number within=chapter]{definition}{Definition}{enhanced,
+% 	before skip=2mm,after skip=2mm, colback=red!5,colframe=red!80!black,boxrule=0.5mm,
+% 	attach boxed title to top left={xshift=1cm,yshift*=1mm-\tcboxedtitleheight}, varwidth boxed title*=-3cm,
+% 	boxed title style={frame code={
+% 					\path[fill=tcbcolback]
+% 					([yshift=-1mm,xshift=-1mm]frame.north west)
+% 					arc[start angle=0,end angle=180,radius=1mm]
+% 					([yshift=-1mm,xshift=1mm]frame.north east)
+% 					arc[start angle=180,end angle=0,radius=1mm];
+% 					\path[left color=tcbcolback!60!black,right color=tcbcolback!60!black,
+% 						middle color=tcbcolback!80!black]
+% 					([xshift=-2mm]frame.north west) -- ([xshift=2mm]frame.north east)
+% 					[rounded corners=1mm]-- ([xshift=1mm,yshift=-1mm]frame.north east)
+% 					-- (frame.south east) -- (frame.south west)
+% 					-- ([xshift=-1mm,yshift=-1mm]frame.north west)
+% 					[sharp corners]-- cycle;
+% 				},interior engine=empty,
+% 		},
+% 	fonttitle=\bfseries,
+% 	title={#2},#1}{def}
 
+%================================
+% NEW DEFINITION BOX
+%================================
+
+% Define new colors
+
+
+\newtcbtheorem[number within=section]{Definition}{Definition}
+{%
+    enhanced
+    ,breakable
+    ,colback = mydefinitbg
+    ,frame hidden
+    ,boxrule = 0sp
+    ,borderline west = {2pt}{0pt}{mydefinitfr}
+    ,sharp corners
+    ,detach title
+    ,before upper = \tcbtitle\par\smallskip
+    ,coltitle = mydefinitfr!85!black
+    ,fonttitle = \bfseries\sffamily
+    ,description font = \mdseries
+    ,separator sign none
+    ,segmentation style={solid, mydefinitfr!85!black}
+}
+{th}
+
+\newtcbtheorem[number within=chapter]{definition}{Definition}
+{%
+    enhanced
+    ,breakable
+    ,colback = mydefinitbg
+    ,frame hidden
+    ,boxrule = 0sp
+    ,borderline west = {2pt}{0pt}{mydefinitfr}
+    ,sharp corners
+    ,detach title
+    ,before upper = \tcbtitle\par\smallskip
+    ,coltitle = mydefinitfr!85!black
+    ,fonttitle = \bfseries\sffamily
+    ,description font = \mdseries
+    ,separator sign none
+    ,segmentation style={solid, mydefinitfr!85!black}
+}
+{th}
 
 %================================
 % OPEN QUESTION BOX

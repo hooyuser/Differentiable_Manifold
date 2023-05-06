@@ -2,8 +2,6 @@
 
 \input{preamble}
 
-\usepackage[super]{nth}
-
 \begin{document}
 
 % Your document content here
@@ -168,15 +166,29 @@ Given an $n$-dimensional smooth manifold $(M,\tau,\Sigma)$ and a point $p$ on it
 \[
     \mathbf{x}^{-1} \circ \gamma:(-\epsilon,\epsilon)\to \mathbb{R}^n.
 \]
-The result of differentiation is $\left.\frac{d(\mathbf{x} \circ \gamma)}{dt}\right|_0$. If curves $\theta$ and $\gamma$ have the same derivative at point $p$ in a certain coordinate chart $(U_1,\mathbf{x}_1)$, namely
-\[
-    \left.\frac{d(\mathbf{x}_1^{-1} \circ \theta)}{dt}\right|_0=\left.\frac{d(\mathbf{x}_1^{-1} \circ \gamma)}{dt}\right|_0,
-\]
-then in any coordinate chart $(U_2,\mathbf{x}_2)$ at point $p$, the curves $\theta$ and $\gamma$ also have the same derivative. To prove this, we only need to note that according to the chain rule,
-\[
-    \left.\frac{d(\mathbf{x}_2^{-1} \circ \theta)}{dt}\right|_0=\left.\frac{d((\mathbf{x}_2 \circ \mathbf{x}_1)\circ(\mathbf{x}_1^{-1} \circ \theta))}{dt}\right|_0=\left.\frac{d(\mathbf{x}_2^{-1} \circ \mathbf{x}_1)}{dx}\right|_p\left.\frac{d(\mathbf{x}_1^{-1} \circ \theta)}{dt}\right|_0.
-\]
-Therefore, we can define that curves $\theta$ and $\gamma$ are equivalent at point $p$ if and only if there exists a coordinate chart $(U,\mathbf{x})$ at point $p$ such that
+The result of differentiation is $\left.\frac{d(\mathbf{x} \circ \gamma)}{dt}\right|_0$. 
+\prop{}{
+    If curves $\theta$ and $\gamma$ have the same derivative at point $p$ in a certain coordinate chart $(U_1,\mathbf{x}_1)$, namely
+    \[
+        \left.\frac{d(\mathbf{x}_1^{-1} \circ \theta)}{dt}\right|_0=\left.\frac{d(\mathbf{x}_1^{-1} \circ \gamma)}{dt}\right|_0,
+    \]
+    then in any coordinate chart $(U_2,\mathbf{x}_2)$ at point $p$, the curves $\theta$ and $\gamma$ also have the same derivative. 
+}
+\pf{
+    According to the chain rule, we have
+    \[
+        \left.\frac{d(\mathbf{x}_2^{-1} \circ \theta)}{dt}\right|_0=\left.\frac{d((\mathbf{x}_2 \circ \mathbf{x}_1)\circ(\mathbf{x}_1^{-1} \circ \theta))}{dt}\right|_0=\left.\frac{d(\mathbf{x}_2^{-1} \circ \mathbf{x}_1)}{dx}\right|_p\left.\frac{d(\mathbf{x}_1^{-1} \circ \theta)}{dt}\right|_0.
+    \]
+    Similarly, we have
+    \[
+        \left.\frac{d(\mathbf{x}_2^{-1} \circ \gamma)}{dt}\right|_0=\left.\frac{d(\mathbf{x}_2^{-1} \circ \mathbf{x}_1)}{dx}\right|_p\left.\frac{d(\mathbf{x}_1^{-1} \circ \gamma)}{dt}\right|_0.
+    \]
+    Thus we show that
+    \[
+        \left.\frac{d(\mathbf{x}_1^{-1} \circ \theta)}{dt}\right|_0=\left.\frac{d(\mathbf{x}_1^{-1} \circ \gamma)}{dt}\right|_0\implies \left.\frac{d(\mathbf{x}_2^{-1} \circ \theta)}{dt}\right|_0=\left.\frac{d(\mathbf{x}_2^{-1} \circ \gamma)}{dt}\right|_0.
+    \]
+}
+We can define that curves $\theta$ and $\gamma$ are equivalent at point $p$ if and only if there exists a coordinate chart $(U,\mathbf{x})$ at point $p$ such that
 \[
     \left.\frac{d(\mathbf{x}^{-1} \circ \theta)}{dt}\right|_0=\left.\frac{d(\mathbf{x}^{-1} \circ \gamma)}{dt}\right|_0.
 \]
@@ -224,15 +236,15 @@ we have
     \left.\frac{d(\mathbf{f} \circ \gamma)}{dt}\right|_0=\left(\left.\frac{d(f_1 \circ \gamma)}{dt}\right|_0,\left.\frac{d(f_2 \circ \gamma)}{dt}\right|_0,\cdots,\left.\frac{d(f_n \circ \gamma)}{dt}\right|_0\right).
 \]
 \subsubsection{Curves induce functionals}
-Let $\mathcal{D}_p(M)$ denote the linear space of functions on $M$ that are smooth at the point $p$. Now we can define the functional induced by $\gamma$ as 
+Let $\mathcal{C}^{\infty}_p(M)$ denote the linear space of functions on $M$ that are smooth at the point $p$. Now we can define the functional induced by $\gamma$ as 
 \[
 \begin{aligned}
     v_\gamma:=\left.\frac{d(\cdot \circ
-\gamma)}{dt}\right|_0:\mathcal{D}_p(M)&\longrightarrow \mathbb{R}\\
+\gamma)}{dt}\right|_0:\mathcal{C}^{\infty}_p(M)&\longrightarrow \mathbb{R}\\
     f&\longmapsto \left.\frac{d(f \circ \gamma)}{dt}\right|_0.
 \end{aligned}
 \]
-We can check that $v_\gamma$ is a linear functional. For any $f_1,f_2\in\mathcal{D}_p(M)$ and $k\in\mathbb{R}$, we have
+We can check that $v_\gamma$ is a linear functional. For any $f_1,f_2\in\mathcal{C}^{\infty}_p(M)$ and $k\in\mathbb{R}$, we have
 $$
 \left.\frac{d((f_1+f_2) \circ \gamma)}{dt}\right|_0=\left.\frac{d(f_1\circ \gamma+f_2\circ \gamma )}{dt}\right|_0=\left.\frac{d(f_1\circ \gamma)}{dt}\right|_0+\left.\frac{d(f_2\circ \gamma)}{dt}\right|_0,
 $$
@@ -240,12 +252,12 @@ $$
 $$
 \left.\frac{d((kf) \circ \gamma)}{dt}\right|_0=\left.\frac{d(k(f \circ \gamma))}{dt}\right|_0=k\left.\frac{d(f \circ \gamma)}{dt}\right|_0.
 $$
-Let $\mathcal{D}_p(M)^*$ denote the dual space of $\mathcal{D}_p(M)$, which is the linear space of all linear functionals on $\mathcal{D}_p(M)$. We can now provide a second coordinate-independent definition of tangent space as follows:
+Let $\mathcal{C}^{\infty}_p(M)^*$ denote the dual space of $\mathcal{C}^{\infty}_p(M)$, which is the linear space of all linear functionals on $\mathcal{C}^{\infty}_p(M)$. We can now provide a second coordinate-independent definition of tangent space as follows:
 $$
-T^{2\mathrm{nd}}_pM=\left\{\left.\frac{d(\cdot \circ \gamma)}{dt}\right|_0\in\mathcal{D}_p(M)^*:\gamma\text{ is a smooth curve on $M$ passing through $p$ }\right\}.
+T^{2\mathrm{nd}}_pM=\left\{\left.\frac{d(\cdot \circ \gamma)}{dt}\right|_0\in\mathcal{C}^{\infty}_p(M)^*:\gamma\text{ is a smooth curve on $M$ passing through $p$ }\right\}.
 $$
 \subsubsection{Natural basis}
-Next we will introduce natural basis and use it to show that $T^{2\mathrm{nd}}_pM$ is indeed a linear subspace of $\mathcal{D}_p(M)^*$ of dimension $n$.
+Next we will introduce natural basis and use it to show that $T^{2\mathrm{nd}}_pM$ is indeed a linear subspace of $\mathcal{C}^{\infty}_p(M)^*$ of dimension $n$.
 
 Given a coordinate chart $(U,\mathbf{x})$ at point $p$, we define the \emph{$i$-th coordinate function} of the coordinate chart $(U,\mathbf{x})$ as
 \[
@@ -254,18 +266,95 @@ Given a coordinate chart $(U,\mathbf{x})$ at point $p$, we define the \emph{$i$-
         p&\longmapsto x_i
     \end{aligned}
 \]
-and then we define the \emph{$x_i$-curve} of the coordinate chart $(U,\mathbf{x})$ as
+
+\lemm{}{
+    If we choose a coordinate chart $(U,\mathbf{x})$ of $M$ at $p$, then for any $v_\gamma\in T^{2\mathrm{nd}}_pM$, $f\in\mathcal{C}^{\infty}_p(M)$,
+    \[
+        v_\gamma(f)=\sum_{i=1}^n v_\gamma(\tilde{x}_i) \left.\frac{\partial (f\circ \mathbf{x})}{\partial x_i}\right|_{p}.
+    \]
+}
+\pf{
+We only need to use the pullback of $f$ and pushforward of $\gamma$ with respect to the coordinate chart $(U,\mathbf{x})$, and then apply the chain rule:
+\[
+    v_\gamma(f)=\left.\frac{d(f \circ\gamma)}{dt}\right|_0=\left.\frac{d((f \circ \mathbf{x})\circ (\mathbf{x}^{-1}\circ \gamma))}{dt}\right|_0=\sum_{i=1}^n\left.\frac{\partial (f \circ \mathbf{x})}{\partial x_i}\right|_{p}\left.\frac{d(\tilde{x}_i \circ \gamma)}{dt}\right|_0.
+\]
+}
+\noindent Define the \emph{$x_i$-curve} for the coordinate chart $(U,\mathbf{x})$ as
 \[
     \begin{aligned}
         \varepsilon_i:(-\epsilon,\epsilon)&\longrightarrow M\\
         t&\longmapsto\mathbf{x}\left(\tilde{x}_1(p),\cdots,\tilde{x}_i(p)+t,\cdots,\tilde{x}_n(p)\right).
     \end{aligned}
 \]
-These $n$ vectors
+$v_{\varepsilon_i}$ is called the \emph{$i$-th coordinate tangent vector} of the coordinate chart $(U,\mathbf{x})$.
+We can check that
+\[
+    v_{\varepsilon_i}\left(\tilde{x}_j\right)=\left.\frac{d(\tilde{x}_j\circ\varepsilon_i)}{dt}\right|_0=\delta_{ij}=\begin{cases}
+        0,& i\ne j,\\
+        1,& i=j.
+        \end{cases}
+\]
+By lemma 2.2.1, we have
+\[
+    v_{\varepsilon_i}(f)=\sum_{j=1}^n v_{\varepsilon_i}(\tilde{x}_j) \left.\frac{\partial (f\circ \mathbf{x})}{\partial x_j}\right|_{p}=\left.\frac{\partial (f\circ \mathbf{x})}{\partial x_i}\right|_{p},
+\]
+which implies 
+\[
+    v_{\varepsilon_i}=\left.\frac{d(\cdot \circ\varepsilon_i)}{dt}\right|_0=\left.\frac{\partial (\cdot \circ \mathbf{x})}{\partial x_i}\right|_{p}.
+\]
+\prop{Natural Basis}{
+Given a coordinate chart $(U,\mathbf{x})$ of smooth manifold $M$ at point $p$, the coordinate tangent vectors
 \[
     (v_{\varepsilon_1},v_{\varepsilon_2},\cdots,v_{\varepsilon_n})=\left(\left.\frac{\partial (\cdot \circ \mathbf{x})}{\partial x_1}\right|_{p},\left.\frac{\partial (\cdot \circ \mathbf{x})}{\partial x_2}\right|_{p},\cdots,\left.\frac{\partial (\cdot \circ \mathbf{x})}{\partial x_n}\right|_{p}\right)
 \]
-are called the coordinate tangent vectors of the coordinate chart $(U,\mathbf{x})$.
+form a basis for the linear space $T_p^{\mathrm{2nd}}M$, called the \emph{natural basis} of the tangent space $T_p^{\mathrm{2nd}}M$ under the coordinate chart $(U,\mathbf{x})$.
+}
+\pf{
+    The linear space spanned by the coordinate tangent vectors is denoted by $\mathop{\mathrm{span}}\limits_{1\le i \le n}(v_{\delta_i})$. Lemma 2.1.1 states that 
+    \[
+        v_\gamma(f)=\sum_{i=1}^n v_\gamma(\tilde{x}_i) \left.\frac{\partial (f\circ \mathbf{x})}{\partial x_i}\right|_{p}=\sum_{i=1}^n v_\gamma(\tilde{x}_i) v_{\varepsilon_i}(f),
+    \]
+    or equivalently,
+    \[
+        v_\gamma = \sum_{i=1}^n v_\gamma(\tilde{x}_i) v_{\varepsilon_i}.
+    \]
+    That means any vector in $T^{2\mathrm{nd}}_pM$ can be written as a linear combination of coordinate tangent vectors, namely 
+    \[
+        T^{2\mathrm{nd}}_pM\subseteq
+        \mathop{\mathrm{span}}\limits_{1\le i \le
+        n}(v_{\varepsilon_i}).
+    \]
+    Conversely, for any linear combination of coordinate tangent vectors $\sum\limits_{i=1}^n\lambda_iv_{\varepsilon_i}$, we can define a curve
+    \[
+        \begin{aligned}
+            \varepsilon:(-\epsilon,\epsilon)&\longrightarrow M\\
+            t&\longmapsto\mathbf{x}(\tilde{x}_1(p)+\lambda_1t,\tilde{x}_2(p)+\lambda_2t,\cdots,\tilde{x}_n(p)+\lambda_nt),
+        \end{aligned}
+    \]
+    such that
+    \[
+        v_\varepsilon = \sum_{i=1}^n v_\varepsilon(\tilde{x}_i) v_{\varepsilon_i}=\sum_{i=1}^n\left.\frac{d(\tilde{x}_i \circ \varepsilon)}{dt}\right|_0 v_{\varepsilon_i}=\sum_{i=1}^n\left.\frac{d(p_i\circ\mathbf{x}^{-1} \circ \varepsilon)}{dt}\right|_0 v_{\varepsilon_i}=\sum_{i=1}^n\left.\frac{d(\tilde{x}_i(p)+\lambda_it)}{dt}\right|_0 v_{\varepsilon_i}=\sum_{i=1}^n\lambda_iv_{\varepsilon_i}.
+    \]
+    Thus we have $\mathop{\mathrm{span}}\limits_{1\le i \le n}(v_{\varepsilon_i})\subseteq T^{2\mathrm{nd}}_pM$. Therefore, we show that
+    \[
+        T^{2\mathrm{nd}}_pM=\mathop{\mathrm{span}}\limits_{1\le i \le n}(v_{\varepsilon_i}),
+    \]
+    which justifies $T^{2\mathrm{nd}}_pM$ is a linear space.
+
+    Furthermore, we can prove that $v_{\varepsilon_1},v_{\varepsilon_2},\cdots,v_{\varepsilon_n}$ are linearly independent. If
+    \[
+        \sum_{i=1}^n\lambda_iv_{\varepsilon_i}=0,
+    \]
+    let the two sides of the above equation act on $\tilde{x}_j$ for $1\le j\le n$. Then we have
+    \[
+        \sum_{i=1}^n\lambda_iv_{\varepsilon_i}(\tilde{x}_j)=\sum_{i=1}^n\lambda_i\delta_{ij}=\lambda_j=0,
+    \]
+    for $1\le j\le n$, which proves that they are linearly independent. Therefore, $v_{\varepsilon_1},v_{\varepsilon_2},\cdots,v_{\varepsilon_n}$ form a basis for $T^{2\mathrm{nd}}_pM$. 
+}
+\cor{}{
+    The dimension of the tangent space $T^{2\mathrm{nd}}_pM$ is $n$, which is the same as the dimension of $M$.
+}
+
 \newpage
 
 % , and
@@ -283,7 +372,7 @@ are called the coordinate tangent vectors of the coordinate chart $(U,\mathbf{x}
 % \[
 %     \left.\frac{d(\mathbf{x}^{-1} \circ \gamma)}{dt}\right|_0=\left(\left.\frac{d(\tilde{x}_1 \circ \gamma)}{dt}\right|_0,\left.\frac{d(\tilde{x}_2 \circ \gamma)}{dt}\right|_0,\cdots,\left.\frac{d(\tilde{x}_n \circ \gamma)}{dt}\right|_0\right).
 % \]
-% We denote by $\mathcal{D}_p(M)$ the space of functions on $M$ that are smooth at the point $p$. It is easy to see that $\tilde{x}_1,\tilde{x}_2,\cdots,\tilde{x}_n$ all belong to $\mathcal{D}_p(M)$. Given a derivative value $\left.\frac{d}{dt}(\mathbf{x}^{-1} \circ \gamma)\right|_0$, we can define the functional
+% We denote by $\mathcal{C}^{\infty}_p(M)$ the space of functions on $M$ that are smooth at the point $p$. It is easy to see that $\tilde{x}_1,\tilde{x}_2,\cdots,\tilde{x}_n$ all belong to $\mathcal{C}^{\infty}_p(M)$. Given a derivative value $\left.\frac{d}{dt}(\mathbf{x}^{-1} \circ \gamma)\right|_0$, we can define the functional
 
 
 % \begin{Theorem}{Title}{label}

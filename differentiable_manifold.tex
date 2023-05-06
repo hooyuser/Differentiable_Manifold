@@ -2,6 +2,7 @@
 
 \input{preamble}
 
+\usepackage[super]{nth}
 
 \begin{document}
 
@@ -117,13 +118,172 @@ A maximal compatible atlas $\Sigma_{\max}$ on the topological manifold $(M, \tau
 By replacing ``differentiable" with ``$C^r$-differentiable" or ``smooth", we can similarly define $C^r$-compatible atlases and smooth compatible atlases, $C^r$-differential structures and smooth structures, and $C^r$-differentiable manifolds and smooth manifolds. In the following, we will mainly discuss smooth manifolds, but the related concepts can be extended to differential manifolds and $C^r$-differential manifolds in a similar way.
 
 
+\chapter{Smooth Mapping}
+\section{Definition}
+One of the motivations for defining a smooth (differentiable) manifold is to define smooth (differentiable) functions. Let $(M,\tau,\Sigma)$ be a smooth manifold, and a function $f:M\to \mathbb{R}^n$ is smooth at point $p$, if and only if there exists a coordinate chart $(U_\alpha,\mathbf{x}_\alpha)\in\Sigma$ covering point $p$, such that the composite function
+$$
+f\circ \mathbf{x}_\alpha:U_\alpha\longrightarrow \mathbb{R}^m
+$$
+is smooth at point $\mathbf{x}^{-1}_\alpha(p)$.
 
+Furthermore, we can also define smooth mappings between smooth manifolds $(M_1,\tau_1,\Sigma_1), (M_2,\tau_2,\Sigma_2)$. To define the smoothness of mapping $f:M_1\to M_2$ at point $p$, in addition to pulling back the domain from a subset of $M_1$ to $U_\alpha\subset\mathbb{R}^n$, we also need to push forward the codomain from $M_2$ to $V_\beta\subset\mathbb{R}^m$.
+\dfn{Smooth Mapping}{
+    The mapping $f:M_1\to M_2$ is a smooth mapping at point $p$, if there exists a coordinate chart $(U_\alpha,\mathbf{x}_\alpha)\in\Sigma_1$ 
+    covering point $p$ and a coordinate chart $(V_\beta,\mathbf{y}_\beta)\in\Sigma_2$ covering point $f(p)$, such that the composite function
+    \[
+    \mathbf{y}^{-1}_\beta \circ f\circ \mathbf{x}_\alpha:U_\alpha\longrightarrow V_\beta
+    \]
+    is smooth at point $\mathbf{x}^{-1}_\alpha(p)$.
+}
+Notice that
+\[
+    f = \mathbf{y}_\beta\circ(\mathbf{y}^{-1}_\beta \circ f\circ \mathbf{x}_\alpha)\circ\mathbf{x}^{\hspace{2pt}-1}_\alpha
+\]
+we see that $f$ being smooth at point $p$ implies that $f$ is continuous at point $p$.
+Moreover, note that 
+\[
+    \tilde{\mathbf{y}}^{-1}_\beta \circ f\circ \tilde{\mathbf{x}}_\alpha=(\tilde{\mathbf{y}}^{-1}_\beta\circ\mathbf{y}_\beta) \circ(\mathbf{y}^{-1}_\beta \circ f\circ \mathbf{x}_\alpha)\circ(\mathbf{x}^{-1}_\alpha\circ \tilde{\mathbf{x}}_\alpha),
+\]
+where $\tilde{\mathbf{x}}_\alpha$ and $\tilde{\mathbf{y}}_\beta$ are two other coordinate charts covering point $p$ and $f(p)$ respectively. It is clear that the smoothness of $f:M_1\to M_2$ at point $p$ does not depend on the choice of coordinate charts.
 
+If the mapping $f:M_1\to M_2$ is smooth in an open set $U\subset M_1$, then we say that $f$ is smooth on $U$. If $f$ is smooth at every point in $M_1$, then we say that $f$ is a smooth mapping.
 
+Now we have defined smooth mappings between smooth manifolds, we have yet to explain how to differentiate such smooth mappings - which is one of our motivations for defining smooth (differentiable) manifolds. If we follow the idea of defining smooth mappings, using coordinate charts to convert smooth mappings into smooth functions from $U_\alpha\in\mathbb{R}^n$ to $\mathbb{R}^m$, we will find that different coordinate charts yield different smooth functions and, naturally, different differentials. A simplest example is a smooth real-valued function $f:\mathbb{R}\to\mathbb{R}$. When selecting different coordinate charts $(U_\alpha,x_\alpha),(V_\beta,y_\beta)$ that contain a point $p$, the differentials as linear transformations between $\mathbb{R}$
+$$
+d(y^{-1}_\beta \circ f\circ x_\alpha)|_p:\mathbb{R}\longrightarrow\mathbb{R}
+$$
+may differ in general. However, we know these differentials cannot be entirely unrelated, as any differences between them should only arise from the differential of the transition function. A similar situation also occurs in linear algebra. With different bases chosen, a linear transformation can induce different transformations from the coordinate space $\mathbb{R}^n$ to the coordinate space $\mathbb{R}^m$. The only discrepancy between these transformations arises from the change of basis. Therefore, we can imagine that the true ``differential" of a smooth mapping might also be a linear mapping between general linear spaces. Only by choosing specific coordinate charts do we obtain the linear mapping between Euclidean spaces $\mathbb{R}^n$ and $\mathbb{R}^m$. In fact, the ``general linear spaces" here are the tangent spaces we are about to define.
 
+\section{Tangent Vector and Tangent Space}
+\subsection{First Definition: Equivalence Class of Curves}
+Consider an intuitive example, a smooth surface in $\mathbb{R}^3$ of dimension $2$. At any point $p$ on the surface, we can construct a tangent plane, and the vector with its starting point at $p$ and its endpoint in the tangent plane is called a tangent vector. Therefore, the tangent plane of the surface at point $p$ can be regarded as a linear space $\mathbb{R}^2$ composed of tangent vectors.
 
+For any tangent vector, it can be viewed as the tangent vector of a smooth curve $\gamma$ passing through point $p$ on the surface at $p$. If the parameter equation of curve $\gamma$ is $\gamma(t)=(x(t),y(t),z(t))$ and satisfies $\gamma(t_0)=p$, then its derivative at point $p$
+\[
+    \gamma'(t_0)=\left(\left.\frac{dx}{dt}\right|_{t_0},\left.\frac{dy}{dt}\right|_{t_0}, \left.\frac{dz}{dt}\right|_{t_0}\right)
+\]
+is a tangent vector at $p$. Suppose there is another curve $\theta$ passing through point $p$ on the surface. If $\theta$ and $\gamma$ have the same derivative at point $p$, i.e., $\theta'(t_0)=\gamma'(t_0)$, then these two curves actually correspond to the same tangent vector. Therefore, a tangent vector can also be viewed as an equivalence class of curves, and all curves in the class have the same derivative at point $p$. If we can extend the concepts of curves and curve derivatives to general smooth manifolds, we can define tangent vectors and tangent spaces for smooth manifolds in the same way.
 
+Given an $n$-dimensional smooth manifold $(M,\tau,\Sigma)$ and a point $p$ on it, if a smooth mapping $\gamma:(-\epsilon,\epsilon)\to M$ satisfies $\gamma(0)=p$, then $\gamma$ is called a smooth curve on $M$ passing through point $p$. If we want to ``differentiate" the curve, we must first parameterize it, i.e., select a coordinate chart $(U,\mathbf{x})\in\Sigma$ at point $p$ and differentiate the composite function
+\[
+    \mathbf{x}^{-1} \circ \gamma:(-\epsilon,\epsilon)\to \mathbb{R}^n.
+\]
+The result of differentiation is $\left.\frac{d(\mathbf{x} \circ \gamma)}{dt}\right|_0$. If curves $\theta$ and $\gamma$ have the same derivative at point $p$ in a certain coordinate chart $(U_1,\mathbf{x}_1)$, namely
+\[
+    \left.\frac{d(\mathbf{x}_1^{-1} \circ \theta)}{dt}\right|_0=\left.\frac{d(\mathbf{x}_1^{-1} \circ \gamma)}{dt}\right|_0,
+\]
+then in any coordinate chart $(U_2,\mathbf{x}_2)$ at point $p$, the curves $\theta$ and $\gamma$ also have the same derivative. To prove this, we only need to note that according to the chain rule,
+\[
+    \left.\frac{d(\mathbf{x}_2^{-1} \circ \theta)}{dt}\right|_0=\left.\frac{d((\mathbf{x}_2 \circ \mathbf{x}_1)\circ(\mathbf{x}_1^{-1} \circ \theta))}{dt}\right|_0=\left.\frac{d(\mathbf{x}_2^{-1} \circ \mathbf{x}_1)}{dx}\right|_p\left.\frac{d(\mathbf{x}_1^{-1} \circ \theta)}{dt}\right|_0.
+\]
+Therefore, we can define that curves $\theta$ and $\gamma$ are equivalent at point $p$ if and only if there exists a coordinate chart $(U,\mathbf{x})$ at point $p$ such that
+\[
+    \left.\frac{d(\mathbf{x}^{-1} \circ \theta)}{dt}\right|_0=\left.\frac{d(\mathbf{x}^{-1} \circ \gamma)}{dt}\right|_0.
+\]
+We denote the equivalence class of curve $\gamma$ as $[\gamma]_*$. The set of all smooth curves passing through point $p$ on $M$ under this equivalence relation is the quotient set of the tangent space of $M$ at point $p$, denoted as
 
+\[
+    T_p^{1\mathrm{st}}M = \{[\gamma]_*: \gamma \text{ is a smooth curve on } M \text{ passing through } p\}.
+\]
+
+\subsection{Second Definition: Functional induces by Curves}
+\subsubsection{Motivation}
+By regarding tangent vectors as equivalence classes of curves, we have successfully extended the notion of tangent vectors of smooth surfaces in $\mathbb{R}^n$ to general smooth manifolds. Although the definition of tangent vectors via curves is intuitive, demonstrating that the set of all tangent vectors forms a linear space requires defining appropriate addition and scalar multiplication operations on the equivalence classes of curves. 
+
+We may be tempted to define the sum of equivalence classes of curves as the equivalence class of the sum of curves. However, a simple example illustrates that the set of all smooth curves passing through a point $p$ does not form a linear space under such an addition operation. For instance, consider the curves $\gamma$ and $\theta$ such that $\gamma(0)=\theta(0)=p$. It follows that $(\gamma+\theta)(0)=2p\neq p$, indicating that the sum of two curves passing through $p$ may not pass through $p$.
+
+While it is possible to define a novel addition operation for equivalence classes of curves to make them form a linear space, such an operation may prove to be unnatural and inelegant. This observation also suggests that the perspective of equivalence classes of curves may not be the best way to approach the notion of tangent spaces. Instead, a more promising solution may involve re-examining our definition of tangent vectors.
+
+From the definition of tangent vectors, we see there is a mapping from $T_p^{1\mathrm{st}}M$ to $\mathbb{R}^n$
+\[
+    \mathrm{Drv}_{\mathbf{x}}:[\gamma]_*\longmapsto\left.\frac{d(\mathbf{x}^{-1} \circ \gamma)}{dt}\right|_0.
+\]
+You can further prove that $\mathrm{Drv}_{\mathbf{x}}$ is actually a bijection. This may suggest defining tangent space as
+\[
+    \mathrm{Drv}_{\mathbf{x}}\left(T_p^{1\mathrm{st}}M\right)=\left\{\left.\frac{d(\mathbf{x}^{-1} \circ \gamma)}{dt}\right|_0: [\gamma]_*\in T_p^{1\mathrm{st}}M \right\}
+\]
+which is naturally equipped with a linear space structure. However, this definition is not satisfactory because it is not coordinate-independent. We have already seen earlier that the value of $\left.\frac{d(\mathbf{x}^{-1} \circ \gamma)}{dt}\right|_0$ depends on the choice of coordinate chart $(U,\mathbf{x})$. As a consequence,  there is no canonical way to assign an $n$-dimensional vector to each equivalence class of curves. 
+
+In order to give a coordinate-independent definition of tangent vectors, we consider a mapping like
+\[
+    \mathrm{Drv}:[\gamma]_*\longmapsto\left.\frac{d(\cdot \circ \gamma)}{dt}\right|_0.
+\]
+Since $\mathbf{x}^{-1}$ is a smooth mapping from $M$ to $\mathbb{R}^n$, one might consider letting $\left. \frac{d(\cdot \circ \gamma)}{dt} \right|_0$ act on any smooth mapping $\mathbf{f}:M\to\mathbb{R}^n$. However, it is more economical to let it act on smooth functions $\mathbf{f}:M\to\mathbb{R}$, as the action on a vector-valued function $\mathbf{f}:M\to\mathbb{R}^n$ can be decomposed into actions on its component functions $f_i:M\to\mathbb{R}$. To be precise, we define projection functions
+\[
+\begin{aligned}
+    p_i:\mathbb{R}^n&\longrightarrow \mathbb{R}\\
+    (x_1,x_2,\cdots,x_n)&\longmapsto x_i.
+\end{aligned}
+\]
+For a vector-valued function $\mathbf{f} : M \to \mathbb{R}^n$, the $i$-th component function of $\mathbf{f}$ is given by $f_i = p_i \circ \mathbf{f}$. Since
+\[
+    \left(p_i\circ\left.\frac{d(\mathbf{f} \circ \gamma)}{dt}\right)\right|_0=\left.\frac{d(p_i\circ\mathbf{f} \circ \gamma)}{dt}\right|_0=\left.\frac{d(f_i \circ \gamma)}{dt}\right|_0,
+\]
+we have
+\[
+    \left.\frac{d(\mathbf{f} \circ \gamma)}{dt}\right|_0=\left(\left.\frac{d(f_1 \circ \gamma)}{dt}\right|_0,\left.\frac{d(f_2 \circ \gamma)}{dt}\right|_0,\cdots,\left.\frac{d(f_n \circ \gamma)}{dt}\right|_0\right).
+\]
+\subsubsection{Curves induce functionals}
+Let $\mathcal{D}_p(M)$ denote the linear space of functions on $M$ that are smooth at the point $p$. Now we can define the functional induced by $\gamma$ as 
+\[
+\begin{aligned}
+    v_\gamma:=\left.\frac{d(\cdot \circ
+\gamma)}{dt}\right|_0:\mathcal{D}_p(M)&\longrightarrow \mathbb{R}\\
+    f&\longmapsto \left.\frac{d(f \circ \gamma)}{dt}\right|_0.
+\end{aligned}
+\]
+We can check that $v_\gamma$ is a linear functional. For any $f_1,f_2\in\mathcal{D}_p(M)$ and $k\in\mathbb{R}$, we have
+$$
+\left.\frac{d((f_1+f_2) \circ \gamma)}{dt}\right|_0=\left.\frac{d(f_1\circ \gamma+f_2\circ \gamma )}{dt}\right|_0=\left.\frac{d(f_1\circ \gamma)}{dt}\right|_0+\left.\frac{d(f_2\circ \gamma)}{dt}\right|_0,
+$$
+
+$$
+\left.\frac{d((kf) \circ \gamma)}{dt}\right|_0=\left.\frac{d(k(f \circ \gamma))}{dt}\right|_0=k\left.\frac{d(f \circ \gamma)}{dt}\right|_0.
+$$
+Let $\mathcal{D}_p(M)^*$ denote the dual space of $\mathcal{D}_p(M)$, which is the linear space of all linear functionals on $\mathcal{D}_p(M)$. We can now provide a second coordinate-independent definition of tangent space as follows:
+$$
+T^{2\mathrm{nd}}_pM=\left\{\left.\frac{d(\cdot \circ \gamma)}{dt}\right|_0\in\mathcal{D}_p(M)^*:\gamma\text{ is a smooth curve on $M$ passing through $p$ }\right\}.
+$$
+\subsubsection{Natural basis}
+Next we will introduce natural basis and use it to show that $T^{2\mathrm{nd}}_pM$ is indeed a linear subspace of $\mathcal{D}_p(M)^*$ of dimension $n$.
+
+Given a coordinate chart $(U,\mathbf{x})$ at point $p$, we define the \emph{$i$-th coordinate function} of the coordinate chart $(U,\mathbf{x})$ as
+\[
+    \begin{aligned}
+        \tilde{x}_i=p_i\circ \mathbf{x}^{-1}:M&\longrightarrow \mathbb{R}\\
+        p&\longmapsto x_i
+    \end{aligned}
+\]
+and then we define the \emph{$x_i$-curve} of the coordinate chart $(U,\mathbf{x})$ as
+\[
+    \begin{aligned}
+        \varepsilon_i:(-\epsilon,\epsilon)&\longrightarrow M\\
+        t&\longmapsto\mathbf{x}\left(\tilde{x}_1(p),\cdots,\tilde{x}_i(p)+t,\cdots,\tilde{x}_n(p)\right).
+    \end{aligned}
+\]
+These $n$ vectors
+\[
+    (v_{\varepsilon_1},v_{\varepsilon_2},\cdots,v_{\varepsilon_n})=\left(\left.\frac{\partial (\cdot \circ \mathbf{x})}{\partial x_1}\right|_{p},\left.\frac{\partial (\cdot \circ \mathbf{x})}{\partial x_2}\right|_{p},\cdots,\left.\frac{\partial (\cdot \circ \mathbf{x})}{\partial x_n}\right|_{p}\right)
+\]
+are called the coordinate tangent vectors of the coordinate chart $(U,\mathbf{x})$.
+\newpage
+
+% , and
+% \[
+%     \begin{aligned}
+%         \tilde{x}_i=p_i\circ \mathbf{x}^{-1}:M&\longrightarrow \mathbb{R}\\
+%         p&\longmapsto x_i
+%     \end{aligned}
+% \]
+% be the coordinate function of smooth manifold $M$ at point $p$ with given coordinate chart $(U, \mathbf{x})$. We have
+% \[
+%     \left(p_i\circ\left.\frac{d(\mathbf{x}^{-1} \circ \gamma)}{dt}\right)\right|_0=\left.\frac{d(p_i\circ\mathbf{x}^{-1} \circ \gamma)}{dt}\right|_0=\left.\frac{d(\tilde{x}_i \circ \gamma)}{dt}\right|_0.
+% \]
+% Thus, we can write the derivative in component form as
+% \[
+%     \left.\frac{d(\mathbf{x}^{-1} \circ \gamma)}{dt}\right|_0=\left(\left.\frac{d(\tilde{x}_1 \circ \gamma)}{dt}\right|_0,\left.\frac{d(\tilde{x}_2 \circ \gamma)}{dt}\right|_0,\cdots,\left.\frac{d(\tilde{x}_n \circ \gamma)}{dt}\right|_0\right).
+% \]
+% We denote by $\mathcal{D}_p(M)$ the space of functions on $M$ that are smooth at the point $p$. It is easy to see that $\tilde{x}_1,\tilde{x}_2,\cdots,\tilde{x}_n$ all belong to $\mathcal{D}_p(M)$. Given a derivative value $\left.\frac{d}{dt}(\mathbf{x}^{-1} \circ \gamma)\right|_0$, we can define the functional
 
 
 % \begin{Theorem}{Title}{label}

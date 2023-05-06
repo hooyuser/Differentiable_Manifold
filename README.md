@@ -1,1 +1,3 @@
-# Differentiable_Manifold
+# Differentiable Manifold
+
+Notes on Differentiable Manifold

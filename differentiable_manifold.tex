@@ -2,6 +2,18 @@
 
 \input{preamble}
 
+\tikzcdset{arrow style=tikz,
+    squigarrow/.style={
+        decoration={
+        snake, 
+        amplitude=.25mm,
+        segment length=2mm
+        }, 
+        rounded corners=.1pt,
+        decorate
+        }
+    }
+
 \begin{document}
 
 % Your document content here
@@ -355,25 +367,58 @@ form a basis for the linear space $T_p^{\mathrm{2nd}}M$, called the \emph{natura
     The dimension of the tangent space $T^{2\mathrm{nd}}_pM$ is $n$, which is the same as the dimension of $M$.
 }
 
-\newpage
+\subsection{Third Definition: Language of Sheaf Theory}
+We can also use the language of sheaf theory to define tangent vectors and tangent spaces. Sheaf theory is a more abstract theory that is not only applicable to differential geometry, but also to more general geometry.
 
-% , and
-% \[
-%     \begin{aligned}
-%         \tilde{x}_i=p_i\circ \mathbf{x}^{-1}:M&\longrightarrow \mathbb{R}\\
-%         p&\longmapsto x_i
-%     \end{aligned}
-% \]
-% be the coordinate function of smooth manifold $M$ at point $p$ with given coordinate chart $(U, \mathbf{x})$. We have
-% \[
-%     \left(p_i\circ\left.\frac{d(\mathbf{x}^{-1} \circ \gamma)}{dt}\right)\right|_0=\left.\frac{d(p_i\circ\mathbf{x}^{-1} \circ \gamma)}{dt}\right|_0=\left.\frac{d(\tilde{x}_i \circ \gamma)}{dt}\right|_0.
-% \]
-% Thus, we can write the derivative in component form as
-% \[
-%     \left.\frac{d(\mathbf{x}^{-1} \circ \gamma)}{dt}\right|_0=\left(\left.\frac{d(\tilde{x}_1 \circ \gamma)}{dt}\right|_0,\left.\frac{d(\tilde{x}_2 \circ \gamma)}{dt}\right|_0,\cdots,\left.\frac{d(\tilde{x}_n \circ \gamma)}{dt}\right|_0\right).
-% \]
-% We denote by $\mathcal{C}^{\infty}_p(M)$ the space of functions on $M$ that are smooth at the point $p$. It is easy to see that $\tilde{x}_1,\tilde{x}_2,\cdots,\tilde{x}_n$ all belong to $\mathcal{C}^{\infty}_p(M)$. Given a derivative value $\left.\frac{d}{dt}(\mathbf{x}^{-1} \circ \gamma)\right|_0$, we can define the functional
+A \emph{presheaf} is essentially a contravariant functor. A set presheaf is a contravariant functor $\mathcal{F}:\mathsf{C}^{\mathrm{op}}\to\mathsf{Set}$ from a category $\mathsf{C}$ to the category of sets $\mathsf{Set}$. A group presheaf is a contravariant functor $\mathcal{F}:\mathsf{C}^{\mathrm{op}}\to\mathsf{Ab}$ from a category $\mathsf{C}$ to the category of abelian groups $\mathsf{Ab}$. Given an object $X$ in $\mathsf{C}$, an element of $\mathcal{F}(X)$ is called a \emph{section} of $\mathcal{F}$ over $X$.
 
+When studying a smooth manifold $M$, we choose $\mathsf{C}$ to be the category whose objects are open sets in $M$, and whose morphisms are inclusions of open sets. We consider a presheaf on an open set $X$ to be the collection of all smooth real-valued functions defined on $X$, denoted $C^\infty(X;M\to\mathbb{R})$, which we can also write as $C^\infty(X)$ for short.
+
+The functor $C^\infty(\cdot)$ can be illustrated as follows:
+\begin{equation*}
+    \begin{tikzcd}
+        X  \arrow[dd, "i"{name=L, left}] &[-25pt] & [+10pt] & [-30pt] C^\infty(X) \arrow[dd, "i^*"{name=R}]\\ [-10pt] 
+                                        &  \phantom{.}\arrow[r, "C^\infty", squigarrow]&\phantom{.}  &   \\[-10pt] 
+        Y & & & C^\infty(Y)
+    \end{tikzcd}
+\end{equation*}  
+Depending on our needs, $C^\infty(\cdot)$ can be a presheaf of real vector spaces, a presheaf of rings, or a presheaf of commutative real algebras.
+
+Given a point $p$ in $M$, we denote by
+\[
+    \widetilde{\mathcal{C}}^\infty_p=\{(\varphi,X):p\in X,\varphi\in C^\infty(X)\}
+\]
+the set of smooth real-valued functions defined on an open set containing $p$. We define $C^\infty_p=\widetilde{\mathcal{C}}_p/\overset{p}\sim$ where $\overset{p}\sim$ is the equivalence relation defined as follows:
+\[
+    (\varphi_1,X_1)\overset{p}\sim (\varphi_2,X_2)\iff\text{there exists an open set }X_3\subset X_1\cap X_2,\text{such that } \varphi_1|_{X_3}=\varphi_2|_{X_3}.
+\]
+Or in a language of filtered limit,
+\[
+    C^\infty_p=\varinjlim_{p\in X}C^\infty(X).
+\]
+We call $C^\infty_p$ the stalk of smooth functions at the point $p$. It can be easily verified that the smooth function stalk is a commutative real algebra. The equivalence class of a smooth function $\varphi$ is denoted as $[\varphi]_p$ and is called the germ of $\varphi$ at point $p$. Since all smooth functions within a germ have identical local properties at point $p$, it is natural to identify them and not to consider their differences. 
+
+Using the language of function germs, we can rewrite the second definition. The functional $\left.\frac{d}{dt}(\cdot \circ \gamma)\right|_0$ was originally applied to a smooth function $f$ defined on the entire manifold and smooth at point $p$, but the properties of $f$ outside some neighborhood of point $p$ are actually irrelevant, and even whether it is defined or not is not important. Therefore, we can assume that $f$ is defined in some open neighborhood of point $p$, and then let $\left.\frac{d}{dt}(\cdot \circ \gamma)\right|_0$ act directly on the germ of the smooth function $f$ at point $p$, denoted as $[f]_p$, which is defined as
+\[
+    \begin{aligned}
+        \left.\frac{d(\cdot \circ \gamma)}{dt}\right|_0:C^\infty_p&\longrightarrow \mathbb{R}\\
+        [f]_p&\longmapsto \left.\frac{d(f \circ \gamma)}{dt}\right|_0
+    \end{aligned}
+\]
+And correspondently, the tangent space $T^{2\mathrm{nd}}_pM$ can be defined as
+\[
+    T^{2\mathrm{nd}}_pM=\left\{\left.\frac{d(\cdot \circ \gamma)}{dt}\right|_0\in \left(C^{\infty}_p\right)^*:\gamma\text{ is a smooth curve on $M$ passing through $p$ }\right\}.
+\]
+Furthermore, we can provide a concise definition of a tangent vector without the use of curves, through an axiomatic approach. A tangent vector at a point $p$ of a manifold $M$ is a linear functional defined on $C^\infty_p$ that satisfies the Leibniz rule. In a formal manner, this can be expressed as follows:
+\dfn{Tangent Space}{
+    Given a smooth manifold $M$ and a point $p$ on it. A function $\nu: C^\infty_p \to \mathbb{R}$ is said to be a \emph{tangent vector} of manifold $M$ at point $p$ if it satisfies the following conditions for any $\lambda_1, \lambda_2 \in \mathbb{R}$ and any $[f]_p, [g]_p \in C^\infty_p$:
+    \begin{enumerate}
+        \item Linearity: $\nu(\lambda_1[f]_p + \lambda_2[g]_p) = \lambda_1\nu([f]_p) + \lambda_2\nu([g]_p)$,
+        \item Leibniz rule: $\nu([f]_p[g]_p) = [f]_p\nu([g]_p) + \nu([f]_p)[g]_p$.
+    \end{enumerate}
+    The set of tangent vectors of a manifold $M$ at point $p$ forms a linear space, denoted by $T_p^{\mathrm{3th}}M$, and is called the \emph{tangent space} of $M$ at point $p$.
+}
+Due to the equivalence of the three distinct definitions of tangent space, we will adopt the notation $T_pM$ to refer to the tangent space of a manifold $M$ at a given point $p$, without explicitly specifying the definition being used.
 
 % \begin{Theorem}{Title}{label}
 %     This is the statement of the theorem.

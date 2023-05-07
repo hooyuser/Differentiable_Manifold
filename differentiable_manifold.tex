@@ -15,6 +15,23 @@
     }
 
 \begin{document}
+\begin{center}
+	~\\
+	\vspace{6em}
+	\textsc{\Huge DIFFERENTIAL MANIFOLD}
+	~\\
+	\vspace{2.5em}
+	{\Large }
+	~\\
+	\vspace{6em}
+	\textsf{Huyi Chen}
+	~\\
+	\vspace{5in}
+	{\large Latest Update: \today}
+\end{center}
+\newpage
+% table of contents
+\tableofcontents
 
 % Your document content here
 \chapter{Basic Concepts of Manifolds}
@@ -419,6 +436,183 @@ Furthermore, we can provide a concise definition of a tangent vector without the
     The set of tangent vectors of a manifold $M$ at point $p$ forms a linear space, denoted by $T_p^{\mathrm{3th}}M$, and is called the \emph{tangent space} of $M$ at point $p$.
 }
 Due to the equivalence of the three distinct definitions of tangent space, we will adopt the notation $T_pM$ to refer to the tangent space of a manifold $M$ at a given point $p$, without explicitly specifying the definition being used.
+
+\section{Tangent Mapping}
+After defining the tangent space, we can finally define a differential-like object for smooth mappings - the tangent mapping.
+
+
+Let $f:M_1\to M_2$ be a smooth map between smooth manifolds $(M_1,\tau_1,\Sigma_1)$ and $(M_2,\tau_2,\Sigma_2)$. Suppose the mapping is smooth at point $p$. Let $\gamma$ be a curve on $M_1$ passing through point $p$, with its corresponding tangent vector $v_{\gamma}=\left.\frac{d}{dt}(\cdot \circ \gamma)\right|_0$. By applying $f$ to $\gamma$, we can obatian another curve $f(\gamma)$ on $M_2$ passing through point $f(p)$, with its corresponding tangent vector $v_{f(\gamma)}=\left.\frac{d}{dt}(\cdot \circ f(\gamma))\right|_0$. 
+\lemm{}{
+    Choose coordinate charts $(U,\mathbf{x})\in\Sigma_1$ and $(V,\mathbf{y})\in\Sigma_2$ at points $p$ and $f(p)$, respectively. Let the corresponding coordinate functions be $\tilde{x}_j=p_j\circ\mathbf{x}^{-1}$ and $\tilde{y}_i=p_i\circ\mathbf{y}^{-1}$. Then we can express $v_{f(\gamma)}$ in terms of the natural basis $v_{\eta_1},v_{\eta_2},\cdots,v_{\eta_m}$ of $T_{f(p)}M_2$ as follows: 
+    \[
+        v_{f(\gamma)}=\sum_{i=1}^m\sum_{j=1}^n\left.\frac{\partial(\tilde{y}_i \circ
+        f\circ\mathbf{x})}{\partial
+        x_j}\right|_{\mathbf{x}^{-1}(p)}v_\gamma\left(\tilde{x}_j\right)v_{\eta_i}.
+        \]
+}
+\pf{
+    \[
+        \begin{aligned}
+            v_{f(\gamma)}&=\left.\frac{d(\cdot \circ
+        f(\gamma))}{dt}\right|_{0}\\
+            &=\sum_{i=1}^m\left.\frac{d(\tilde{y}_i \circ
+        f(\gamma))}{dt}\right|_0v_{\eta_i}\\
+            &=\sum_{i=1}^m\left.\frac{d((\tilde{y}_i \circ
+        f\circ\mathbf{x})\circ(\mathbf{x}^{-1}\circ\gamma))}{dt}\right|_0v_{\eta_i}\\
+            &=\sum_{i=1}^m\left.\frac{d(\tilde{y}_i \circ
+        f\circ\mathbf{x})}{dx}\right|_{\mathbf{x}^{-1}(p)}\left.\frac{d(\mathbf{x}^{-1}\circ\gamma)}{dt}\right|_0v_{\eta_i}\\
+            &=\sum_{i=1}^m\sum_{j=1}^n\left.\frac{\partial(\tilde{y}_i \circ
+        f\circ\mathbf{x})}{\partial
+        x_j}\right|_{\mathbf{x}^{-1}(p)}\left.\frac{d(\tilde{x}_j\circ\gamma)}{dt}\right|_0v_{\eta_i}\\
+        &=\sum_{i=1}^m\sum_{j=1}^n\left.\frac{\partial(\tilde{y}_i \circ
+        f\circ\mathbf{x})}{\partial
+        x_j}\right|_{\mathbf{x}^{-1}(p)}v_\gamma\left(\tilde{x}_j\right)v_{\eta_i}.
+        \end{aligned}
+    \]
+}
+\cor{}{
+    For any curves $\gamma_1$ and $\gamma_2$ passing through point $p$,
+    \[
+        v_{\gamma_1}=v_{\gamma_2}\implies v_{f(\gamma_1)}=v_{f(\gamma_2)}.
+    \]
+}
+
+\dfn{Tangent Mapping}{
+    The \emph{tangent mapping} of $f:M_1\to M_2$ at point $p$ is defined as the mapping
+    \[
+    \begin{aligned}
+        (df)_p: T_pM_1&\longrightarrow T_{f(p)}M_2\\
+        v_{\gamma}&\longmapsto v_{f(\gamma)}\\
+    \end{aligned}
+    \]
+    Alternatively, we can utilize the definition based on sheaf theory
+    \[
+    \begin{aligned}
+        (df)_p: T_pM_1&\longrightarrow T_{f(p)}M_2\\
+        v &\longmapsto v\left(\cdot\circ f\right)\\
+    \end{aligned}
+    \]
+}
+Corollary 2.3.1 guarantees that the tangent mapping is well-defined. Lemma 2.3.1 implies that the tangent mapping is linear. 
+\prop{}{
+    The matrix representation of the tangent mapping $(df)_p$ in terms of the natural basis is the Jacobian matrix of the function $\mathbf{y}^{-1}\circ f\circ\mathbf{x}$ at $\mathbf{x}^{-1}(p)$, i.e.
+    \[
+        J_pf:=\begin{pmatrix}
+            \left.\frac{\partial(\tilde{y}_i \circ f\circ\mathbf{x})}{\partial x_j}\right|_{\mathbf{x}^{-1}(p)}
+         \end{pmatrix}_{m\times n}
+        \]
+}
+\pf{
+    We choose coordinate charts $(U,\mathbf{x})\in\Sigma_1$ and $(V,\mathbf{y})\in\Sigma_2$ at $p$ and $f(p)$, respectively. The natural bases of $T_pM_1$ and $T_{f(p)}M_2$ are denoted by $v_{\varepsilon_1},v_{\varepsilon_2},\cdots,v_{\varepsilon_n}$ and $v_{\eta_1},v_{\eta_2},\cdots,v_{\eta_m}$, respectively. From Lemma 2.3.1, we have
+    \[
+        \begin{aligned}
+            v_{f(\varepsilon_k)}&=\sum_{i=1}^m\sum_{j=1}^n\left.\frac{\partial(\tilde{y}_i \circ f\circ\mathbf{x})}{\partial x_j}\right|_{\mathbf{x}^{-1}(p)}v_{\varepsilon_k}\left(\tilde{x}_j\right)v_{\eta_i}\\
+            &=\sum_{i=1}^m\sum_{j=1}^n\left.\frac{\partial(\tilde{y}_i \circ f\circ\mathbf{x})}{\partial x_j}\right|_{\mathbf{x}^{-1}(p)}\delta_{jk}v_{\eta_i}\\
+            &=\sum_{i=1}^m\left.\frac{\partial(\tilde{y}_i \circ f\circ\mathbf{x})}{\partial x_k}\right|_{\mathbf{x}^{-1}(p)}v_{\eta_i}\\
+            &=\begin{pmatrix}
+            v_{\eta_1}&v_{\eta_2}&\cdots&v_{\eta_m}
+            \end{pmatrix}
+            \begin{pmatrix}
+            \left.\frac{\partial(\tilde{y}_1 \circ f\circ\mathbf{x})}{\partial x_k}\right|_{\mathbf{x}^{-1}(p)}\\
+            \left.\frac{\partial(\tilde{y}_2 \circ f\circ\mathbf{x})}{\partial x_k}\right|_{\mathbf{x}^{-1}(p)}\\
+            \vdots\\
+            \left.\frac{\partial(\tilde{y}_m \circ f\circ\mathbf{x})}{\partial x_k}\right|_{\mathbf{x}^{-1}(p)}
+            \end{pmatrix}.
+        \end{aligned}
+    \]
+    Hence 
+    \[
+        \begin{aligned}
+            &\;\quad (df)_p
+            \begin{pmatrix}
+            v_{\varepsilon_1}&v_{\varepsilon_2}&\cdots&v_{\varepsilon_n}
+            \end{pmatrix}\\
+            &=
+            \begin{pmatrix}
+            (df)_pv_{\varepsilon_1}&(df)_pv_{\varepsilon_2}&\cdots&(df)_pv_{\varepsilon_n}
+            \end{pmatrix}\\
+            &=
+            \begin{pmatrix}
+            v_{f(\varepsilon_1)}&v_{f(\varepsilon_2)}&\cdots&v_{f(\varepsilon_n)}
+            \end{pmatrix}\\
+            &=
+            \begin{pmatrix}
+            v_{\eta_1}&v_{\eta_2}&\cdots&v_{\eta_m}
+            \end{pmatrix}
+            \left.\begin{pmatrix}
+                \frac{\partial(\tilde{y}_1 \circ f\circ\mathbf{x})}{\partial x_1}&\frac{\partial(\tilde{y}_1 \circ f\circ\mathbf{x})}{\partial x_2}&\cdots&\frac{\partial(\tilde{y}_1 \circ f\circ\mathbf{x})}{\partial x_n}\\
+                \frac{\partial(\tilde{y}_2 \circ f\circ\mathbf{x})}{\partial x_1}&\frac{\partial(\tilde{y}_2 \circ f\circ\mathbf{x})}{\partial x_2}&\cdots&\frac{\partial(\tilde{y}_2 \circ f\circ\mathbf{x})}{\partial x_n}\\
+                \vdots&\vdots&&\vdots\\
+                \frac{\partial(\tilde{y}_m \circ f\circ\mathbf{x})}{\partial x_1}&\frac{\partial(\tilde{y}_m \circ f\circ\mathbf{x})}{\partial x_2}&\cdots&\frac{\partial(\tilde{y}_m \circ f\circ\mathbf{x})}{\partial x_n}
+            \end{pmatrix}\right|_{\mathbf{x}^{-1}(p)}\\
+            &=
+            \begin{pmatrix}
+            v_{\eta_1}&v_{\eta_2}&\cdots&v_{\eta_m}
+            \end{pmatrix}
+            \begin{pmatrix}
+           \left.\frac{\partial(\tilde{y}_i \circ f\circ\mathbf{x})}{\partial x_j}\right|_{\mathbf{x}^{-1}(p)}
+           \end{pmatrix}_{m\times n}.
+        \end{aligned}
+    \]
+}
+
+\subsection{Cotangent Vector and Cotangent Space}
+\subsubsection{Definition}
+The most common way to define the cotangent space is to use the dual space of the tangent space.
+\dfn{Cotangent Space}{
+    The \emph{cotangent space} at point $p$ of a manifold is the dual space of the tangent space $T_pM$, denoted as $T_p^*M$. Vectors in the cotangent space are called \emph{cotangent vectors}.
+}
+If we wish to define the cotangent space directly without the assistance of tangent space, we can start with $C^\infty_p$ and considering a subalgebra of $C^\infty_p$:
+\[
+    \mathcal{I}_p=\{f\in C^\infty_p\mid f(p)=0\}.
+\]
+$\mathcal{I}_p$ can be considered as the set of functions that vanish at point $p$. We can imagine functions in $\mathcal{I}_p$ have Taylor expansions as follows:
+\[
+    f(x)=\sum_{i=1}^n\frac{\partial f}{\partial x_i}(p)x_i+\sum_{i=1}^n\sum_{j=1}^n\frac{\partial^2 f}{\partial x_i\partial x_j}(p)x_ix_j+\cdots.
+\] 
+Then we define a subalgebra of $\mathcal{I}_p$:
+\[
+    \mathcal{I}^2_p=\left\{\sum_if_ig_i\mid f_ig_i\in \mathcal{I}_p\right\},
+\]
+We can imagine functions in $\mathcal{I}_p^2$ have Taylor expansions as follows:
+\[
+    f(x)=\sum_{i=1}^n\sum_{j=1}^n\frac{\partial^2 f}{\partial x_i\partial x_j}(p)x_ix_j+\cdots.
+\] 
+The cotangent space of the manifold at point $p$ can be defined as $T_p^*M=\mathcal{I}_p/\mathcal{I}^2_p$, which only keeps the first order terms in the Taylor expansion.
+
+\subsubsection{Dual Basis of the Natural Basis}
+Since $T_pM\subset \left(C^\infty_p\right)^*$, we have $T_p^*M\subset \left(C^\infty_p\right)^{**}$. Define the natural pairing $\langle\cdot,\cdot\rangle$, which is a bilinear function:
+\[
+    \begin{aligned}
+    \langle\cdot,\cdot\rangle:T_pM\times C^\infty_p&\longrightarrow\mathbb{R}\\
+    (v_\gamma,f)&\longmapsto\langle v_\gamma,f\rangle:=v_\gamma(f)=\left.\frac{d(f\circ \gamma)}{dt}\right|_{0}.
+    \end{aligned}
+\]
+For any given $f\in C^\infty_p$, define
+\[
+    \begin{aligned}
+        \langle\cdot,f\rangle:T_pM&\longrightarrow\mathbb{R}\\
+        v_\gamma&\longmapsto\langle v_\gamma,f\rangle,
+    \end{aligned}
+\]
+we have $\langle\cdot,f\rangle\in T_pM$. Conversely, according to the Riesz representation theorem, we can prove that for any $w^*\in T_p^*M$, there exists $f\in C^\infty_p$ such that $w^*=\langle\cdot,f\rangle$. If we consider the linear mapping
+\[
+    \begin{aligned}
+        h:C^\infty_p&\longrightarrow T_p^*M\\
+        f&\longmapsto\langle\cdot,f\rangle,
+    \end{aligned}
+\]
+then we have $h(C^\infty_p)=T_p^*M$.
+
+Notice that
+\[
+    \langle v_{\varepsilon_i},\tilde{x}_j\rangle=\left.\frac{d(\tilde{x}_j\circ\varepsilon_i)}{dt}\right|_0=\delta_{ij}\qquad(i=1,2\cdots,n,\;j=1,2\cdots,n).
+\]
+
+Covector $\langle\cdot,\tilde{x}_1\rangle,\langle\cdot,\tilde{x}_2\rangle,\cdots,\langle\cdot,\tilde{x}_n\rangle$ is the dual basis of the natural basis.
+
+
+
 
 % \begin{Theorem}{Title}{label}
 %     This is the statement of the theorem.

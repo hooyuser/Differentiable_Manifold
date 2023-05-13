@@ -383,6 +383,20 @@ form a basis for the linear space $T_p^{\mathrm{2nd}}M$, called the \emph{natura
 \cor{}{
     The dimension of the tangent space $T^{2\mathrm{nd}}_pM$ is $n$, which is the same as the dimension of $M$.
 }
+\ex{Natural Basis of $\mathbb{R}^n$}{
+    Suppose $\mathbb{R}^n$ is a smooth manifold with the standard coordinate chart $(\mathbb{R}^n,\mathrm{id})$. Then the natural basis of the tangent space $T^{2\mathrm{nd}}_p\mathbb{R}^n$ under the coordinate chart $(\mathbb{R}^n,\mathrm{id})$ is
+    \[
+        (v_{\varepsilon_1},v_{\varepsilon_2},\cdots,v_{\varepsilon_n})=\left(\left.\frac{\partial}{\partial x_1}\right|_{p},\left.\frac{\partial}{\partial x_2}\right|_{p},\cdots,\left.\frac{\partial }{\partial x_n}\right|_{p}\right),
+    \]
+    where 
+    \[
+        \begin{aligned}
+            \left.\frac{\partial}{\partial x_i}\right|_{p}:C^\infty(\mathbb{R}^n)&\longrightarrow\mathbb{R}\\
+            f&\longmapsto\left.\frac{\partial f}{\partial x_i}\right|_{p}
+        \end{aligned}
+    \]
+    is the $i$-th partial derivative of $f$ at $p$.
+}
 
 \subsection{Third Definition: Language of Sheaf Theory}
 We can also use the language of sheaf theory to define tangent vectors and tangent spaces. Sheaf theory is a more abstract theory that is not only applicable to differential geometry, but also to more general geometry.
@@ -498,8 +512,8 @@ Corollary 2.3.1 guarantees that the tangent mapping is well-defined. Lemma 2.3.1
     The matrix representation of the tangent mapping $(df)_p$ in terms of the natural basis is the Jacobian matrix of the function $\mathbf{y}^{-1}\circ f\circ\mathbf{x}$ at $\mathbf{x}^{-1}(p)$, i.e.
     \[
         J_pf:=\begin{pmatrix}
-            \left.\frac{\partial(\tilde{y}_i \circ f\circ\mathbf{x})}{\partial x_j}\right|_{\mathbf{x}^{-1}(p)}
-         \end{pmatrix}_{m\times n}
+            J_{i,j}
+         \end{pmatrix}_{m\times n},\qquad J_{i,j}=\left.\frac{\partial(\tilde{y}_i \circ f\circ\mathbf{x})}{\partial x_j}\right|_{\mathbf{x}^{-1}(p)}.
         \]
 }
 \pf{
@@ -550,10 +564,14 @@ Corollary 2.3.1 guarantees that the tangent mapping is well-defined. Lemma 2.3.1
             v_{\eta_1}&v_{\eta_2}&\cdots&v_{\eta_m}
             \end{pmatrix}
             \begin{pmatrix}
-           \left.\frac{\partial(\tilde{y}_i \circ f\circ\mathbf{x})}{\partial x_j}\right|_{\mathbf{x}^{-1}(p)}
-           \end{pmatrix}_{m\times n}.
+           J_{i,j}
+           \end{pmatrix}_{m\times n},
         \end{aligned}
     \]
+    where
+    \[
+        J_{i,j}=\left.\frac{\partial(\tilde{y}_i \circ f\circ\mathbf{x})}{\partial x_j}\right|_{\mathbf{x}^{-1}(p)}
+        \]
 }
 
 \subsection{Cotangent Vector and Cotangent Space}
@@ -564,24 +582,24 @@ The most common way to define the cotangent space is to use the dual space of th
 }
 If we wish to define the cotangent space directly without the assistance of tangent space, we can start with $C^\infty_p$ and considering a subalgebra of $C^\infty_p$:
 \[
-    \mathcal{I}_p=\{f\in C^\infty_p\mid f(p)=0\}.
+    \mathfrak{m}_p=\{f\in C^\infty_p\mid f(p)=0\}.
 \]
-$\mathcal{I}_p$ can be considered as the set of functions that vanish at point $p$. We can imagine functions in $\mathcal{I}_p$ have Taylor expansions as follows:
+$\mathfrak{m}_p$ can be considered as the set of functions that vanish at point $p$. We can imagine functions in $\mathfrak{m}_p$ have Taylor expansions as follows:
 \[
     f(x)=\sum_{i=1}^n\frac{\partial f}{\partial x_i}(p)x_i+\sum_{i=1}^n\sum_{j=1}^n\frac{\partial^2 f}{\partial x_i\partial x_j}(p)x_ix_j+\cdots.
 \] 
-Then we define a subalgebra of $\mathcal{I}_p$:
+Then we define a subalgebra of $\mathfrak{m}_p$:
 \[
-    \mathcal{I}^2_p=\left\{\sum_if_ig_i\mid f_ig_i\in \mathcal{I}_p\right\},
+    \mathfrak{m}^2_p=\left\{\sum_if_ig_i\mid f_i, g_i\in \mathfrak{m}_p\right\},
 \]
-We can imagine functions in $\mathcal{I}_p^2$ have Taylor expansions as follows:
+We can imagine functions in $\mathfrak{m}_p^2$ have Taylor expansions as follows:
 \[
     f(x)=\sum_{i=1}^n\sum_{j=1}^n\frac{\partial^2 f}{\partial x_i\partial x_j}(p)x_ix_j+\cdots.
 \] 
-The cotangent space of the manifold at point $p$ can be defined as $T_p^*M=\mathcal{I}_p/\mathcal{I}^2_p$, which only keeps the first order terms in the Taylor expansion.
+The cotangent space of the manifold at point $p$ can be defined as $T_p^*M=\mathfrak{m}_p/\mathfrak{m}^2_p$, which only keeps the first order terms in the Taylor expansion.
 
 \subsubsection{Dual Basis of the Natural Basis}
-Since $T_pM\subset \left(C^\infty_p\right)^*$, we have $T_p^*M\subset \left(C^\infty_p\right)^{**}$. Define the natural pairing $\langle\cdot,\cdot\rangle$, which is a bilinear function:
+Since $T_pM\subset \left(C^\infty_p\right)^*$, we have $T_p^*M\subset \left(C^\infty_p\right)^{**}$. Define the \emph{natural pairing} $\langle\cdot,\cdot\rangle$, which is a bilinear function:
 \[
     \begin{aligned}
     \langle\cdot,\cdot\rangle:T_pM\times C^\infty_p&\longrightarrow\mathbb{R}\\
@@ -611,8 +629,46 @@ Notice that
 
 Covector $\langle\cdot,\tilde{x}_1\rangle,\langle\cdot,\tilde{x}_2\rangle,\cdots,\langle\cdot,\tilde{x}_n\rangle$ is the dual basis of the natural basis.
 
-
-
+\subsubsection{Dual Basis and Tangent Mapping}
+The dual basis $\langle\cdot,\tilde{x}_i\rangle$ and tangent mapping are intimately related. 
+Next we choose a coordinate chart $(U,\mathbf{x})$ of $M$ and consider the tangent mapping of the coordinate function $\tilde{x}_i: M\to \mathbb{R}$:
+\[
+    \begin{aligned}
+        d\tilde{x}_i:T_pM&\longrightarrow T_{\tilde{x}_i(p)}\mathbb{R}\\
+        v&\longmapsto \left(f:\mathbb{R}\to \mathbb{R} \longmapsto\langle v,f\circ \tilde{x}_i\rangle\right).
+    \end{aligned}
+\]
+If we endow $\mathbb{R}$ with the standard coordinate chart $(\mathbb{R},\mathrm{id})$, then the matrix representation of $d\tilde{x}_i$ under charts $(U,\mathbf{x})$ and $(\mathbb{R},\mathrm{id})$ is
+\[
+    \begin{aligned}
+    (d\tilde{x}_i)_p
+    \begin{pmatrix}
+    v_{\varepsilon_1}&v_{\varepsilon_2}&\cdots&v_{\varepsilon_n}
+    \end{pmatrix}
+    &=
+    \begin{pmatrix}
+        \left.\frac{\partial}{\partial y}\right|_{\tilde{x}_i(p)}
+    \end{pmatrix}
+    \left.\begin{pmatrix}
+        \frac{\partial(\tilde{x}_i\circ\mathbf{x})}{\partial
+x_1}&\frac{\partial(\tilde{x}_i\circ\mathbf{x})}{\partial
+x_2}&\cdots&\frac{\partial(\tilde{x}_i\circ\mathbf{x})}{\partial x_n}
+    \end{pmatrix}\right|_{\mathbf{x}^{-1}(p)}\\
+    &=\begin{pmatrix}
+        \left.\frac{\partial}{\partial y}\right|_{\tilde{x}_i(p)}
+    \end{pmatrix}
+    \begin{pmatrix}
+        \delta_{i1} &\delta_{i2}&\cdots&\delta_{in}
+    \end{pmatrix}.
+    \end{aligned}
+    \]
+Define
+\[
+    \begin{aligned}
+        \mathrm{coor}^{v_{\tau}}:\mathbb{R}&\longrightarrow\mathbb{R}\\
+        y&\longmapsto y\delta_{i1},
+    \end{aligned}
+\]
 
 % \begin{Theorem}{Title}{label}
 %     This is the statement of the theorem.

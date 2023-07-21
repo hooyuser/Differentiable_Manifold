@@ -14,6 +14,8 @@
         }
     }
 
+\newcommand{\midv}{\,\middle\vert\,}
+
 \begin{document}
 \begin{center}
 	~\\
@@ -38,55 +40,65 @@
 \section{Topological Manifold}
 \subsection{Definition of Topological Manifold}
 \dfn{Topological Manifold}{
-    An $n$-dimensional \emph{topological manifold} is a Hausdorff topological space that is locally homeomorphic to $n$-dimensional Euclidean space.
+    An $n$-dimensional \textbf{topological manifold} is a  second countable Hausdorff topological space that is locally homeomorphic to $n$-dimensional Euclidean space.
 }
 ``Locally homeomorphic to $n$-dimensional Euclidean space" means that for any point $p$ in the topological space $M$, there exists a neighborhood $N(p)$ of $p$ such that $N(p)$ is homeomorphic to the Euclidean space $\mathbb{R}^n$.
 
 \subsection{Coordinate Chart}
 
 \dfn{Coordinate Chart}{
-    If $U_\alpha$ is an open set in $\mathbb{R}^n$,
+    Let $M$ be topological manifold. If $U\subseteq M$ is an open set containing some point $p\in M$ and
     $$
-        \mathbf{x}_\alpha:U_\alpha\longrightarrow \mathbf{x}_\alpha (U_\alpha)\subseteq M
+        \mathbf{x}: U\longrightarrow \mathbf{x} (U)\subseteq \mathbb{R}^n
     $$
-    is a homeomorphism and $\mathbf{x}_\alpha (U_\alpha)$ contains some point $p\in M$, then the pair $(U_\alpha,\mathbf{x}_\alpha)$ is called a \emph{coordinate chart} or \emph{(local) coordinate system} of the topological manifold $M$ at point $p$.
+    is a homeomorphism, then the pair $(U,\mathbf{x})$ is called a \textbf{coordinate chart} of the topological manifold $M$ at point $p$. 
+}
+we define projection functions
+\[
+\begin{aligned}
+    p_i:\mathbb{R}^n&\longrightarrow \mathbb{R}\\
+    (x_1,x_2,\cdots,x_n)&\longmapsto x_i.
+\end{aligned}
+\]
+\dfn{Coordinate functions}{
+    Given a coordinate chart $(U,\mathbf{x})$ of the topological manifold $M$, we can represent $\mathbf{x}$ in its component functions as follows:
+    $$
+    \mathbf{x}(p)=\left(x^1(p),\cdots,x^n(p)\right),
+    $$ 
+    where the functions $x^i=p^i\circ \mathbf{x}$ is called the \textbf{$i$-th coordinate function} of the coordinate chart $(U,\mathbf{x})$. And $x^i(p)\in\mathbb{R}$ is called the $i$-th coordinates of point $p$.
 }
 
-Given a coordinate chart, $\mathbf{x}^{-1}_{\alpha}$ is often called the local coordinate mapping at point $p$. The image of point $p$ under $\mathbf{x}^{-1}_{\alpha}$, denoted as $\mathbf{x}^{-1}_\alpha(p)$, is called the local coordinate of point $p$. Coordinate charts can transform the local structure of a topological manifold into the familiar coordinates in $\mathbb{R}^n$, so they are sometimes also called parameterizations.
+If $(U,\mathbf{x})$ is a coordinate chart containing point $p$, then $\mathbf{x}^{-1}:\mathbb{R}^n\to M$ is often called the local parameterization of $M$ at point $p$. 
 
-At any point $p$ in the topological manifold $M$, there exists at least one coordinate chart. In fact, let $\eta$ be a homeomorphism from $N(p)$ to $\mathbb{R}^n$. By definition of a neighborhood, there exists an open set $W\subseteq M$ such that $p\in W\subseteq N(p)$. Therefore, if we restrict $\eta$ to $W$ and let $\mathbf{x}=(\left.\eta\right|_{W})^{-1}$, then
+At any point $p$ in the topological manifold $M$, there exists at least one coordinate chart. In fact, let $\eta$ be a homeomorphism from $N(p)$ to $\mathbb{R}^n$. By definition of a neighborhood, there exists an open set $W\subseteq M$ such that $p\in W\subseteq N(p)$. Therefore, by restricting $\eta$ to $W$ we see
 $$
-    \mathbf{x}:U\longrightarrow \mathbf{x}(U)
+\left.\eta\right|_{W}:W\longrightarrow \left.\eta\right|_{W}(W)\subseteq \mathbb{R}^n
 $$
-is also a homeomorphism. Hence, $(U,\mathbf{x})$ is a coordinate chart at point $p$.
+is also a homeomorphism. Hence, $(U,\left.\eta\right|_{W})$ is a coordinate chart at point $p$.
 
 \subsection{Atlas}
 \dfn{Atlas}{
-If $\Sigma=\{(U_\alpha,\mathbf{x}_\alpha)\}_{\alpha\in A}$ is a collection of coordinate charts for the topological manifold $M$ and $\{\mathbf{x}_\alpha(U_\alpha)\}_{\alpha\in
-    A}$ is a cover of $M$, then $\Sigma$ is called an \emph{atlas} of $M$.
+If $\Sigma=\{(U_\alpha,\mathbf{x}_\alpha)\}_{\alpha\in A}$ is a collection of coordinate charts for the topological manifold $M$ and $\{U_\alpha\}_{\alpha\in
+    A}$ is a cover of $M$, then $\Sigma$ is called an \textbf{atlas} of $M$.
 }
 A topological manifold $M$ can be regarded as a topological space obtained by gluing together many open subsets $U_\alpha(\alpha\in A)$ of Euclidean spaces.
 
 Given an atlas $\Sigma=\{(U_\alpha,\mathbf{x}_\alpha)\}_{\alpha\in
     A}$ of the topological manifold $M$, some coordinate charts in the atlas may have overlapping regions. In other words, some points in $M$ may be covered by multiple coordinate charts. Suppose $(U_\alpha,\mathbf{x}_\alpha)$ and $(U_\beta,\mathbf{x}_\beta)$ have overlapping regions, i.e.,
 \[
-    \mathbf{x}_\alpha(U_\alpha)\cap \mathbf{x}_\beta(U_\beta)\ne\varnothing.
+    \mathbf{x}_\alpha(U_\alpha)^{-1}\cap \mathbf{x}^{-1}_\beta(U_\beta)\ne\varnothing.
 \]
-Then we can define transition functions
+Let $V=\mathbf{x}_\alpha(U_\alpha)^{-1}\cap \mathbf{x}^{-1}_\beta(U_\beta)$. Then we can define transition functions
 \[
-    \mathbf{x}^{-1}_\beta\circ \mathbf{x}_{\alpha}:
-    \mathbf{x}^{-1}_\alpha(\mathbf{x}_\alpha(U_\alpha)\cap
-    \mathbf{x}_\beta(U_\beta)) \longrightarrow
-    \mathbf{x}^{-1}_\beta(\mathbf{x}_\alpha(U_\alpha)\cap
-    \mathbf{x}_\beta(U_\beta))
+    \mathbf{x}_\beta\circ \mathbf{x}_{\alpha}^{-1}:
+    \mathbf{x}_\alpha(V) \longrightarrow
+    \mathbf{x}_\beta(V)
 \]
 and
 \[
-    \mathbf{x}^{-1}_{\alpha}\circ
-    \mathbf{x}_\beta:  \mathbf{x}^{-1}_\beta(\mathbf{x}_\alpha(U_\alpha)\cap
-    \mathbf{x}_\beta(U_\beta))\longrightarrow
-    \mathbf{x}^{-1}_\alpha(\mathbf{x}_\alpha(U_\alpha)\cap
-    \mathbf{x}_\beta(U_\beta)).
+    \mathbf{x}_{\alpha}\circ
+    \mathbf{x}_\beta^{-1}:  \mathbf{x}_\beta(V) \longrightarrow
+    \mathbf{x}_\alpha(V).
 \]
 Since the composition of two homeomorphisms is still a homeomorphism, the above two transition functions are both homeomorphisms. As mentioned earlier, a point $p$ in $M$ may be covered by multiple coordinate charts, meaning that point $p$ may have multiple local coordinates. With the help of transition functions, we can switch between multiple local coordinates of point $p$.
 
@@ -99,37 +111,33 @@ As is well known, Euclidean spaces also have many structures more refined than t
 Let $M$ be an $n$-dimensional topological manifold and $\Sigma=\{(U_\alpha,\mathbf{x}_\alpha)\}_{\alpha\in
 A}$ be an atlas of $M$. Our goal is to define differentiable functions $f:M\to \mathbb{R}^m$ on a topological manifold $M$ in a reasonable way. A natural idea is to locally pull back the domain from a subset of $M$ to $U_\alpha\subset\mathbb{R}^n$ using the coordinate chart $(U_\alpha,\mathbf{x}_\alpha)$. Specifically, we can attempt to define differentiable functions as follows: function $f:M\to \mathbb{R}^m$ is differentiable at point $p$ if and only if for any coordinate chart $(U_\alpha,\mathbf{x}_\alpha)$ covering point $p$, the composite function
 \[
-    f\circ \mathbf{x}_\alpha:U_\alpha\longrightarrow \mathbb{R}^m
+    f\circ \mathbf{x}_\alpha^{-1}:\mathbf{x}_\alpha^{-1}\left(U_\alpha\right)\longrightarrow \mathbb{R}^m
 \]
 is differentiable at point $\mathbf{x}^{-1}_\alpha(p)$.
 
 \subsection{Compatible Atlas}
-This definition is theoretically valid but can be cumbersome in practice. To prove the differentiability of $f$ at point $p$, we need to verify differentiablity of $f\circ \mathbf{x}_\alpha$ for all coordinate charts $(U_\alpha,\mathbf{x}_\alpha)$ covering point $p$. 
+This definition is theoretically valid but can be cumbersome in practice. To prove the differentiability of $f$ at point $p$, we need to verify differentiablity of $f\circ \mathbf{x}_\alpha^{-1}$ for all coordinate charts $(U_\alpha,\mathbf{x}_\alpha)$ covering point $p$. 
 
 In fact, if we only consider so-called compatible atlases, the situation becomes much simpler. In this case, we only need to verify one arbatrary 
 coordinate chart covering point $p$. The following definition makes this idea precise.
 
-\dfn{Compatible Coordinate Charts and Compatible Atlas}{Two coordinate charts $(U_\alpha,\mathbf{x}_\alpha)$, $(U_\beta,\mathbf{x}_\beta)$ are called \emph{compatible} if
+\dfn{Compatible Coordinate Charts and Compatible Atlas}{Two coordinate charts $(U_\alpha,\mathbf{x}_\alpha)$, $(U_\beta,\mathbf{x}_\beta)$ are called \textbf{compatible} if
 \[
     U_\alpha\cap U_\beta\ne\varnothing\implies\mathbf{x}^{-1}_\beta\circ
 \mathbf{x}_{\alpha},\;\mathbf{x}^{-1}_{\alpha}\circ \mathbf{x}_\beta
 \text{ are differentiable}.
 \]
-If any two coordinate charts in an atlas are compatible, the atlas is called a \emph{compatible atlas}. 
+If any two coordinate charts in an atlas are compatible, the atlas is called a \textbf{compatible atlas}. 
 }
 
 Suppose $(U_\alpha,\mathbf{x}_\alpha)$, $(U_\beta,\mathbf{x}_\beta)$ are two coordinate charts covering point $p$. Notice that
 $$
 \begin{aligned}
-f\circ \mathbf{x}_\beta &= (f\circ \mathbf{x}_\alpha)\circ(\mathbf{x}^{-1}_\alpha\circ \mathbf{x}_{\beta}),\\
-f\circ \mathbf{x}_\alpha &= (f\circ \mathbf{x}_\beta)\circ(\mathbf{x}^{-1}_\beta\circ \mathbf{x}_{\alpha}).
+f\circ \mathbf{x}_\beta^{-1} &= (f\circ \mathbf{x}^{-1}_\alpha)\circ(\mathbf{x}_\alpha\circ \mathbf{x}^{-1}_{\beta}),\\
+f\circ \mathbf{x}_\alpha^{-1} &= (f\circ \mathbf{x}^{-1}_\beta)\circ(\mathbf{x}_\beta\circ \mathbf{x}^{-1}_{\alpha}).
 \end{aligned}
 $$
-We see that $f \circ \mathbf{x}_\beta$ is differentiable if and only if $f \circ \mathbf{x}_\alpha$ is differentiable. Therefore, if the given atlas is compatible, our definition of differentiable functions can be written as: a function $f: M \to \mathbb{R}^m$ is differentiable at point $p$ if and only if there exists a coordinate chart $(U_\alpha, \mathbf{x}_\alpha)$ covering point $p$ such that the composite function
-$$
-f\circ \mathbf{x}_\alpha:U_\alpha\longrightarrow \mathbb{R}^m
-$$
-is differentiable at point $\mathbf{x}^{-1}_\alpha(p)$.
+We see that $f \circ \mathbf{x}_\beta^{-1}$ is differentiable if and only if $f \circ \mathbf{x}_\alpha^{-1}$ is differentiable. Therefore, if the given atlas is compatible, our definition of differentiable functions can be written as: a function $f: M \to \mathbb{R}^m$ is differentiable at point $p$ if and only if there exists a coordinate chart $(U_\alpha, \mathbf{x}_\alpha)$ covering point $p$ such that the composite function $f\circ \mathbf{x}_\alpha^{-1}$ is differentiable at point $\mathbf{x}^{-1}_\alpha(p)$.
 
 \subsection{Differential Structure and Differentiable Manifold}
 Compatible atlases can be maximized.
@@ -138,9 +146,12 @@ Compatible atlases can be maximized.
 \[
 \Sigma_{\max}=\left\{(U_\alpha,\mathbf{x}_\alpha)\mid(U_\alpha,\mathbf{x}_\alpha) \text{ is compatible with every coordinate chart in $\Sigma$}\right\}
 \]
-is called the maximal atlas of $\Sigma$.
+is called the \textbf{maximal atlas} of $\Sigma$.
 } 
-A maximal compatible atlas $\Sigma_{\max}$ on the topological manifold $(M, \tau)$ is called a \emph{differential structure} of $(M, \tau)$. A topological manifold equipped with a differential structure is called a differentiable manifold, denoted as the triplet $(M, \tau, \Sigma_{\max})$. Unless otherwise specified, when we talk about coordinate charts of differentiable manifolds, we always assume that the coordinate charts are taken from the differentiable manifold's own atlas.
+\dfn{Differential Structure and Differentiable Manifold}{
+A maximal compatible atlas $\Sigma_{\max}$ on the topological manifold $(M, \tau)$ is called a \textbf{differential structure} of $(M, \tau)$. A topological manifold equipped with a differential structure is called a \textbf{differentiable manifold}, denoted as the triplet $(M, \tau, \Sigma_{\max})$.
+}
+ Unless otherwise specified, when we talk about coordinate charts of differentiable manifolds, we always assume that the coordinate charts are taken from the differentiable manifold's own atlas.
 
 By replacing ``differentiable" with ``$C^r$-differentiable" or ``smooth", we can similarly define $C^r$-compatible atlases and smooth compatible atlases, $C^r$-differential structures and smooth structures, and $C^r$-differentiable manifolds and smooth manifolds. In the following, we will mainly discuss smooth manifolds, but the related concepts can be extended to differential manifolds and $C^r$-differential manifolds in a similar way.
 
@@ -149,39 +160,56 @@ By replacing ``differentiable" with ``$C^r$-differentiable" or ``smooth", we can
 \section{Definition}
 One of the motivations for defining a smooth (differentiable) manifold is to define smooth (differentiable) functions. Let $(M,\tau,\Sigma)$ be a smooth manifold, and a function $f:M\to \mathbb{R}^n$ is smooth at point $p$, if and only if there exists a coordinate chart $(U_\alpha,\mathbf{x}_\alpha)\in\Sigma$ covering point $p$, such that the composite function
 $$
-f\circ \mathbf{x}_\alpha:U_\alpha\longrightarrow \mathbb{R}^m
+f\circ \mathbf{x}^{-1}_\alpha:\mathbf{x}^{-1}_\alpha(U_\alpha)\longrightarrow \mathbb{R}^m
 $$
-is smooth at point $\mathbf{x}^{-1}_\alpha(p)$.
+is smooth at point $\mathbf{x}_\alpha(p)$.
 
 Furthermore, we can also define smooth mappings between smooth manifolds $(M_1,\tau_1,\Sigma_1), (M_2,\tau_2,\Sigma_2)$. To define the smoothness of mapping $f:M_1\to M_2$ at point $p$, in addition to pulling back the domain from a subset of $M_1$ to $U_\alpha\subset\mathbb{R}^n$, we also need to push forward the codomain from $M_2$ to $V_\beta\subset\mathbb{R}^m$.
 \dfn{Smooth Mapping}{
     The mapping $f:M_1\to M_2$ is a smooth mapping at point $p$, if there exists a coordinate chart $(U_\alpha,\mathbf{x}_\alpha)\in\Sigma_1$ 
     covering point $p$ and a coordinate chart $(V_\beta,\mathbf{y}_\beta)\in\Sigma_2$ covering point $f(p)$, such that the composite function
     \[
-    \mathbf{y}^{-1}_\beta \circ f\circ \mathbf{x}_\alpha:U_\alpha\longrightarrow V_\beta
+    \mathbf{y}_\beta \circ f\circ \mathbf{x}_\alpha^{-1}:\mathbf{x}_\alpha^{-1}(U_\alpha)\longrightarrow V_\beta
     \]
-    is smooth at point $\mathbf{x}^{-1}_\alpha(p)$.
+    is smooth at point $\mathbf{x}_\alpha(p)$.
 }
 Notice that
 \[
-    f = \mathbf{y}_\beta\circ(\mathbf{y}^{-1}_\beta \circ f\circ \mathbf{x}_\alpha)\circ\mathbf{x}^{\hspace{2pt}-1}_\alpha
+    f = \mathbf{y}^{-1}_\beta\circ(\mathbf{y}_\beta \circ f\circ \mathbf{x}^{\hspace{2pt}-1}_\alpha)\circ\mathbf{x}_\alpha
 \]
 we see that $f$ being smooth at point $p$ implies that $f$ is continuous at point $p$.
 Moreover, note that 
 \[
-    \tilde{\mathbf{y}}^{-1}_\beta \circ f\circ \tilde{\mathbf{x}}_\alpha=(\tilde{\mathbf{y}}^{-1}_\beta\circ\mathbf{y}_\beta) \circ(\mathbf{y}^{-1}_\beta \circ f\circ \mathbf{x}_\alpha)\circ(\mathbf{x}^{-1}_\alpha\circ \tilde{\mathbf{x}}_\alpha),
+    \tilde{\mathbf{y}}_\beta \circ f\circ \tilde{\mathbf{x}}_\alpha^{-1}=(\tilde{\mathbf{y}}_\beta\circ\mathbf{y}_\beta^{-1}) \circ(\mathbf{y}_\beta \circ f\circ \mathbf{x}_\alpha^{-1})\circ(\mathbf{x}_\alpha\circ \tilde{\mathbf{x}}_\alpha^{-1}),
 \]
 where $\tilde{\mathbf{x}}_\alpha$ and $\tilde{\mathbf{y}}_\beta$ are two other coordinate charts covering point $p$ and $f(p)$ respectively. It is clear that the smoothness of $f:M_1\to M_2$ at point $p$ does not depend on the choice of coordinate charts.
 
 If the mapping $f:M_1\to M_2$ is smooth in an open set $U\subset M_1$, then we say that $f$ is smooth on $U$. If $f$ is smooth at every point in $M_1$, then we say that $f$ is a smooth mapping.
 
-Now we have defined smooth mappings between smooth manifolds, we have yet to explain how to differentiate such smooth mappings - which is one of our motivations for defining smooth (differentiable) manifolds. If we follow the idea of defining smooth mappings, using coordinate charts to convert smooth mappings into smooth functions from $U_\alpha\in\mathbb{R}^n$ to $\mathbb{R}^m$, we will find that different coordinate charts yield different smooth functions and, naturally, different differentials. A simplest example is a smooth real-valued function $f:\mathbb{R}\to\mathbb{R}$. When selecting different coordinate charts $(U_\alpha,x_\alpha),(V_\beta,y_\beta)$ that contain a point $p$, the differentials as linear transformations between $\mathbb{R}$
+\dfn{Diffeomorphism}{
+    Given two smooth (differentiable) manifolds $(M_1,\tau_1,\Sigma_1), (M_2,\tau_2,\Sigma_2)$, a smooth (differentiable) mapping $f:M_1\to M_2$ is called a \textbf{diffeomorphism} if $f$ is bijective and $f^{-1}$ is also smooth (differentiable).
+}
+
+It is a worthwhile problem to classify the smooth structures that may exist on a topological manifold through diffeomorphisms. Some literature, when defining smooth structures, directly mods out the diffeomorphism equivalence relations on top of our definition of smooth structures. To avoid confusion,we refer to the equivalence classes of smooth structures modding out diffeomorphisms as smooth types.
+
+\dfn{Smooth Type}{
+    Given a topological manifold $(M,\tau)$, the equivalence class of smooth structures modding out diffeomorphism equivalence relations is called the \textbf{smooth type} of $M$. That is, if $(M_1,\tau_1,\Sigma_1)$ is diffeomorphic to $(M_2,\tau_2,\Sigma_2)$, then $(M_1,\tau_1,\Sigma_1)$ and $(M_2,\tau_2,\Sigma_2)$ have the same smooth type.
+}
+
+Hassler Whitney's results show that for any $r\ge 1$, every $C^r$ differential structure contains some smooth structures, and all of these smooth structures are diffeomorphic, i.e. corresponding to one smooth type. Therefore, we can also classify $C^r$ differentiable structures by smooth types. This is why we will only focus on smooth manifolds and smooth functions later on. 
+
+For topological manifolds of dimension $\le 3$, there is only one smooth type. For compact topological manifolds with dimension $\ge 3$, the number of smooth types is finite. When $n\ne 4$, $\mathbb{R}^n$ only has one smooth type. However, $\mathbb{R}^4$ has uncountably many smooth types.
+
+The category of smooth manifolds is denoted as $\mathsf{Man}^\infty$, whose objects are smooth manifolds and morphisms are smooth mappings.
+
+\section{Tangent Vector and Tangent Space}
+
+Now we have defined smooth mappings between smooth manifolds, we have yet to explain how to differentiate such smooth mappings - which is one of our motivations for defining smooth (differentiable) manifolds. If we follow the idea of defining smooth mappings, using coordinate charts to convert smooth mappings into smooth functions from $U_\alpha\in\mathbb{R}^n$ to $\mathbb{R}^m$, we will find that different coordinate charts yield different smooth functions and, naturally, different differentials. A simplest example is a smooth real-valued function $f:\mathbb{R}\to\mathbb{R}$. When selecting different coordinate charts $(U_\alpha,\mathbf{x}_\alpha),(V_\beta,\mathbf{y}_\beta)$ that contain a point $p$, the differentials as linear transformations between $\mathbb{R}$
 $$
-d(y^{-1}_\beta \circ f\circ x_\alpha)|_p:\mathbb{R}\longrightarrow\mathbb{R}
+d(\mathbf{y}_\beta \circ f\circ \mathbf{x}_\alpha^{-1})|_p:\mathbb{R}\longrightarrow\mathbb{R}
 $$
 may differ in general. However, we know these differentials cannot be entirely unrelated, as any differences between them should only arise from the differential of the transition function. A similar situation also occurs in linear algebra. With different bases chosen, a linear transformation can induce different transformations from the coordinate space $\mathbb{R}^n$ to the coordinate space $\mathbb{R}^m$. The only discrepancy between these transformations arises from the change of basis. Therefore, we can imagine that the true ``differential" of a smooth mapping might also be a linear mapping between general linear spaces. Only by choosing specific coordinate charts do we obtain the linear mapping between Euclidean spaces $\mathbb{R}^n$ and $\mathbb{R}^m$. In fact, the ``general linear spaces" here are the tangent spaces we are about to define.
 
-\section{Tangent Vector and Tangent Space}
 \subsection{First Definition: Equivalence Class of Curves}
 Consider an intuitive example, a smooth surface in $\mathbb{R}^3$ of dimension $2$. At any point $p$ on the surface, we can construct a tangent plane, and the vector with its starting point at $p$ and its endpoint in the tangent plane is called a tangent vector. Therefore, the tangent plane of the surface at point $p$ can be regarded as a linear space $\mathbb{R}^2$ composed of tangent vectors.
 
@@ -193,33 +221,33 @@ is a tangent vector at $p$. Suppose there is another curve $\theta$ passing thro
 
 Given an $n$-dimensional smooth manifold $(M,\tau,\Sigma)$ and a point $p$ on it, if a smooth mapping $\gamma:(-\epsilon,\epsilon)\to M$ satisfies $\gamma(0)=p$, then $\gamma$ is called a smooth curve on $M$ passing through point $p$. If we want to ``differentiate" the curve, we must first parameterize it, i.e., select a coordinate chart $(U,\mathbf{x})\in\Sigma$ at point $p$ and differentiate the composite function
 \[
-    \mathbf{x}^{-1} \circ \gamma:(-\epsilon,\epsilon)\to \mathbb{R}^n.
+    \mathbf{x} \circ \gamma:(-\epsilon,\epsilon)\longrightarrow\mathbb{R}^n.
 \]
 The result of differentiation is $\left.\frac{d(\mathbf{x} \circ \gamma)}{dt}\right|_0$. 
 \prop{}{
     If curves $\theta$ and $\gamma$ have the same derivative at point $p$ in a certain coordinate chart $(U_1,\mathbf{x}_1)$, namely
     \[
-        \left.\frac{d(\mathbf{x}_1^{-1} \circ \theta)}{dt}\right|_0=\left.\frac{d(\mathbf{x}_1^{-1} \circ \gamma)}{dt}\right|_0,
+        \left.\frac{d(\mathbf{x}_1 \circ \theta)}{dt}\right|_0=\left.\frac{d(\mathbf{x}_1 \circ \gamma)}{dt}\right|_0,
     \]
     then in any coordinate chart $(U_2,\mathbf{x}_2)$ at point $p$, the curves $\theta$ and $\gamma$ also have the same derivative. 
 }
 \pf{
     According to the chain rule, we have
     \[
-        \left.\frac{d(\mathbf{x}_2^{-1} \circ \theta)}{dt}\right|_0=\left.\frac{d((\mathbf{x}_2 \circ \mathbf{x}_1)\circ(\mathbf{x}_1^{-1} \circ \theta))}{dt}\right|_0=\left.\frac{d(\mathbf{x}_2^{-1} \circ \mathbf{x}_1)}{dx}\right|_p\left.\frac{d(\mathbf{x}_1^{-1} \circ \theta)}{dt}\right|_0.
+        \left.\frac{d(\mathbf{x}_2 \circ \theta)}{dt}\right|_0=\left.\frac{d((\mathbf{x}_2 \circ \mathbf{x}_1^{-1})\circ(\mathbf{x}_1 \circ \theta))}{dt}\right|_0=\left.\frac{d(\mathbf{x}_2 \circ \mathbf{x}_1)}{dx}\right|_p\left.\frac{d(\mathbf{x}_1 \circ \theta)}{dt}\right|_0.
     \]
     Similarly, we have
     \[
-        \left.\frac{d(\mathbf{x}_2^{-1} \circ \gamma)}{dt}\right|_0=\left.\frac{d(\mathbf{x}_2^{-1} \circ \mathbf{x}_1)}{dx}\right|_p\left.\frac{d(\mathbf{x}_1^{-1} \circ \gamma)}{dt}\right|_0.
+        \left.\frac{d(\mathbf{x}_2 \circ \gamma)}{dt}\right|_0=\left.\frac{d(\mathbf{x}_2 \circ \mathbf{x}^{-1}_1)}{dx}\right|_p\left.\frac{d(\mathbf{x}_1 \circ \gamma)}{dt}\right|_0.
     \]
     Thus we show that
     \[
-        \left.\frac{d(\mathbf{x}_1^{-1} \circ \theta)}{dt}\right|_0=\left.\frac{d(\mathbf{x}_1^{-1} \circ \gamma)}{dt}\right|_0\implies \left.\frac{d(\mathbf{x}_2^{-1} \circ \theta)}{dt}\right|_0=\left.\frac{d(\mathbf{x}_2^{-1} \circ \gamma)}{dt}\right|_0.
+        \left.\frac{d(\mathbf{x}_1 \circ \theta)}{dt}\right|_0=\left.\frac{d(\mathbf{x}_1 \circ \gamma)}{dt}\right|_0\implies \left.\frac{d(\mathbf{x}_2 \circ \theta)}{dt}\right|_0=\left.\frac{d(\mathbf{x}_2 \circ \gamma)}{dt}\right|_0.
     \]
 }
 We can define that curves $\theta$ and $\gamma$ are equivalent at point $p$ if and only if there exists a coordinate chart $(U,\mathbf{x})$ at point $p$ such that
 \[
-    \left.\frac{d(\mathbf{x}^{-1} \circ \theta)}{dt}\right|_0=\left.\frac{d(\mathbf{x}^{-1} \circ \gamma)}{dt}\right|_0.
+    \left.\frac{d(\mathbf{x} \circ \theta)}{dt}\right|_0=\left.\frac{d(\mathbf{x} \circ \gamma)}{dt}\right|_0.
 \]
 We denote the equivalence class of curve $\gamma$ as $[\gamma]_*$. The set of all smooth curves passing through point $p$ on $M$ under this equivalence relation is the quotient set of the tangent space of $M$ at point $p$, denoted as
 
@@ -237,25 +265,19 @@ While it is possible to define a novel addition operation for equivalence classe
 
 From the definition of tangent vectors, we see there is a mapping from $T_p^{1\mathrm{st}}M$ to $\mathbb{R}^n$
 \[
-    \mathrm{Drv}_{\mathbf{x}}:[\gamma]_*\longmapsto\left.\frac{d(\mathbf{x}^{-1} \circ \gamma)}{dt}\right|_0.
+    \mathrm{Drv}_{\mathbf{x}}:[\gamma]_*\longmapsto\left.\frac{d(\mathbf{x} \circ \gamma)}{dt}\right|_0.
 \]
 You can further prove that $\mathrm{Drv}_{\mathbf{x}}$ is actually a bijection. This may suggest defining tangent space as
 \[
-    \mathrm{Drv}_{\mathbf{x}}\left(T_p^{1\mathrm{st}}M\right)=\left\{\left.\frac{d(\mathbf{x}^{-1} \circ \gamma)}{dt}\right|_0: [\gamma]_*\in T_p^{1\mathrm{st}}M \right\}
+    \mathrm{Drv}_{\mathbf{x}}\left(T_p^{1\mathrm{st}}M\right)=\left\{\left.\frac{d(\mathbf{x} \circ \gamma)}{dt}\right|_0: [\gamma]_*\in T_p^{1\mathrm{st}}M \right\}
 \]
-which is naturally equipped with a linear space structure. However, this definition is not satisfactory because it is not coordinate-independent. We have already seen earlier that the value of $\left.\frac{d(\mathbf{x}^{-1} \circ \gamma)}{dt}\right|_0$ depends on the choice of coordinate chart $(U,\mathbf{x})$. As a consequence,  there is no canonical way to assign an $n$-dimensional vector to each equivalence class of curves. 
+which is naturally equipped with a linear space structure. However, this definition is not satisfactory because it is not coordinate-independent. We have already seen earlier that the value of $\left.\frac{d(\mathbf{x} \circ \gamma)}{dt}\right|_0$ depends on the choice of coordinate chart $(U,\mathbf{x})$. As a consequence,  there is no canonical way to assign an $n$-dimensional vector to each equivalence class of curves. 
 
 In order to give a coordinate-independent definition of tangent vectors, we consider a mapping like
 \[
     \mathrm{Drv}:[\gamma]_*\longmapsto\left.\frac{d(\cdot \circ \gamma)}{dt}\right|_0.
 \]
-Since $\mathbf{x}^{-1}$ is a smooth mapping from $M$ to $\mathbb{R}^n$, one might consider letting $\left. \frac{d(\cdot \circ \gamma)}{dt} \right|_0$ act on any smooth mapping $\mathbf{f}:M\to\mathbb{R}^n$. However, it is more economical to let it act on smooth functions $\mathbf{f}:M\to\mathbb{R}$, as the action on a vector-valued function $\mathbf{f}:M\to\mathbb{R}^n$ can be decomposed into actions on its component functions $f_i:M\to\mathbb{R}$. To be precise, we define projection functions
-\[
-\begin{aligned}
-    p_i:\mathbb{R}^n&\longrightarrow \mathbb{R}\\
-    (x_1,x_2,\cdots,x_n)&\longmapsto x_i.
-\end{aligned}
-\]
+Since $\mathbf{x}$ is a smooth mapping from $M$ to $\mathbb{R}^n$, one might consider letting $\left. \frac{d(\cdot \circ \gamma)}{dt} \right|_0$ act on any smooth mapping $\mathbf{f}:M\to\mathbb{R}^n$. However, it is more economical to let it act on smooth functions $\mathbf{f}:M\to\mathbb{R}$, as the action on a vector-valued function $\mathbf{f}:M\to\mathbb{R}^n$ can be decomposed into actions on its component functions $f_i:M\to\mathbb{R}$.
 For a vector-valued function $\mathbf{f} : M \to \mathbb{R}^n$, the $i$-th component function of $\mathbf{f}$ is given by $f_i = p_i \circ \mathbf{f}$. Since
 \[
     \left(p_i\circ\left.\frac{d(\mathbf{f} \circ \gamma)}{dt}\right)\right|_0=\left.\frac{d(p_i\circ\mathbf{f} \circ \gamma)}{dt}\right|_0=\left.\frac{d(f_i \circ \gamma)}{dt}\right|_0,
@@ -288,64 +310,63 @@ $$
 \subsubsection{Natural basis}
 Next we will introduce natural basis and use it to show that $T^{2\mathrm{nd}}_pM$ is indeed a linear subspace of $\mathcal{C}^{\infty}_p(M)^*$ of dimension $n$.
 
-Given a coordinate chart $(U,\mathbf{x})$ at point $p$, we define the \emph{$i$-th coordinate function} of the coordinate chart $(U,\mathbf{x})$ as
-\[
-    \begin{aligned}
-        \tilde{x}_i=p_i\circ \mathbf{x}^{-1}:M&\longrightarrow \mathbb{R}\\
-        p&\longmapsto x_i
-    \end{aligned}
-\]
+
 
 \lemm{}{
     If we choose a coordinate chart $(U,\mathbf{x})$ of $M$ at $p$, then for any $v_\gamma\in T^{2\mathrm{nd}}_pM$, $f\in\mathcal{C}^{\infty}_p(M)$,
     \[
-        v_\gamma(f)=\sum_{i=1}^n v_\gamma(\tilde{x}_i) \left.\frac{\partial (f\circ \mathbf{x})}{\partial x_i}\right|_{p}.
+        v_\gamma(f)=\sum_{i=1}^n v_\gamma(x^i) \left.\frac{\partial\left(f\circ \mathbf{x}^{-1}\right)}{\partial x^i}\right|_{p}.
     \]
 }
 \pf{
 We only need to use the pullback of $f$ and pushforward of $\gamma$ with respect to the coordinate chart $(U,\mathbf{x})$, and then apply the chain rule:
 \[
-    v_\gamma(f)=\left.\frac{d(f \circ\gamma)}{dt}\right|_0=\left.\frac{d((f \circ \mathbf{x})\circ (\mathbf{x}^{-1}\circ \gamma))}{dt}\right|_0=\sum_{i=1}^n\left.\frac{\partial (f \circ \mathbf{x})}{\partial x_i}\right|_{p}\left.\frac{d(\tilde{x}_i \circ \gamma)}{dt}\right|_0.
+    v_\gamma(f)=\left.\frac{d(f \circ\gamma)}{dt}\right|_0=\left.\frac{d((f \circ \mathbf{x}^{-1})\circ (\mathbf{x}\circ \gamma))}{dt}\right|_0=\sum_{i=1}^n\left.\frac{\partial (f \circ \mathbf{x}^{-1})}{\partial x^i}\right|_{p}\left.\frac{d({x}^i \circ \gamma)}{dt}\right|_0.
 \]
 }
-\noindent Define the \emph{$x_i$-curve} for the coordinate chart $(U,\mathbf{x})$ as
+\noindent Define the \textbf{$x_i$-curve} for the coordinate chart $(U,\mathbf{x})$ as
 \[
     \begin{aligned}
         \varepsilon_i:(-\epsilon,\epsilon)&\longrightarrow M\\
-        t&\longmapsto\mathbf{x}\left(\tilde{x}_1(p),\cdots,\tilde{x}_i(p)+t,\cdots,\tilde{x}_n(p)\right).
+        t&\longmapsto\mathbf{x}\left(x^1(p),\cdots,{x}^i(p)+t,\cdots,x^n(p)\right).
     \end{aligned}
 \]
-$v_{\varepsilon_i}$ is called the \emph{$i$-th coordinate tangent vector} of the coordinate chart $(U,\mathbf{x})$.
+$v_{\varepsilon_i}$ is called the \textbf{$i$-th coordinate tangent vector} of the coordinate chart $(U,\mathbf{x})$.
 We can check that
 \[
-    v_{\varepsilon_i}\left(\tilde{x}_j\right)=\left.\frac{d(\tilde{x}_j\circ\varepsilon_i)}{dt}\right|_0=\delta_{ij}=\begin{cases}
+    v_{\varepsilon_i}\left( x^j\right)=\left.\frac{d( x^j\circ\varepsilon_i)}{dt}\right|_0=\delta_{ij}=\begin{cases}
         0,& i\ne j,\\
         1,& i=j.
         \end{cases}
 \]
 By lemma 2.2.1, we have
 \[
-    v_{\varepsilon_i}(f)=\sum_{j=1}^n v_{\varepsilon_i}(\tilde{x}_j) \left.\frac{\partial (f\circ \mathbf{x})}{\partial x_j}\right|_{p}=\left.\frac{\partial (f\circ \mathbf{x})}{\partial x_i}\right|_{p},
+    v_{\varepsilon_i}(f)=\sum_{j=1}^n v_{\varepsilon_i}( x^j) \left.\frac{\partial (f\circ \mathbf{x}^{-1})}{\partial x^j}\right|_{p}=\left.\frac{\partial (f\circ \mathbf{x}^{-1})}{\partial x^i}\right|_{p},
 \]
 which implies 
 \[
-    v_{\varepsilon_i}=\left.\frac{d(\cdot \circ\varepsilon_i)}{dt}\right|_0=\left.\frac{\partial (\cdot \circ \mathbf{x})}{\partial x_i}\right|_{p}.
+    v_{\varepsilon_i}=\left.\frac{d(\cdot \circ\varepsilon_i)}{dt}\right|_0=\left.\frac{\partial (\cdot \circ \mathbf{x})}{\partial x^i}\right|_{p}.
 \]
 \prop{Natural Basis}{
 Given a coordinate chart $(U,\mathbf{x})$ of smooth manifold $M$ at point $p$, the coordinate tangent vectors
 \[
-    (v_{\varepsilon_1},v_{\varepsilon_2},\cdots,v_{\varepsilon_n})=\left(\left.\frac{\partial (\cdot \circ \mathbf{x})}{\partial x_1}\right|_{p},\left.\frac{\partial (\cdot \circ \mathbf{x})}{\partial x_2}\right|_{p},\cdots,\left.\frac{\partial (\cdot \circ \mathbf{x})}{\partial x_n}\right|_{p}\right)
+    (v_{\varepsilon_1},v_{\varepsilon_2},\cdots,v_{\varepsilon_n})=\left(\left.\frac{\partial (\cdot \circ \mathbf{x}^{-1})}{\partial x^1}\right|_{p},\left.\frac{\partial (\cdot \circ \mathbf{x}^{-1})}{\partial x^2}\right|_{p},\cdots,\left.\frac{\partial (\cdot \circ \mathbf{x}^{-1})}{\partial x^n}\right|_{p}\right)
 \]
-form a basis for the linear space $T_p^{\mathrm{2nd}}M$, called the \emph{natural basis} of the tangent space $T_p^{\mathrm{2nd}}M$ under the coordinate chart $(U,\mathbf{x})$.
+form a basis for the linear space $T_p^{\mathrm{2nd}}M$, called the \textbf{natural basis} of the tangent space $T_p^{\mathrm{2nd}}M$ under the coordinate chart $(U,\mathbf{x})$.
+
+By abuse of notation, we also denote the natural basis by 
+\[
+    (v_{\varepsilon_1},v_{\varepsilon_2},\cdots,v_{\varepsilon_n})=\left(\left.\frac{\partial }{\partial x^1}\right|_{p},\left.\frac{\partial}{\partial x^2}\right|_{p},\cdots,\left.\frac{\partial }{\partial x^n}\right|_{p}\right)  
+\]
 }
 \pf{
     The linear space spanned by the coordinate tangent vectors is denoted by $\mathop{\mathrm{span}}\limits_{1\le i \le n}(v_{\delta_i})$. Lemma 2.1.1 states that 
     \[
-        v_\gamma(f)=\sum_{i=1}^n v_\gamma(\tilde{x}_i) \left.\frac{\partial (f\circ \mathbf{x})}{\partial x_i}\right|_{p}=\sum_{i=1}^n v_\gamma(\tilde{x}_i) v_{\varepsilon_i}(f),
+        v_\gamma(f)=\sum_{i=1}^n v_\gamma({x}^i) \left.\frac{\partial (f\circ \mathbf{x})}{\partial x_i}\right|_{p}=\sum_{i=1}^n v_\gamma({x}^i) v_{\varepsilon_i}(f),
     \]
     or equivalently,
     \[
-        v_\gamma = \sum_{i=1}^n v_\gamma(\tilde{x}_i) v_{\varepsilon_i}.
+        v_\gamma = \sum_{i=1}^n v_\gamma({x}^i) v_{\varepsilon_i}.
     \]
     That means any vector in $T^{2\mathrm{nd}}_pM$ can be written as a linear combination of coordinate tangent vectors, namely 
     \[
@@ -362,7 +383,7 @@ form a basis for the linear space $T_p^{\mathrm{2nd}}M$, called the \emph{natura
     \]
     such that
     \[
-        v_\varepsilon = \sum_{i=1}^n v_\varepsilon(\tilde{x}_i) v_{\varepsilon_i}=\sum_{i=1}^n\left.\frac{d(\tilde{x}_i \circ \varepsilon)}{dt}\right|_0 v_{\varepsilon_i}=\sum_{i=1}^n\left.\frac{d(p_i\circ\mathbf{x}^{-1} \circ \varepsilon)}{dt}\right|_0 v_{\varepsilon_i}=\sum_{i=1}^n\left.\frac{d(\tilde{x}_i(p)+\lambda_it)}{dt}\right|_0 v_{\varepsilon_i}=\sum_{i=1}^n\lambda_iv_{\varepsilon_i}.
+        v_\varepsilon = \sum_{i=1}^n v_\varepsilon({x}^i) v_{\varepsilon_i}=\sum_{i=1}^n\left.\frac{d({x}^i \circ \varepsilon)}{dt}\right|_0 v_{\varepsilon_i}=\sum_{i=1}^n\left.\frac{d(p_i\circ\mathbf{x}^{-1} \circ \varepsilon)}{dt}\right|_0 v_{\varepsilon_i}=\sum_{i=1}^n\left.\frac{d({x}^i(p)+\lambda_it)}{dt}\right|_0 v_{\varepsilon_i}=\sum_{i=1}^n\lambda_iv_{\varepsilon_i}.
     \]
     Thus we have $\mathop{\mathrm{span}}\limits_{1\le i \le n}(v_{\varepsilon_i})\subseteq T^{2\mathrm{nd}}_pM$. Therefore, we show that
     \[
@@ -374,9 +395,9 @@ form a basis for the linear space $T_p^{\mathrm{2nd}}M$, called the \emph{natura
     \[
         \sum_{i=1}^n\lambda_iv_{\varepsilon_i}=0,
     \]
-    let the two sides of the above equation act on $\tilde{x}_j$ for $1\le j\le n$. Then we have
+    let the two sides of the above equation act on $ x^j$ for $1\le j\le n$. Then we have
     \[
-        \sum_{i=1}^n\lambda_iv_{\varepsilon_i}(\tilde{x}_j)=\sum_{i=1}^n\lambda_i\delta_{ij}=\lambda_j=0,
+        \sum_{i=1}^n\lambda_iv_{\varepsilon_i}( x^j)=\sum_{i=1}^n\lambda_i\delta_{ij}=\lambda_j=0,
     \]
     for $1\le j\le n$, which proves that they are linearly independent. Therefore, $v_{\varepsilon_1},v_{\varepsilon_2},\cdots,v_{\varepsilon_n}$ form a basis for $T^{2\mathrm{nd}}_pM$. 
 }
@@ -386,13 +407,13 @@ form a basis for the linear space $T_p^{\mathrm{2nd}}M$, called the \emph{natura
 \ex{Natural Basis of $\mathbb{R}^n$}{
     Suppose $\mathbb{R}^n$ is a smooth manifold with the standard coordinate chart $(\mathbb{R}^n,\mathrm{id})$. Then the natural basis of the tangent space $T^{2\mathrm{nd}}_p\mathbb{R}^n$ under the coordinate chart $(\mathbb{R}^n,\mathrm{id})$ is
     \[
-        (v_{\varepsilon_1},v_{\varepsilon_2},\cdots,v_{\varepsilon_n})=\left(\left.\frac{\partial}{\partial x_1}\right|_{p},\left.\frac{\partial}{\partial x_2}\right|_{p},\cdots,\left.\frac{\partial }{\partial x_n}\right|_{p}\right),
+        (v_{\varepsilon_1},v_{\varepsilon_2},\cdots,v_{\varepsilon_n})=\left(\left.\frac{\partial}{\partial x^1}\right|_{p},\left.\frac{\partial}{\partial x^2}\right|_{p},\cdots,\left.\frac{\partial }{\partial x^n}\right|_{p}\right),
     \]
     where 
     \[
         \begin{aligned}
-            \left.\frac{\partial}{\partial x_i}\right|_{p}:C^\infty(\mathbb{R}^n)&\longrightarrow\mathbb{R}\\
-            f&\longmapsto\left.\frac{\partial f}{\partial x_i}\right|_{p}
+            \left.\frac{\partial}{\partial x^i}\right|_{p}:C^\infty(\mathbb{R}^n)&\longrightarrow\mathbb{R}\\
+            f&\longmapsto\left.\frac{\partial f}{\partial x^i}\right|_{p}
         \end{aligned}
     \]
     is the $i$-th partial derivative of $f$ at $p$.
@@ -401,7 +422,7 @@ form a basis for the linear space $T_p^{\mathrm{2nd}}M$, called the \emph{natura
 \subsection{Third Definition: Language of Sheaf Theory}
 We can also use the language of sheaf theory to define tangent vectors and tangent spaces. Sheaf theory is a more abstract theory that is not only applicable to differential geometry, but also to more general geometry.
 
-A \emph{presheaf} is essentially a contravariant functor. A set presheaf is a contravariant functor $\mathcal{F}:\mathsf{C}^{\mathrm{op}}\to\mathsf{Set}$ from a category $\mathsf{C}$ to the category of sets $\mathsf{Set}$. A group presheaf is a contravariant functor $\mathcal{F}:\mathsf{C}^{\mathrm{op}}\to\mathsf{Ab}$ from a category $\mathsf{C}$ to the category of abelian groups $\mathsf{Ab}$. Given an object $X$ in $\mathsf{C}$, an element of $\mathcal{F}(X)$ is called a \emph{section} of $\mathcal{F}$ over $X$.
+A \textbf{presheaf} is essentially a contravariant functor. A set presheaf is a contravariant functor $\mathcal{F}:\mathsf{C}^{\mathrm{op}}\to\mathsf{Set}$ from a category $\mathsf{C}$ to the category of sets $\mathsf{Set}$. A group presheaf is a contravariant functor $\mathcal{F}:\mathsf{C}^{\mathrm{op}}\to\mathsf{Ab}$ from a category $\mathsf{C}$ to the category of abelian groups $\mathsf{Ab}$. Given an object $X$ in $\mathsf{C}$, an element of $\mathcal{F}(X)$ is called a \textbf{section} of $\mathcal{F}$ over $X$.
 
 When studying a smooth manifold $M$, we choose $\mathsf{C}$ to be the category whose objects are open sets in $M$, and whose morphisms are inclusions of open sets. We consider a presheaf on an open set $X$ to be the collection of all smooth real-valued functions defined on $X$, denoted $C^\infty(X;M\to\mathbb{R})$, which we can also write as $C^\infty(X)$ for short.
 
@@ -442,14 +463,44 @@ And correspondently, the tangent space $T^{2\mathrm{nd}}_pM$ can be defined as
 \]
 Furthermore, we can provide a concise definition of a tangent vector without the use of curves, through an axiomatic approach. A tangent vector at a point $p$ of a manifold $M$ is a linear functional defined on $C^\infty_p$ that satisfies the Leibniz rule. In a formal manner, this can be expressed as follows:
 \dfn{Tangent Space}{
-    Given a smooth manifold $M$ and a point $p$ on it. A function $\nu: C^\infty_p \to \mathbb{R}$ is said to be a \emph{tangent vector} of manifold $M$ at point $p$ if it satisfies the following conditions for any $\lambda_1, \lambda_2 \in \mathbb{R}$ and any $[f]_p, [g]_p \in C^\infty_p$:
+    Given a smooth manifold $M$ and a point $p$ on it. A function $v: C^\infty_p \to \mathbb{R}$ is said to be a \textbf{tangent vector} of manifold $M$ at point $p$ if it satisfies the following conditions for any $\lambda_1, \lambda_2 \in \mathbb{R}$ and any $[f]_p, [g]_p \in C^\infty_p$:
     \begin{enumerate}
-        \item Linearity: $\nu(\lambda_1[f]_p + \lambda_2[g]_p) = \lambda_1\nu([f]_p) + \lambda_2\nu([g]_p)$,
-        \item Leibniz rule: $\nu([f]_p[g]_p) = [f]_p\nu([g]_p) + \nu([f]_p)[g]_p$.
+        \item Linearity: $v(\lambda_1[f]_p + \lambda_2[g]_p) = \lambda_1v([f]_p) + \lambda_2v([g]_p)$,
+        \item Leibniz rule: $v([f]_p[g]_p) = [f]_pv([g]_p) + v([f]_p)[g]_p$.
     \end{enumerate}
-    The set of tangent vectors of a manifold $M$ at point $p$ forms a linear space, denoted by $T_p^{\mathrm{3th}}M$, and is called the \emph{tangent space} of $M$ at point $p$.
+    The set of tangent vectors of a manifold $M$ at point $p$ forms a linear space, denoted by $T_p^{\mathrm{3th}}M$, and is called the \textbf{tangent space} of $M$ at point $p$.
 }
 Due to the equivalence of the three distinct definitions of tangent space, we will adopt the notation $T_pM$ to refer to the tangent space of a manifold $M$ at a given point $p$, without explicitly specifying the definition being used.
+
+\subsection{Tagent Bundle}
+
+
+
+\dfn{Tangent Bundle}{
+    Let $(M, \tau, \Sigma)$ be a smooth manifold with atlas $\Sigma=\{(U_\alpha,\mathbf{x}_\alpha)\}_{\alpha\in A}$. The \textbf{tangent bundle} of $M$ is the disjoint union of the tangent spaces of $M$ at all points, denoted by $TM$:
+    \[
+        TM=\bigsqcup_{p\in M}T_pM=\{(p,v):p\in M,v\in T_pM\}.
+    \]
+    The projection map $\pi:TM\to M$ is defined as $\pi(p,v)=p$. For any $(U_\alpha,\mathbf{x}_\alpha)\in \Sigma$, we can define a mapping
+    \begin{align*}
+        \varphi_\alpha:\pi^{-1}\left(U_\alpha\right)&\longrightarrow \mathbb{R}^{2n}\\
+        (p,v)&\longmapsto \left(x^1(p),\cdots,x^n(p),v^1,\cdots,v^n\right)
+    \end{align*}
+    where $v=v^i\left.\frac{\partial}{\partial x^i}\right|_p$. In fact, $\varphi_\alpha$ is a bijection and its inverse can be explicitly written as
+    \[
+        \varphi_\alpha^{-1}(x^1,\cdots,x^n,v^1,\cdots,v^n)=\left(\mathbf{x}^{-1}_\alpha(x^1,\cdots,x^n),v^i\left.\frac{\partial}{\partial x^i}\right|_{(x^1,\cdots,x^n)}\right).
+    \]
+
+
+     The topology of $TM$ is defined as 
+    \[
+        \tau_{TM}=\left\{S\in 2^{TM}\midv\forall \alpha, \,\varphi_\alpha(S\cap \pi^{-1}(U_\alpha))\in\tau\right\}.
+    \]
+    We can check that $\varphi_\alpha$ is a homeomorphism between $\pi^{-1}\left(U_\alpha\right)$ and $\mathbb{R}^{2n}$ and therefore serve as charts for $TM$. Furthermore, $TM$ is a smooth manifold with the following atlas
+    \[
+        \Sigma_{TM}=\{(\pi^{-1}\left(U_\alpha\right),\varphi_\alpha)\}_{\alpha\in A}.
+    \]
+}
 
 \section{Tangent Mapping}
 After defining the tangent space, we can finally define a differential-like object for smooth mappings - the tangent mapping.
@@ -457,11 +508,11 @@ After defining the tangent space, we can finally define a differential-like obje
 
 Let $f:M_1\to M_2$ be a smooth map between smooth manifolds $(M_1,\tau_1,\Sigma_1)$ and $(M_2,\tau_2,\Sigma_2)$. Suppose the mapping is smooth at point $p$. Let $\gamma$ be a curve on $M_1$ passing through point $p$, with its corresponding tangent vector $v_{\gamma}=\left.\frac{d}{dt}(\cdot \circ \gamma)\right|_0$. By applying $f$ to $\gamma$, we can obatian another curve $f(\gamma)$ on $M_2$ passing through point $f(p)$, with its corresponding tangent vector $v_{f(\gamma)}=\left.\frac{d}{dt}(\cdot \circ f(\gamma))\right|_0$. 
 \lemm{}{
-    Choose coordinate charts $(U,\mathbf{x})\in\Sigma_1$ and $(V,\mathbf{y})\in\Sigma_2$ at points $p$ and $f(p)$, respectively. Let the corresponding coordinate functions be $\tilde{x}_j=p_j\circ\mathbf{x}^{-1}$ and $\tilde{y}_i=p_i\circ\mathbf{y}^{-1}$. Then we can express $v_{f(\gamma)}$ in terms of the natural basis $v_{\eta_1},v_{\eta_2},\cdots,v_{\eta_m}$ of $T_{f(p)}M_2$ as follows: 
+    Choose coordinate charts $(U,\mathbf{x})\in\Sigma_1$ and $(V,\mathbf{y})\in\Sigma_2$ at points $p$ and $f(p)$, respectively. Let the corresponding coordinate functions be $ x^j=p_j\circ\mathbf{x}^{-1}$ and $y^i=p_i\circ\mathbf{y}^{-1}$. Then we can express $v_{f(\gamma)}$ in terms of the natural basis $v_{\eta_1},v_{\eta_2},\cdots,v_{\eta_m}$ of $T_{f(p)}M_2$ as follows: 
     \[
-        v_{f(\gamma)}=\sum_{i=1}^m\sum_{j=1}^n\left.\frac{\partial(\tilde{y}_i \circ
+        v_{f(\gamma)}=\sum_{i=1}^m\sum_{j=1}^n\left.\frac{\partial(y^i \circ
         f\circ\mathbf{x})}{\partial
-        x_j}\right|_{\mathbf{x}^{-1}(p)}v_\gamma\left(\tilde{x}_j\right)v_{\eta_i}.
+        x^j}\right|_{\mathbf{x}^{-1}(p)}v_\gamma\left( x^j\right)v_{\eta_i}.
         \]
 }
 \pf{
@@ -469,18 +520,18 @@ Let $f:M_1\to M_2$ be a smooth map between smooth manifolds $(M_1,\tau_1,\Sigma_
         \begin{aligned}
             v_{f(\gamma)}&=\left.\frac{d(\cdot \circ
         f(\gamma))}{dt}\right|_{0}\\
-            &=\sum_{i=1}^m\left.\frac{d(\tilde{y}_i \circ
+            &=\sum_{i=1}^m\left.\frac{d(y^i \circ
         f(\gamma))}{dt}\right|_0v_{\eta_i}\\
-            &=\sum_{i=1}^m\left.\frac{d((\tilde{y}_i \circ
+            &=\sum_{i=1}^m\left.\frac{d((y^i \circ
         f\circ\mathbf{x})\circ(\mathbf{x}^{-1}\circ\gamma))}{dt}\right|_0v_{\eta_i}\\
-            &=\sum_{i=1}^m\left.\frac{d(\tilde{y}_i \circ
+            &=\sum_{i=1}^m\left.\frac{d(y^i \circ
         f\circ\mathbf{x})}{dx}\right|_{\mathbf{x}^{-1}(p)}\left.\frac{d(\mathbf{x}^{-1}\circ\gamma)}{dt}\right|_0v_{\eta_i}\\
-            &=\sum_{i=1}^m\sum_{j=1}^n\left.\frac{\partial(\tilde{y}_i \circ
+            &=\sum_{i=1}^m\sum_{j=1}^n\left.\frac{\partial(y^i \circ
         f\circ\mathbf{x})}{\partial
-        x_j}\right|_{\mathbf{x}^{-1}(p)}\left.\frac{d(\tilde{x}_j\circ\gamma)}{dt}\right|_0v_{\eta_i}\\
-        &=\sum_{i=1}^m\sum_{j=1}^n\left.\frac{\partial(\tilde{y}_i \circ
+        x^j}\right|_{\mathbf{x}^{-1}(p)}\left.\frac{d( x^j\circ\gamma)}{dt}\right|_0v_{\eta_i}\\
+        &=\sum_{i=1}^m\sum_{j=1}^n\left.\frac{\partial(y^i \circ
         f\circ\mathbf{x})}{\partial
-        x_j}\right|_{\mathbf{x}^{-1}(p)}v_\gamma\left(\tilde{x}_j\right)v_{\eta_i}.
+        x^j}\right|_{\mathbf{x}^{-1}(p)}v_\gamma\left( x^j\right)v_{\eta_i}.
         \end{aligned}
     \]
 }
@@ -492,7 +543,7 @@ Let $f:M_1\to M_2$ be a smooth map between smooth manifolds $(M_1,\tau_1,\Sigma_
 }
 
 \dfn{Tangent Mapping}{
-    The \emph{tangent mapping} of $f:M_1\to M_2$ at point $p$ is defined as the mapping
+    The \textbf{tangent mapping} of $f:M_1\to M_2$ at point $p$ is defined as the mapping
     \[
     \begin{aligned}
         (df)_p: T_pM_1&\longrightarrow T_{f(p)}M_2\\
@@ -513,24 +564,24 @@ Corollary 2.3.1 guarantees that the tangent mapping is well-defined. Lemma 2.3.1
     \[
         J_pf:=\begin{pmatrix}
             J_{i,j}
-         \end{pmatrix}_{m\times n},\qquad J_{i,j}=\left.\frac{\partial(\tilde{y}_i \circ f\circ\mathbf{x})}{\partial x_j}\right|_{\mathbf{x}^{-1}(p)}.
+         \end{pmatrix}_{m\times n},\qquad J_{i,j}=\left.\frac{\partial(y^i \circ f\circ\mathbf{x})}{\partial x^j}\right|_{\mathbf{x}^{-1}(p)}.
         \]
 }
 \pf{
     We choose coordinate charts $(U,\mathbf{x})\in\Sigma_1$ and $(V,\mathbf{y})\in\Sigma_2$ at $p$ and $f(p)$, respectively. The natural bases of $T_pM_1$ and $T_{f(p)}M_2$ are denoted by $v_{\varepsilon_1},v_{\varepsilon_2},\cdots,v_{\varepsilon_n}$ and $v_{\eta_1},v_{\eta_2},\cdots,v_{\eta_m}$, respectively. From Lemma 2.3.1, we have
     \[
         \begin{aligned}
-            v_{f(\varepsilon_k)}&=\sum_{i=1}^m\sum_{j=1}^n\left.\frac{\partial(\tilde{y}_i \circ f\circ\mathbf{x})}{\partial x_j}\right|_{\mathbf{x}^{-1}(p)}v_{\varepsilon_k}\left(\tilde{x}_j\right)v_{\eta_i}\\
-            &=\sum_{i=1}^m\sum_{j=1}^n\left.\frac{\partial(\tilde{y}_i \circ f\circ\mathbf{x})}{\partial x_j}\right|_{\mathbf{x}^{-1}(p)}\delta_{jk}v_{\eta_i}\\
-            &=\sum_{i=1}^m\left.\frac{\partial(\tilde{y}_i \circ f\circ\mathbf{x})}{\partial x_k}\right|_{\mathbf{x}^{-1}(p)}v_{\eta_i}\\
+            v_{f(\varepsilon_k)}&=\sum_{i=1}^m\sum_{j=1}^n\left.\frac{\partial(y^i \circ f\circ\mathbf{x})}{\partial x^j}\right|_{\mathbf{x}^{-1}(p)}v_{\varepsilon_k}\left( x^j\right)v_{\eta_i}\\
+            &=\sum_{i=1}^m\sum_{j=1}^n\left.\frac{\partial(y^i \circ f\circ\mathbf{x})}{\partial x^j}\right|_{\mathbf{x}^{-1}(p)}\delta_{jk}v_{\eta_i}\\
+            &=\sum_{i=1}^m\left.\frac{\partial(y^i \circ f\circ\mathbf{x})}{\partial x_k}\right|_{\mathbf{x}^{-1}(p)}v_{\eta_i}\\
             &=\begin{pmatrix}
             v_{\eta_1}&v_{\eta_2}&\cdots&v_{\eta_m}
             \end{pmatrix}
             \begin{pmatrix}
-            \left.\frac{\partial(\tilde{y}_1 \circ f\circ\mathbf{x})}{\partial x_k}\right|_{\mathbf{x}^{-1}(p)}\\
-            \left.\frac{\partial(\tilde{y}_2 \circ f\circ\mathbf{x})}{\partial x_k}\right|_{\mathbf{x}^{-1}(p)}\\
+            \left.\frac{\partial(y^1 \circ f\circ\mathbf{x})}{\partial x_k}\right|_{\mathbf{x}^{-1}(p)}\\
+            \left.\frac{\partial(y^2 \circ f\circ\mathbf{x})}{\partial x_k}\right|_{\mathbf{x}^{-1}(p)}\\
             \vdots\\
-            \left.\frac{\partial(\tilde{y}_m \circ f\circ\mathbf{x})}{\partial x_k}\right|_{\mathbf{x}^{-1}(p)}
+            \left.\frac{\partial(y^m \circ f\circ\mathbf{x})}{\partial x_k}\right|_{\mathbf{x}^{-1}(p)}
             \end{pmatrix}.
         \end{aligned}
     \]
@@ -554,10 +605,10 @@ Corollary 2.3.1 guarantees that the tangent mapping is well-defined. Lemma 2.3.1
             v_{\eta_1}&v_{\eta_2}&\cdots&v_{\eta_m}
             \end{pmatrix}
             \left.\begin{pmatrix}
-                \frac{\partial(\tilde{y}_1 \circ f\circ\mathbf{x})}{\partial x_1}&\frac{\partial(\tilde{y}_1 \circ f\circ\mathbf{x})}{\partial x_2}&\cdots&\frac{\partial(\tilde{y}_1 \circ f\circ\mathbf{x})}{\partial x_n}\\
-                \frac{\partial(\tilde{y}_2 \circ f\circ\mathbf{x})}{\partial x_1}&\frac{\partial(\tilde{y}_2 \circ f\circ\mathbf{x})}{\partial x_2}&\cdots&\frac{\partial(\tilde{y}_2 \circ f\circ\mathbf{x})}{\partial x_n}\\
+                \frac{\partial(y^1 \circ f\circ\mathbf{x})}{\partial x^1}&\frac{\partial(y^1 \circ f\circ\mathbf{x})}{\partial x^2}&\cdots&\frac{\partial(y^1 \circ f\circ\mathbf{x})}{\partial x^n}\\
+                \frac{\partial(y^2 \circ f\circ\mathbf{x})}{\partial x^1}&\frac{\partial(y^2 \circ f\circ\mathbf{x})}{\partial x^2}&\cdots&\frac{\partial(y^2 \circ f\circ\mathbf{x})}{\partial x^n}\\
                 \vdots&\vdots&&\vdots\\
-                \frac{\partial(\tilde{y}_m \circ f\circ\mathbf{x})}{\partial x_1}&\frac{\partial(\tilde{y}_m \circ f\circ\mathbf{x})}{\partial x_2}&\cdots&\frac{\partial(\tilde{y}_m \circ f\circ\mathbf{x})}{\partial x_n}
+                \frac{\partial(y^m \circ f\circ\mathbf{x})}{\partial x^1}&\frac{\partial(y^m \circ f\circ\mathbf{x})}{\partial x^2}&\cdots&\frac{\partial(y^m \circ f\circ\mathbf{x})}{\partial x^n}
             \end{pmatrix}\right|_{\mathbf{x}^{-1}(p)}\\
             &=
             \begin{pmatrix}
@@ -570,7 +621,7 @@ Corollary 2.3.1 guarantees that the tangent mapping is well-defined. Lemma 2.3.1
     \]
     where
     \[
-        J_{i,j}=\left.\frac{\partial(\tilde{y}_i \circ f\circ\mathbf{x})}{\partial x_j}\right|_{\mathbf{x}^{-1}(p)}
+        J_{i,j}=\left.\frac{\partial(y^i \circ f\circ\mathbf{x})}{\partial x^j}\right|_{\mathbf{x}^{-1}(p)}
         \]
 }
 
@@ -578,7 +629,7 @@ Corollary 2.3.1 guarantees that the tangent mapping is well-defined. Lemma 2.3.1
 \subsubsection{Definition}
 The most common way to define the cotangent space is to use the dual space of the tangent space.
 \dfn{Cotangent Space}{
-    The \emph{cotangent space} at point $p$ of a manifold is the dual space of the tangent space $T_pM$, denoted as $T_p^*M$. Vectors in the cotangent space are called \emph{cotangent vectors}.
+    The \textbf{cotangent space} at point $p$ of a manifold is the dual space of the tangent space $T_pM$, denoted as $T_p^*M$. Vectors in the cotangent space are called \textbf{cotangent vectors}.
 }
 If we wish to define the cotangent space directly without the assistance of tangent space, we can start with $C^\infty_p$ and considering a subalgebra of $C^\infty_p$:
 \[
@@ -586,7 +637,7 @@ If we wish to define the cotangent space directly without the assistance of tang
 \]
 $\mathfrak{m}_p$ can be considered as the set of functions that vanish at point $p$. We can imagine functions in $\mathfrak{m}_p$ have Taylor expansions as follows:
 \[
-    f(x)=\sum_{i=1}^n\frac{\partial f}{\partial x_i}(p)x_i+\sum_{i=1}^n\sum_{j=1}^n\frac{\partial^2 f}{\partial x_i\partial x_j}(p)x_ix_j+\cdots.
+    f(x)=\sum_{i=1}^n\frac{\partial f}{\partial x_i}(p)x_i+\sum_{i=1}^n\sum_{j=1}^n\frac{\partial^2 f}{\partial x_i\partial x^j}(p)x_ix^j+\cdots.
 \] 
 Then we define a subalgebra of $\mathfrak{m}_p$:
 \[
@@ -594,12 +645,12 @@ Then we define a subalgebra of $\mathfrak{m}_p$:
 \]
 We can imagine functions in $\mathfrak{m}_p^2$ have Taylor expansions as follows:
 \[
-    f(x)=\sum_{i=1}^n\sum_{j=1}^n\frac{\partial^2 f}{\partial x_i\partial x_j}(p)x_ix_j+\cdots.
+    f(x)=\sum_{i=1}^n\sum_{j=1}^n\frac{\partial^2 f}{\partial x_i\partial x^j}(p)x_ix^j+\cdots.
 \] 
 The cotangent space of the manifold at point $p$ can be defined as $T_p^*M=\mathfrak{m}_p/\mathfrak{m}^2_p$, which only keeps the first order terms in the Taylor expansion.
 
 \subsubsection{Dual Basis of the Natural Basis}
-Since $T_pM\subset \left(C^\infty_p\right)^*$, we have $T_p^*M\subset \left(C^\infty_p\right)^{**}$. Define the \emph{natural pairing} $\langle\cdot,\cdot\rangle$, which is a bilinear function:
+Since $T_pM\subset \left(C^\infty_p\right)^*$, we have $T_p^*M\subset \left(C^\infty_p\right)^{**}$. Define the \textbf{natural pairing} $\langle\cdot,\cdot\rangle$, which is a bilinear function:
 \[
     \begin{aligned}
     \langle\cdot,\cdot\rangle:T_pM\times C^\infty_p&\longrightarrow\mathbb{R}\\
@@ -624,38 +675,38 @@ then we have $h(C^\infty_p)=T_p^*M$.
 
 Notice that
 \[
-    \langle v_{\varepsilon_i},\tilde{x}_j\rangle=\left.\frac{d(\tilde{x}_j\circ\varepsilon_i)}{dt}\right|_0=\delta_{ij}\qquad(i=1,2\cdots,n,\;j=1,2\cdots,n).
+    \langle v_{\varepsilon_i}, x^j\rangle=\left.\frac{d( x^j\circ\varepsilon_i)}{dt}\right|_0=\delta_{ij}\qquad(i=1,2\cdots,n,\;j=1,2\cdots,n).
 \]
 
 Covector $\langle\cdot,\tilde{x}_1\rangle,\langle\cdot,\tilde{x}_2\rangle,\cdots,\langle\cdot,\tilde{x}_n\rangle$ is the dual basis of the natural basis.
 
 \subsubsection{Dual Basis and Tangent Mapping}
-The dual basis $\langle\cdot,\tilde{x}_i\rangle$ and tangent mapping are intimately related. 
-Next we choose a coordinate chart $(U,\mathbf{x})$ of $M$ and consider the tangent mapping of the coordinate function $\tilde{x}_i: M\to \mathbb{R}$:
+The dual basis $\langle\cdot,{x}^i\rangle$ and tangent mapping are intimately related. 
+Next we choose a coordinate chart $(U,\mathbf{x})$ of $M$ and consider the tangent mapping of the coordinate function ${x}^i: M\to \mathbb{R}$:
 \[
     \begin{aligned}
-        d\tilde{x}_i:T_pM&\longrightarrow T_{\tilde{x}_i(p)}\mathbb{R}\\
-        v&\longmapsto \left(f:\mathbb{R}\to \mathbb{R} \longmapsto\langle v,f\circ \tilde{x}_i\rangle\right).
+        d{x}^i:T_pM&\longrightarrow T_{{x}^i(p)}\mathbb{R}\\
+        v&\longmapsto \left(f:\mathbb{R}\to \mathbb{R} \longmapsto\langle v,f\circ {x}^i\rangle\right).
     \end{aligned}
 \]
-If we endow $\mathbb{R}$ with the standard coordinate chart $(\mathbb{R},\mathrm{id})$, then the matrix representation of $d\tilde{x}_i$ under charts $(U,\mathbf{x})$ and $(\mathbb{R},\mathrm{id})$ is
+If we endow $\mathbb{R}$ with the standard coordinate chart $(\mathbb{R},\mathrm{id})$, then the matrix representation of $d{x}^i$ under charts $(U,\mathbf{x})$ and $(\mathbb{R},\mathrm{id})$ is
 \[
     \begin{aligned}
-    (d\tilde{x}_i)_p
+    (d{x}^i)_p
     \begin{pmatrix}
     v_{\varepsilon_1}&v_{\varepsilon_2}&\cdots&v_{\varepsilon_n}
     \end{pmatrix}
     &=
     \begin{pmatrix}
-        \left.\frac{\partial}{\partial y}\right|_{\tilde{x}_i(p)}
+        \left.\frac{\partial}{\partial y}\right|_{{x}^i(p)}
     \end{pmatrix}
     \left.\begin{pmatrix}
-        \frac{\partial(\tilde{x}_i\circ\mathbf{x})}{\partial
-x_1}&\frac{\partial(\tilde{x}_i\circ\mathbf{x})}{\partial
-x_2}&\cdots&\frac{\partial(\tilde{x}_i\circ\mathbf{x})}{\partial x_n}
+        \frac{\partial({x}^i\circ\mathbf{x})}{\partial
+x_1}&\frac{\partial({x}^i\circ\mathbf{x})}{\partial
+x_2}&\cdots&\frac{\partial({x}^i\circ\mathbf{x})}{\partial x_n}
     \end{pmatrix}\right|_{\mathbf{x}^{-1}(p)}\\
     &=\begin{pmatrix}
-        \left.\frac{\partial}{\partial y}\right|_{\tilde{x}_i(p)}
+        \left.\frac{\partial}{\partial y}\right|_{{x}^i(p)}
     \end{pmatrix}
     \begin{pmatrix}
         \delta_{i1} &\delta_{i2}&\cdots&\delta_{in}

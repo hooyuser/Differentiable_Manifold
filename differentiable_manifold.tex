@@ -1,6 +1,7 @@
 \documentclass{report}
 
 \input{preamble}
+\usepackage{mathcommand}
 
 \tikzcdset{arrow style=tikz,
     squigarrow/.style={
@@ -15,6 +16,8 @@
     }
 
 \newcommand{\midv}{\,\middle\vert\,}
+% define macro
+\renewmathcommand{\d}{{\mathrm{d}}}
 
 \begin{document}
 \begin{center}
@@ -155,8 +158,58 @@ A maximal compatible atlas $\Sigma_{\max}$ on the topological manifold $(M, \tau
 
 By replacing ``differentiable" with ``$C^r$-differentiable" or ``smooth", we can similarly define $C^r$-compatible atlases and smooth compatible atlases, $C^r$-differential structures and smooth structures, and $C^r$-differentiable manifolds and smooth manifolds. In the following, we will mainly discuss smooth manifolds, but the related concepts can be extended to differential manifolds and $C^r$-differential manifolds in a similar way.
 
+\ex{Finite-Dimensional Vector Spaces}{
+    Let $V$ be a finite-dimensional vector space over $\mathbb{R}$ or $\mathbb{C}$. Any norm on $V$ induces the same topology on $V$. So we can just select any inner product on $V$ and take the induced topology $\tau$ as the topology of $V$.
+    
+    Let $\mathcal{B}_\alpha=\{v_1,\cdots,v_n\}$ be a basis of $V$. We can define a coordinate chart on $V$ as follows
+    \[
+    \begin{aligned}
+    \mathbf{x_{\alpha}}: V&\longrightarrow \mathbb{R}^n\\
+    \mathbf{x_{\alpha}}(x^iv_i)&=(x^1,\cdots,x^n),
+    \end{aligned}
+    \]
+    Given another basis $\mathcal{B}_\beta=\{w_1,\cdots,w_n\}$ of $V$, we can define another coordinate chart on $V$ as follows
+    \[
+    \begin{aligned}
+    \mathbf{x_{\beta}}: V&\longrightarrow \mathbb{R}^n\\
+    \mathbf{x_{\beta}}(x^iw_i)&=(x^1,\cdots,x^n),
+    \end{aligned}
+    \]
+    and check that $\mathbf{x}^{-1}_\beta\circ \mathbf{x}_\alpha$ is differentiable. In this way, we can define a compatible atlas on $V$ by taking all possible bases of $V$
+    \[
+    \Sigma=\{(V,\mathbf{x}_\alpha)\mid \mathcal{B}_\alpha \text{ is a basis of $V$}\}.    
+    \]
+    Therefore, $(V,\tau,\Sigma_{\max})$ is a differentiable manifold. And the corresponding smooth structure is called the \textbf{standard smooth structure} on $V$.
+}
 
-\chapter{Smooth Mapping}
+\ex{Spheres as Smooth Manifolds}{
+    Let $S^n=\{(x_1,\cdots,x_{n+1})\in\mathbb{R}^{n+1}\mid\|(x_1,\cdots,x_{n+1})\|=1\}$ be the $n$-dimensional sphere. We can define two coordinate charts on $S^n$ as follows:
+    \[
+    \begin{aligned}
+    \mathbf{x}_1: S^n\setminus\{p_N\}&\longrightarrow \mathbb{R}^n\\
+    \mathbf{x}_1(x_1,\cdots,x_{n+1})&=\left(\frac{x_1}{1-x_{n+1}},\frac{x_2}{1-x_{n+1}},\cdots,\frac{x_n}{1-x_{n+1}}\right),
+    \end{aligned}
+    \]
+    and
+    \[
+    \begin{aligned}
+    \mathbf{x}_2: S^n\setminus\{p_S\}&\longrightarrow \mathbb{R}^n\\
+    \mathbf{x}_2(x_1,\cdots,x_{n+1})&=\left(\frac{x_1}{1+x_{n+1}},\frac{x_2}{1+x_{n+1}},\cdots,\frac{x_n}{1+x_{n+1}}\right),
+    \end{aligned}
+    \]
+    where $p_N=(0,0,\cdots,0,1)$ and $p_S=(0,0,\cdots,0,-1)$. It is easy to verify that $\mathbf{x}_1$ and $\mathbf{x}_2$ are homeomorphisms. Therefore, $(S^n,\tau,\Sigma)$ is a topological manifold, where $\tau$ is the topology induced by the Euclidean topology on $\mathbb{R}^{n+1}$ and $\Sigma=\{(\mathbb{R}^n,\mathbf{x}_1),(\mathbb{R}^n,\mathbf{x}_2)\}$ is an atlas of $S^n$. We can verify that $\Sigma$ is a compatible atlas. Therefore, $(S^n,\tau,\Sigma_{\max})$ is a differentiable manifold.
+}
+
+\dfn{Open Submanifolds}{
+    Let $(M,\tau,\Sigma)$ be a smooth manifold, and $N$ be a open subset of $M$. If we endow $N$ with the subspace topology $\left.\tau\right|_N=\{N\cap U\mid U\in\tau\}$ and an atlas 
+    $$
+    \Sigma_N=\{(U\cap N,\left.\mathbf{x}\right|_{U\cap N})\mid (U,\mathbf{x})\in\Sigma\}_{\max},
+    $$ 
+    then $(N,\left.\tau\right|_N,\Sigma_N)$ is a smooth manifold. We call $N$ an \textbf{open submanifold} of $M$.
+}
+
+
+\chapter{Smooth Map}
 \section{Definition}
 One of the motivations for defining a smooth (differentiable) manifold is to define smooth (differentiable) functions. Let $(M,\tau,\Sigma)$ be a smooth manifold, and a function $f:M\to \mathbb{R}^n$ is smooth at point $p$, if and only if there exists a coordinate chart $(U_\alpha,\mathbf{x}_\alpha)\in\Sigma$ covering point $p$, such that the composite function
 $$
@@ -164,9 +217,9 @@ f\circ \mathbf{x}^{-1}_\alpha:\mathbf{x}^{-1}_\alpha(U_\alpha)\longrightarrow \m
 $$
 is smooth at point $\mathbf{x}_\alpha(p)$.
 
-Furthermore, we can also define smooth mappings between smooth manifolds $(M_1,\tau_1,\Sigma_1), (M_2,\tau_2,\Sigma_2)$. To define the smoothness of mapping $f:M_1\to M_2$ at point $p$, in addition to pulling back the domain from a subset of $M_1$ to $U_\alpha\subset\mathbb{R}^n$, we also need to push forward the codomain from $M_2$ to $V_\beta\subset\mathbb{R}^m$.
-\dfn{Smooth Mapping}{
-    The mapping $f:M_1\to M_2$ is a smooth mapping at point $p$, if there exists a coordinate chart $(U_\alpha,\mathbf{x}_\alpha)\in\Sigma_1$ 
+Furthermore, we can also define smooth maps between smooth manifolds $(M_1,\tau_1,\Sigma_1), (M_2,\tau_2,\Sigma_2)$. To define the smoothness of mapping $f:M_1\to M_2$ at point $p$, in addition to pulling back the domain from a subset of $M_1$ to $U_\alpha\subset\mathbb{R}^n$, we also need to push forward the codomain from $M_2$ to $V_\beta\subset\mathbb{R}^m$.
+\dfn{Smooth Map}{
+    The mapping $f:M_1\to M_2$ is a \textbf{smooth map} at point $p$, if there exists a coordinate chart $(U_\alpha,\mathbf{x}_\alpha)\in\Sigma_1$ 
     covering point $p$ and a coordinate chart $(V_\beta,\mathbf{y}_\beta)\in\Sigma_2$ covering point $f(p)$, such that the composite function
     \[
     \mathbf{y}_\beta \circ f\circ \mathbf{x}_\alpha^{-1}:\mathbf{x}_\alpha^{-1}(U_\alpha)\longrightarrow V_\beta
@@ -184,13 +237,13 @@ Moreover, note that
 \]
 where $\tilde{\mathbf{x}}_\alpha$ and $\tilde{\mathbf{y}}_\beta$ are two other coordinate charts covering point $p$ and $f(p)$ respectively. It is clear that the smoothness of $f:M_1\to M_2$ at point $p$ does not depend on the choice of coordinate charts.
 
-If the mapping $f:M_1\to M_2$ is smooth in an open set $U\subset M_1$, then we say that $f$ is smooth on $U$. If $f$ is smooth at every point in $M_1$, then we say that $f$ is a smooth mapping.
+If the mapping $f:M_1\to M_2$ is smooth in an open set $U\subset M_1$, then we say that $f$ is smooth on $U$. If $f$ is smooth at every point in $M_1$, then we say that $f$ is a smooth map.
 
 \dfn{Diffeomorphism}{
     Given two smooth (differentiable) manifolds $(M_1,\tau_1,\Sigma_1), (M_2,\tau_2,\Sigma_2)$, a smooth (differentiable) mapping $f:M_1\to M_2$ is called a \textbf{diffeomorphism} if $f$ is bijective and $f^{-1}$ is also smooth (differentiable).
 }
 
-It is a worthwhile problem to classify the smooth structures that may exist on a topological manifold through diffeomorphisms. Some literature, when defining smooth structures, directly mods out the diffeomorphism equivalence relations on top of our definition of smooth structures. To avoid confusion,we refer to the equivalence classes of smooth structures modding out diffeomorphisms as smooth types.
+It is a worthwhile problem to classify the smooth structures that may exist on a topological manifold through diffeomorphisms. Some literature, when defining smooth structures, directly mods out the diffeomorphism equivalence relations on top of our definition of smooth structures. To avoid confusion, we refer to the equivalence classes of smooth structures modding out diffeomorphisms as smooth types, which is defined as follows.
 
 \dfn{Smooth Type}{
     Given a topological manifold $(M,\tau)$, the equivalence class of smooth structures modding out diffeomorphism equivalence relations is called the \textbf{smooth type} of $M$. That is, if $(M_1,\tau_1,\Sigma_1)$ is diffeomorphic to $(M_2,\tau_2,\Sigma_2)$, then $(M_1,\tau_1,\Sigma_1)$ and $(M_2,\tau_2,\Sigma_2)$ have the same smooth type.
@@ -200,54 +253,54 @@ Hassler Whitney's results show that for any $r\ge 1$, every $C^r$ differential s
 
 For topological manifolds of dimension $\le 3$, there is only one smooth type. For compact topological manifolds with dimension $\ge 3$, the number of smooth types is finite. When $n\ne 4$, $\mathbb{R}^n$ only has one smooth type. However, $\mathbb{R}^4$ has uncountably many smooth types.
 
-The category of smooth manifolds is denoted as $\mathsf{Man}^\infty$, whose objects are smooth manifolds and morphisms are smooth mappings.
+The category of smooth manifolds is denoted as $\mathsf{Diff}^\infty$, whose objects are smooth manifolds and morphisms are smooth maps.
 
 \section{Tangent Vector and Tangent Space}
 
-Now we have defined smooth mappings between smooth manifolds, we have yet to explain how to differentiate such smooth mappings - which is one of our motivations for defining smooth (differentiable) manifolds. If we follow the idea of defining smooth mappings, using coordinate charts to convert smooth mappings into smooth functions from $U_\alpha\in\mathbb{R}^n$ to $\mathbb{R}^m$, we will find that different coordinate charts yield different smooth functions and, naturally, different differentials. A simplest example is a smooth real-valued function $f:\mathbb{R}\to\mathbb{R}$. When selecting different coordinate charts $(U_\alpha,\mathbf{x}_\alpha),(V_\beta,\mathbf{y}_\beta)$ that contain a point $p$, the differentials as linear transformations between $\mathbb{R}$
+Now we have defined smooth maps between smooth manifolds, we have yet to explain how to differentiate such smooth maps - which is one of our motivations for defining smooth (differentiable) manifolds. If we follow the idea of defining smooth maps, using coordinate charts to convert smooth maps into smooth functions from $U_\alpha\in\mathbb{R}^n$ to $\mathbb{R}^m$, we will find that different coordinate charts yield different smooth functions and, naturally, different differentials. A simplest example is a smooth real-valued function $f:\mathbb{R}\to\mathbb{R}$. When selecting different coordinate charts $(U_\alpha,\mathbf{x}_\alpha),(V_\beta,\mathbf{y}_\beta)$ that contain a point $p$, the differentials as linear transformations on $\mathbb{R}$
 $$
-d(\mathbf{y}_\beta \circ f\circ \mathbf{x}_\alpha^{-1})|_p:\mathbb{R}\longrightarrow\mathbb{R}
+\d(\mathbf{y}_\beta \circ f\circ \mathbf{x}_\alpha^{-1})|_p:\mathbb{R}\longrightarrow\mathbb{R}
 $$
-may differ in general. However, we know these differentials cannot be entirely unrelated, as any differences between them should only arise from the differential of the transition function. A similar situation also occurs in linear algebra. With different bases chosen, a linear transformation can induce different transformations from the coordinate space $\mathbb{R}^n$ to the coordinate space $\mathbb{R}^m$. The only discrepancy between these transformations arises from the change of basis. Therefore, we can imagine that the true ``differential" of a smooth mapping might also be a linear mapping between general linear spaces. Only by choosing specific coordinate charts do we obtain the linear mapping between Euclidean spaces $\mathbb{R}^n$ and $\mathbb{R}^m$. In fact, the ``general linear spaces" here are the tangent spaces we are about to define.
+may differ in general. However, we know these differentials cannot be entirely unrelated, as any differences between them should only arise from the differential of the transition function. A similar situation also occurs in linear algebra. With different bases chosen, a linear transformation can induce different transformations from the coordinate space $\mathbb{R}^n$ to the coordinate space $\mathbb{R}^m$. The only discrepancy between these transformations arises from the change of basis. Therefore, we can imagine that the true ``differential" of a smooth map might also be a linear mapping between general linear spaces. Only by choosing specific coordinate charts do we obtain the linear mapping between Euclidean spaces $\mathbb{R}^n$ and $\mathbb{R}^m$. In fact, the ``general linear spaces" here are the tangent spaces we are about to define.
 
 \subsection{First Definition: Equivalence Class of Curves}
 Consider an intuitive example, a smooth surface in $\mathbb{R}^3$ of dimension $2$. At any point $p$ on the surface, we can construct a tangent plane, and the vector with its starting point at $p$ and its endpoint in the tangent plane is called a tangent vector. Therefore, the tangent plane of the surface at point $p$ can be regarded as a linear space $\mathbb{R}^2$ composed of tangent vectors.
 
 For any tangent vector, it can be viewed as the tangent vector of a smooth curve $\gamma$ passing through point $p$ on the surface at $p$. If the parameter equation of curve $\gamma$ is $\gamma(t)=(x(t),y(t),z(t))$ and satisfies $\gamma(t_0)=p$, then its derivative at point $p$
 \[
-    \gamma'(t_0)=\left(\left.\frac{dx}{dt}\right|_{t_0},\left.\frac{dy}{dt}\right|_{t_0}, \left.\frac{dz}{dt}\right|_{t_0}\right)
+    \gamma'(t_0)=\left(\left.\frac{\d x}{\d t}\right|_{t_0},\left.\frac{\d y}{\d t}\right|_{t_0}, \left.\frac{\d z}{\d t}\right|_{t_0}\right)
 \]
 is a tangent vector at $p$. Suppose there is another curve $\theta$ passing through point $p$ on the surface. If $\theta$ and $\gamma$ have the same derivative at point $p$, i.e., $\theta'(t_0)=\gamma'(t_0)$, then these two curves actually correspond to the same tangent vector. Therefore, a tangent vector can also be viewed as an equivalence class of curves, and all curves in the class have the same derivative at point $p$. If we can extend the concepts of curves and curve derivatives to general smooth manifolds, we can define tangent vectors and tangent spaces for smooth manifolds in the same way.
 
-Given an $n$-dimensional smooth manifold $(M,\tau,\Sigma)$ and a point $p$ on it, if a smooth mapping $\gamma:(-\epsilon,\epsilon)\to M$ satisfies $\gamma(0)=p$, then $\gamma$ is called a smooth curve on $M$ passing through point $p$. If we want to ``differentiate" the curve, we must first parameterize it, i.e., select a coordinate chart $(U,\mathbf{x})\in\Sigma$ at point $p$ and differentiate the composite function
+Given an $n$-dimensional smooth manifold $(M,\tau,\Sigma)$ and a point $p$ on it, if a smooth map $\gamma:(-\epsilon,\epsilon)\to M$ satisfies $\gamma(0)=p$, then $\gamma$ is called a smooth curve on $M$ passing through point $p$. If we want to ``differentiate" the curve, we must first parameterize it, i.e., select a coordinate chart $(U,\mathbf{x})\in\Sigma$ at point $p$ and differentiate the composite function
 \[
     \mathbf{x} \circ \gamma:(-\epsilon,\epsilon)\longrightarrow\mathbb{R}^n.
 \]
-The result of differentiation is $\left.\frac{d(\mathbf{x} \circ \gamma)}{dt}\right|_0$. 
+The result of differentiation is $\left.\frac{\d(\mathbf{x} \circ \gamma)}{\d t}\right|_0$. 
 \prop{}{
     If curves $\theta$ and $\gamma$ have the same derivative at point $p$ in a certain coordinate chart $(U_1,\mathbf{x}_1)$, namely
     \[
-        \left.\frac{d(\mathbf{x}_1 \circ \theta)}{dt}\right|_0=\left.\frac{d(\mathbf{x}_1 \circ \gamma)}{dt}\right|_0,
+        \left.\frac{\d (\mathbf{x}_1 \circ \theta)}{\d t}\right|_0=\left.\frac{\d(\mathbf{x}_1 \circ \gamma)}{\d t}\right|_0,
     \]
     then in any coordinate chart $(U_2,\mathbf{x}_2)$ at point $p$, the curves $\theta$ and $\gamma$ also have the same derivative. 
 }
 \pf{
     According to the chain rule, we have
     \[
-        \left.\frac{d(\mathbf{x}_2 \circ \theta)}{dt}\right|_0=\left.\frac{d((\mathbf{x}_2 \circ \mathbf{x}_1^{-1})\circ(\mathbf{x}_1 \circ \theta))}{dt}\right|_0=\left.\frac{d(\mathbf{x}_2 \circ \mathbf{x}_1)}{dx}\right|_p\left.\frac{d(\mathbf{x}_1 \circ \theta)}{dt}\right|_0.
+        \left.\frac{\d(\mathbf{x}_2 \circ \theta)}{\d t}\right|_0=\left.\frac{\d((\mathbf{x}_2 \circ \mathbf{x}_1^{-1})\circ(\mathbf{x}_1 \circ \theta))}{\d t}\right|_0=\left.\frac{\d(\mathbf{x}_2 \circ \mathbf{x}_1^{-1})}{dx}\right|_p\left.\frac{\d(\mathbf{x}_1 \circ \theta)}{\d t}\right|_0.
     \]
     Similarly, we have
     \[
-        \left.\frac{d(\mathbf{x}_2 \circ \gamma)}{dt}\right|_0=\left.\frac{d(\mathbf{x}_2 \circ \mathbf{x}^{-1}_1)}{dx}\right|_p\left.\frac{d(\mathbf{x}_1 \circ \gamma)}{dt}\right|_0.
+        \left.\frac{\d(\mathbf{x}_2 \circ \gamma)}{\d t}\right|_0=\left.\frac{\d(\mathbf{x}_2 \circ \mathbf{x}^{-1}_1)}{dx}\right|_p\left.\frac{\d(\mathbf{x}_1 \circ \gamma)}{\d t}\right|_0.
     \]
     Thus we show that
     \[
-        \left.\frac{d(\mathbf{x}_1 \circ \theta)}{dt}\right|_0=\left.\frac{d(\mathbf{x}_1 \circ \gamma)}{dt}\right|_0\implies \left.\frac{d(\mathbf{x}_2 \circ \theta)}{dt}\right|_0=\left.\frac{d(\mathbf{x}_2 \circ \gamma)}{dt}\right|_0.
+        \left.\frac{\d(\mathbf{x}_1 \circ \theta)}{\d t}\right|_0=\left.\frac{\d(\mathbf{x}_1 \circ \gamma)}{\d t}\right|_0\implies \left.\frac{\d(\mathbf{x}_2 \circ \theta)}{\d t}\right|_0=\left.\frac{\d(\mathbf{x}_2 \circ \gamma)}{\d t}\right|_0.
     \]
 }
 We can define that curves $\theta$ and $\gamma$ are equivalent at point $p$ if and only if there exists a coordinate chart $(U,\mathbf{x})$ at point $p$ such that
 \[
-    \left.\frac{d(\mathbf{x} \circ \theta)}{dt}\right|_0=\left.\frac{d(\mathbf{x} \circ \gamma)}{dt}\right|_0.
+    \left.\frac{\d(\mathbf{x} \circ \theta)}{\d t}\right|_0=\left.\frac{\d(\mathbf{x} \circ \gamma)}{\d t}\right|_0.
 \]
 We denote the equivalence class of curve $\gamma$ as $[\gamma]_*$. The set of all smooth curves passing through point $p$ on $M$ under this equivalence relation is the quotient set of the tangent space of $M$ at point $p$, denoted as
 
@@ -265,47 +318,47 @@ While it is possible to define a novel addition operation for equivalence classe
 
 From the definition of tangent vectors, we see there is a mapping from $T_p^{1\mathrm{st}}M$ to $\mathbb{R}^n$
 \[
-    \mathrm{Drv}_{\mathbf{x}}:[\gamma]_*\longmapsto\left.\frac{d(\mathbf{x} \circ \gamma)}{dt}\right|_0.
+    \mathrm{Drv}_{\mathbf{x}}:[\gamma]_*\longmapsto\left.\frac{\d(\mathbf{x} \circ \gamma)}{\d t}\right|_0.
 \]
 You can further prove that $\mathrm{Drv}_{\mathbf{x}}$ is actually a bijection. This may suggest defining tangent space as
 \[
-    \mathrm{Drv}_{\mathbf{x}}\left(T_p^{1\mathrm{st}}M\right)=\left\{\left.\frac{d(\mathbf{x} \circ \gamma)}{dt}\right|_0: [\gamma]_*\in T_p^{1\mathrm{st}}M \right\}
+    \mathrm{Drv}_{\mathbf{x}}\left(T_p^{1\mathrm{st}}M\right)=\left\{\left.\frac{\d(\mathbf{x} \circ \gamma)}{\d t}\right|_0: [\gamma]_*\in T_p^{1\mathrm{st}}M \right\}
 \]
-which is naturally equipped with a linear space structure. However, this definition is not satisfactory because it is not coordinate-independent. We have already seen earlier that the value of $\left.\frac{d(\mathbf{x} \circ \gamma)}{dt}\right|_0$ depends on the choice of coordinate chart $(U,\mathbf{x})$. As a consequence,  there is no canonical way to assign an $n$-dimensional vector to each equivalence class of curves. 
+which is naturally equipped with a linear space structure. However, this definition is not satisfactory because it is not coordinate-independent. We have already seen earlier that the value of $\left.\frac{\d(\mathbf{x} \circ \gamma)}{\d t}\right|_0$ depends on the choice of coordinate chart $(U,\mathbf{x})$. As a consequence,  there is no canonical way to assign an $n$-dimensional vector to each equivalence class of curves. 
 
 In order to give a coordinate-independent definition of tangent vectors, we consider a mapping like
 \[
-    \mathrm{Drv}:[\gamma]_*\longmapsto\left.\frac{d(\cdot \circ \gamma)}{dt}\right|_0.
+    \mathrm{Drv}:[\gamma]_*\longmapsto\left.\frac{\d(\cdot \circ \gamma)}{\d t}\right|_0.
 \]
-Since $\mathbf{x}$ is a smooth mapping from $M$ to $\mathbb{R}^n$, one might consider letting $\left. \frac{d(\cdot \circ \gamma)}{dt} \right|_0$ act on any smooth mapping $\mathbf{f}:M\to\mathbb{R}^n$. However, it is more economical to let it act on smooth functions $\mathbf{f}:M\to\mathbb{R}$, as the action on a vector-valued function $\mathbf{f}:M\to\mathbb{R}^n$ can be decomposed into actions on its component functions $f_i:M\to\mathbb{R}$.
+Since $\mathbf{x}$ is a smooth map from $M$ to $\mathbb{R}^n$, one might consider letting $\left. \frac{\d(\cdot \circ \gamma)}{\d t} \right|_0$ act on any smooth map $\mathbf{f}:M\to\mathbb{R}^n$. However, it is more economical to let it act on smooth functions $\mathbf{f}:M\to\mathbb{R}$, as the action on a vector-valued function $\mathbf{f}:M\to\mathbb{R}^n$ can be decomposed into actions on its component functions $f_i:M\to\mathbb{R}$.
 For a vector-valued function $\mathbf{f} : M \to \mathbb{R}^n$, the $i$-th component function of $\mathbf{f}$ is given by $f_i = p_i \circ \mathbf{f}$. Since
 \[
-    \left(p_i\circ\left.\frac{d(\mathbf{f} \circ \gamma)}{dt}\right)\right|_0=\left.\frac{d(p_i\circ\mathbf{f} \circ \gamma)}{dt}\right|_0=\left.\frac{d(f_i \circ \gamma)}{dt}\right|_0,
+    \left(p_i\circ\left.\frac{\d(\mathbf{f} \circ \gamma)}{\d t}\right)\right|_0=\left.\frac{\d(p_i\circ\mathbf{f} \circ \gamma)}{\d t}\right|_0=\left.\frac{\d(f_i \circ \gamma)}{\d t}\right|_0,
 \]
 we have
 \[
-    \left.\frac{d(\mathbf{f} \circ \gamma)}{dt}\right|_0=\left(\left.\frac{d(f_1 \circ \gamma)}{dt}\right|_0,\left.\frac{d(f_2 \circ \gamma)}{dt}\right|_0,\cdots,\left.\frac{d(f_n \circ \gamma)}{dt}\right|_0\right).
+    \left.\frac{\d(\mathbf{f} \circ \gamma)}{\d t}\right|_0=\left(\left.\frac{\d(f_1 \circ \gamma)}{\d t}\right|_0,\left.\frac{\d(f_2 \circ \gamma)}{\d t}\right|_0,\cdots,\left.\frac{\d(f_n \circ \gamma)}{\d t}\right|_0\right).
 \]
 \subsubsection{Curves induce functionals}
 Let $\mathcal{C}^{\infty}_p(M)$ denote the linear space of functions on $M$ that are smooth at the point $p$. Now we can define the functional induced by $\gamma$ as 
 \[
 \begin{aligned}
-    v_\gamma:=\left.\frac{d(\cdot \circ
-\gamma)}{dt}\right|_0:\mathcal{C}^{\infty}_p(M)&\longrightarrow \mathbb{R}\\
-    f&\longmapsto \left.\frac{d(f \circ \gamma)}{dt}\right|_0.
+    v_\gamma:=\left.\frac{\d(\cdot \circ
+\gamma)}{\d t}\right|_0:\mathcal{C}^{\infty}_p(M)&\longrightarrow \mathbb{R}\\
+    f&\longmapsto \left.\frac{\d(f \circ \gamma)}{\d t}\right|_0.
 \end{aligned}
 \]
 We can check that $v_\gamma$ is a linear functional. For any $f_1,f_2\in\mathcal{C}^{\infty}_p(M)$ and $k\in\mathbb{R}$, we have
 $$
-\left.\frac{d((f_1+f_2) \circ \gamma)}{dt}\right|_0=\left.\frac{d(f_1\circ \gamma+f_2\circ \gamma )}{dt}\right|_0=\left.\frac{d(f_1\circ \gamma)}{dt}\right|_0+\left.\frac{d(f_2\circ \gamma)}{dt}\right|_0,
+\left.\frac{\d((f_1+f_2) \circ \gamma)}{\d t}\right|_0=\left.\frac{\d(f_1\circ \gamma+f_2\circ \gamma )}{\d t}\right|_0=\left.\frac{\d(f_1\circ \gamma)}{\d t}\right|_0+\left.\frac{\d(f_2\circ \gamma)}{\d t}\right|_0,
 $$
 
 $$
-\left.\frac{d((kf) \circ \gamma)}{dt}\right|_0=\left.\frac{d(k(f \circ \gamma))}{dt}\right|_0=k\left.\frac{d(f \circ \gamma)}{dt}\right|_0.
+\left.\frac{\d((kf) \circ \gamma)}{\d t}\right|_0=\left.\frac{\d(k(f \circ \gamma))}{\d t}\right|_0=k\left.\frac{\d(f \circ \gamma)}{\d t}\right|_0.
 $$
 Let $\mathcal{C}^{\infty}_p(M)^*$ denote the dual space of $\mathcal{C}^{\infty}_p(M)$, which is the linear space of all linear functionals on $\mathcal{C}^{\infty}_p(M)$. We can now provide a second coordinate-independent definition of tangent space as follows:
 $$
-T^{2\mathrm{nd}}_pM=\left\{\left.\frac{d(\cdot \circ \gamma)}{dt}\right|_0\in\mathcal{C}^{\infty}_p(M)^*:\gamma\text{ is a smooth curve on $M$ passing through $p$ }\right\}.
+T^{2\mathrm{nd}}_pM=\left\{\left.\frac{\d(\cdot \circ \gamma)}{\d t}\right|_0\in\mathcal{C}^{\infty}_p(M)^*:\gamma\text{ is a smooth curve on $M$ passing through $p$ }\right\}.
 $$
 \subsubsection{Natural basis}
 Next we will introduce natural basis and use it to show that $T^{2\mathrm{nd}}_pM$ is indeed a linear subspace of $\mathcal{C}^{\infty}_p(M)^*$ of dimension $n$.
@@ -321,7 +374,7 @@ Next we will introduce natural basis and use it to show that $T^{2\mathrm{nd}}_p
 \pf{
 We only need to use the pullback of $f$ and pushforward of $\gamma$ with respect to the coordinate chart $(U,\mathbf{x})$, and then apply the chain rule:
 \[
-    v_\gamma(f)=\left.\frac{d(f \circ\gamma)}{dt}\right|_0=\left.\frac{d((f \circ \mathbf{x}^{-1})\circ (\mathbf{x}\circ \gamma))}{dt}\right|_0=\sum_{i=1}^n\left.\frac{\partial (f \circ \mathbf{x}^{-1})}{\partial x^i}\right|_{p}\left.\frac{d({x}^i \circ \gamma)}{dt}\right|_0.
+    v_\gamma(f)=\left.\frac{\d(f \circ\gamma)}{\d t}\right|_0=\left.\frac{\d((f \circ \mathbf{x}^{-1})\circ (\mathbf{x}\circ \gamma))}{\d t}\right|_0=\sum_{i=1}^n\left.\frac{\partial (f \circ \mathbf{x}^{-1})}{\partial x^i}\right|_{p}\left.\frac{\d({x}^i \circ \gamma)}{\d t}\right|_0.
 \]
 }
 \noindent Define the \textbf{$x_i$-curve} for the coordinate chart $(U,\mathbf{x})$ as
@@ -334,7 +387,7 @@ We only need to use the pullback of $f$ and pushforward of $\gamma$ with respect
 $v_{\varepsilon_i}$ is called the \textbf{$i$-th coordinate tangent vector} of the coordinate chart $(U,\mathbf{x})$.
 We can check that
 \[
-    v_{\varepsilon_i}\left( x^j\right)=\left.\frac{d( x^j\circ\varepsilon_i)}{dt}\right|_0=\delta_{ij}=\begin{cases}
+    v_{\varepsilon_i}\left( x^j\right)=\left.\frac{\d( x^j\circ\varepsilon_i)}{\d t}\right|_0=\delta_{ij}=\begin{cases}
         0,& i\ne j,\\
         1,& i=j.
         \end{cases}
@@ -345,9 +398,9 @@ By lemma 2.2.1, we have
 \]
 which implies 
 \[
-    v_{\varepsilon_i}=\left.\frac{d(\cdot \circ\varepsilon_i)}{dt}\right|_0=\left.\frac{\partial (\cdot \circ \mathbf{x})}{\partial x^i}\right|_{p}.
+    v_{\varepsilon_i}=\left.\frac{\d(\cdot \circ\varepsilon_i)}{\d t}\right|_0=\left.\frac{\partial (\cdot \circ \mathbf{x})}{\partial x^i}\right|_{p}.
 \]
-\prop{Natural Basis}{
+\dfn{Natural Basis}{
 Given a coordinate chart $(U,\mathbf{x})$ of smooth manifold $M$ at point $p$, the coordinate tangent vectors
 \[
     (v_{\varepsilon_1},v_{\varepsilon_2},\cdots,v_{\varepsilon_n})=\left(\left.\frac{\partial (\cdot \circ \mathbf{x}^{-1})}{\partial x^1}\right|_{p},\left.\frac{\partial (\cdot \circ \mathbf{x}^{-1})}{\partial x^2}\right|_{p},\cdots,\left.\frac{\partial (\cdot \circ \mathbf{x}^{-1})}{\partial x^n}\right|_{p}\right)
@@ -383,7 +436,7 @@ By abuse of notation, we also denote the natural basis by
     \]
     such that
     \[
-        v_\varepsilon = \sum_{i=1}^n v_\varepsilon({x}^i) v_{\varepsilon_i}=\sum_{i=1}^n\left.\frac{d({x}^i \circ \varepsilon)}{dt}\right|_0 v_{\varepsilon_i}=\sum_{i=1}^n\left.\frac{d(p_i\circ\mathbf{x}^{-1} \circ \varepsilon)}{dt}\right|_0 v_{\varepsilon_i}=\sum_{i=1}^n\left.\frac{d({x}^i(p)+\lambda_it)}{dt}\right|_0 v_{\varepsilon_i}=\sum_{i=1}^n\lambda_iv_{\varepsilon_i}.
+        v_\varepsilon = \sum_{i=1}^n v_\varepsilon({x}^i) v_{\varepsilon_i}=\sum_{i=1}^n\left.\frac{\d({x}^i \circ \varepsilon)}{\d t}\right|_0 v_{\varepsilon_i}=\sum_{i=1}^n\left.\frac{\d(p_i\circ\mathbf{x}^{-1} \circ \varepsilon)}{\d t}\right|_0 v_{\varepsilon_i}=\sum_{i=1}^n\left.\frac{\d({x}^i(p)+\lambda_it)}{\d t}\right|_0 v_{\varepsilon_i}=\sum_{i=1}^n\lambda_iv_{\varepsilon_i}.
     \]
     Thus we have $\mathop{\mathrm{span}}\limits_{1\le i \le n}(v_{\varepsilon_i})\subseteq T^{2\mathrm{nd}}_pM$. Therefore, we show that
     \[
@@ -450,31 +503,74 @@ Or in a language of filtered limit,
 \]
 We call $C^\infty_p$ the stalk of smooth functions at the point $p$. It can be easily verified that the smooth function stalk is a commutative real algebra. The equivalence class of a smooth function $\varphi$ is denoted as $[\varphi]_p$ and is called the germ of $\varphi$ at point $p$. Since all smooth functions within a germ have identical local properties at point $p$, it is natural to identify them and not to consider their differences. 
 
-Using the language of function germs, we can rewrite the second definition. The functional $\left.\frac{d}{dt}(\cdot \circ \gamma)\right|_0$ was originally applied to a smooth function $f$ defined on the entire manifold and smooth at point $p$, but the properties of $f$ outside some neighborhood of point $p$ are actually irrelevant, and even whether it is defined or not is not important. Therefore, we can assume that $f$ is defined in some open neighborhood of point $p$, and then let $\left.\frac{d}{dt}(\cdot \circ \gamma)\right|_0$ act directly on the germ of the smooth function $f$ at point $p$, denoted as $[f]_p$, which is defined as
+Using the language of function germs, we can rewrite the second definition. The functional $\left.\frac{d}{\d t}(\cdot \circ \gamma)\right|_0$ was originally applied to a smooth function $f$ defined on the entire manifold and smooth at point $p$, but the properties of $f$ outside some neighborhood of point $p$ are actually irrelevant, and even whether it is defined or not is not important. Therefore, we can assume that $f$ is defined in some open neighborhood of point $p$, and then let $\left.\frac{d}{\d t}(\cdot \circ \gamma)\right|_0$ act directly on the germ of the smooth function $f$ at point $p$, denoted as $[f]_p$, which is defined as
 \[
     \begin{aligned}
-        \left.\frac{d(\cdot \circ \gamma)}{dt}\right|_0:C^\infty_p&\longrightarrow \mathbb{R}\\
-        [f]_p&\longmapsto \left.\frac{d(f \circ \gamma)}{dt}\right|_0
+        \left.\frac{\d(\cdot \circ \gamma)}{\d t}\right|_0:C^\infty_p&\longrightarrow \mathbb{R}\\
+        [f]_p&\longmapsto \left.\frac{\d(f \circ \gamma)}{\d t}\right|_0
     \end{aligned}
 \]
 And correspondently, the tangent space $T^{2\mathrm{nd}}_pM$ can be defined as
 \[
-    T^{2\mathrm{nd}}_pM=\left\{\left.\frac{d(\cdot \circ \gamma)}{dt}\right|_0\in \left(C^{\infty}_p\right)^*:\gamma\text{ is a smooth curve on $M$ passing through $p$ }\right\}.
+    T^{2\mathrm{nd}}_pM=\left\{\left.\frac{\d(\cdot \circ \gamma)}{\d t}\right|_0\in \left(C^{\infty}_p\right)^*:\gamma\text{ is a smooth curve on $M$ passing through $p$ }\right\}.
 \]
 Furthermore, we can provide a concise definition of a tangent vector without the use of curves, through an axiomatic approach. A tangent vector at a point $p$ of a manifold $M$ is a linear functional defined on $C^\infty_p$ that satisfies the Leibniz rule. In a formal manner, this can be expressed as follows:
 \dfn{Tangent Space}{
     Given a smooth manifold $M$ and a point $p$ on it. A function $v: C^\infty_p \to \mathbb{R}$ is said to be a \textbf{tangent vector} of manifold $M$ at point $p$ if it satisfies the following conditions for any $\lambda_1, \lambda_2 \in \mathbb{R}$ and any $[f]_p, [g]_p \in C^\infty_p$:
     \begin{enumerate}
         \item Linearity: $v(\lambda_1[f]_p + \lambda_2[g]_p) = \lambda_1v([f]_p) + \lambda_2v([g]_p)$,
-        \item Leibniz rule: $v([f]_p[g]_p) = [f]_pv([g]_p) + v([f]_p)[g]_p$.
+        \item Leibniz rule: $v([f]_p[g]_p) = v([f]_p)[g]_p+[f]_pv([g]_p)$.
     \end{enumerate}
     The set of tangent vectors of a manifold $M$ at point $p$ forms a linear space, denoted by $T_p^{\mathrm{3th}}M$, and is called the \textbf{tangent space} of $M$ at point $p$.
 }
 Due to the equivalence of the three distinct definitions of tangent space, we will adopt the notation $T_pM$ to refer to the tangent space of a manifold $M$ at a given point $p$, without explicitly specifying the definition being used.
 
+\ex{The Tangent Space to an Open Submanifold}{
+    Let $M$ be a smooth manifold and $N$ be an open submanifold of $M$. Let $\iota: N \to M$ be the inclusion map. Then for any point $p$ in $N$, we have 
+}
+
+\ex{The Tangent Space to a Finite-Dimensional Vector Space}{
+    Let $V$ be a finite-dimensional vector space over $\mathbb{R}$ with its standard smooth structure, and let $p$ be a point in $V$. For any $v\in V$, we can define the directional derivative of a smooth function $f$ at point $p$ in the direction of $v$ as
+    \begin{align*}
+        \left. D_v\right|_p:C^\infty_p&\longrightarrow \mathbb{R} \\
+        [f]_p&\longmapsto \left.\frac{\d f(p+tv)}{\d t}\right|_0 
+    \end{align*}
+    And we can verify that $\left. D_v\right|_p$ satisfies the Leibniz rule as follows:
+    \begin{align*}
+        \left. D_v\right|_p([f]_p[g]_p)&=\left.\frac{\d \left(f(p+tv)g(p+tv)\right)}{\d t}\right|_0\\
+        &=\left.\frac{\d f(p+tv)}{\d t}\right|_0g(p)+f(p)\left.\frac{\d g(p+tv)}{\d t}\right|_0\\
+        &=\left. D_v\right|_p([f]_p)[g]_p+[f]_p\left. D_v\right|_p([g]_p),
+    \end{align*} 
+    which means that $\left. D_v\right|_p\in T_pM$. Therefore, we can define a mapping
+    \begin{align*}
+        D_{V,p}:V&\longrightarrow T_pV\\
+        v&\longmapsto \left. D_v\right|_p
+    \end{align*}
+    which is a natural isomorphism between linear spaces $V$ and $T_pM$. The naturality is shown as the following commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}[ampersand replacement=\&, row sep=3em]
+            V \arrow[d, "D_{V,p}"'] \arrow[r, "f"] \& W \arrow[d, "D_{W,f(p)}"] \\
+            T_pV \arrow[r, "(\d f)_p"'] \& T_{f(p)}W
+        \end{tikzcd} 
+    \end{equation*}
+}
+
+The natural basis can also be defined without the use of curves. 
+
+\dfn{Natural Basis}{
+    Let $M$ be a smooth manifold with a chart $(U,\mathbf{x})$ and $p\in U$. Then we have the following isomorphisms:
+    \[
+        T_pM\xleftarrow{(\d \iota)_p}T_pU\xrightarrow{(\d\mathbf{x})_p}T_{\mathbf{x}(p)} \mathbb{R}^n\xleftarrow{D_{\mathbb{R}^n,\mathbf{x}(p)}}\mathbb{R}^n.
+    \] 
+    Therefore, we can define the \textbf{natural basis} of $T_pM$ under the chart $(U,\mathbf{x})$ as the image of the standard basis of $\mathbb{R}^n$ under the isomorphism $$ (\d \iota)_p\circ (\d\mathbf{x})_p^{-1}\circ D_{\mathbb{R}^n,\mathbf{x}(p)}.$$
+
+    The $i$-th element of the natural basis is given by 
+    \[
+        \left. \frac{\d}{\d x^i}\right|_p=\left. \frac{\d}{\d x^i}\right|_{\mathbf{x}(p)}.
+    \]
+}
+
 \subsection{Tagent Bundle}
-
-
 
 \dfn{Tangent Bundle}{
     Let $(M, \tau, \Sigma)$ be a smooth manifold with atlas $\Sigma=\{(U_\alpha,\mathbf{x}_\alpha)\}_{\alpha\in A}$. The \textbf{tangent bundle} of $M$ is the disjoint union of the tangent spaces of $M$ at all points, denoted by $TM$:
@@ -502,11 +598,11 @@ Due to the equivalence of the three distinct definitions of tangent space, we wi
     \]
 }
 
-\section{Tangent Mapping}
-After defining the tangent space, we can finally define a differential-like object for smooth mappings - the tangent mapping.
+\section{Differential}
+After defining the tangent space, we can finally define thedifferential for smooth maps.
 
 
-Let $f:M_1\to M_2$ be a smooth map between smooth manifolds $(M_1,\tau_1,\Sigma_1)$ and $(M_2,\tau_2,\Sigma_2)$. Suppose the mapping is smooth at point $p$. Let $\gamma$ be a curve on $M_1$ passing through point $p$, with its corresponding tangent vector $v_{\gamma}=\left.\frac{d}{dt}(\cdot \circ \gamma)\right|_0$. By applying $f$ to $\gamma$, we can obatian another curve $f(\gamma)$ on $M_2$ passing through point $f(p)$, with its corresponding tangent vector $v_{f(\gamma)}=\left.\frac{d}{dt}(\cdot \circ f(\gamma))\right|_0$. 
+Let $f:M_1\to M_2$ be a smooth map between smooth manifolds $(M_1,\tau_1,\Sigma_1)$ and $(M_2,\tau_2,\Sigma_2)$. Suppose the mapping is smooth at point $p$. Let $\gamma$ be a curve on $M_1$ passing through point $p$, with its corresponding tangent vector $v_{\gamma}=\left.\frac{d}{\d t}(\cdot \circ \gamma)\right|_0$. By applying $f$ to $\gamma$, we can obatian another curve $f(\gamma)$ on $M_2$ passing through point $f(p)$, with its corresponding tangent vector $v_{f(\gamma)}=\left.\frac{d}{\d t}(\cdot \circ f(\gamma))\right|_0$. 
 \lemm{}{
     Choose coordinate charts $(U,\mathbf{x})\in\Sigma_1$ and $(V,\mathbf{y})\in\Sigma_2$ at points $p$ and $f(p)$, respectively. Let the corresponding coordinate functions be $ x^j=p_j\circ\mathbf{x}^{-1}$ and $y^i=p_i\circ\mathbf{y}^{-1}$. Then we can express $v_{f(\gamma)}$ in terms of the natural basis $v_{\eta_1},v_{\eta_2},\cdots,v_{\eta_m}$ of $T_{f(p)}M_2$ as follows: 
     \[
@@ -518,17 +614,17 @@ Let $f:M_1\to M_2$ be a smooth map between smooth manifolds $(M_1,\tau_1,\Sigma_
 \pf{
     \[
         \begin{aligned}
-            v_{f(\gamma)}&=\left.\frac{d(\cdot \circ
-        f(\gamma))}{dt}\right|_{0}\\
-            &=\sum_{i=1}^m\left.\frac{d(y^i \circ
-        f(\gamma))}{dt}\right|_0v_{\eta_i}\\
-            &=\sum_{i=1}^m\left.\frac{d((y^i \circ
-        f\circ\mathbf{x})\circ(\mathbf{x}^{-1}\circ\gamma))}{dt}\right|_0v_{\eta_i}\\
-            &=\sum_{i=1}^m\left.\frac{d(y^i \circ
-        f\circ\mathbf{x})}{dx}\right|_{\mathbf{x}^{-1}(p)}\left.\frac{d(\mathbf{x}^{-1}\circ\gamma)}{dt}\right|_0v_{\eta_i}\\
+            v_{f(\gamma)}&=\left.\frac{\d(\cdot \circ
+        f(\gamma))}{\d t}\right|_{0}\\
+            &=\sum_{i=1}^m\left.\frac{\d(y^i \circ
+        f(\gamma))}{\d t}\right|_0v_{\eta_i}\\
+            &=\sum_{i=1}^m\left.\frac{\d((y^i \circ
+        f\circ\mathbf{x})\circ(\mathbf{x}^{-1}\circ\gamma))}{\d t}\right|_0v_{\eta_i}\\
+            &=\sum_{i=1}^m\left.\frac{\d(y^i \circ
+        f\circ\mathbf{x})}{dx}\right|_{\mathbf{x}^{-1}(p)}\left.\frac{\d(\mathbf{x}^{-1}\circ\gamma)}{\d t}\right|_0v_{\eta_i}\\
             &=\sum_{i=1}^m\sum_{j=1}^n\left.\frac{\partial(y^i \circ
         f\circ\mathbf{x})}{\partial
-        x^j}\right|_{\mathbf{x}^{-1}(p)}\left.\frac{d( x^j\circ\gamma)}{dt}\right|_0v_{\eta_i}\\
+        x^j}\right|_{\mathbf{x}^{-1}(p)}\left.\frac{\d( x^j\circ\gamma)}{\d t}\right|_0v_{\eta_i}\\
         &=\sum_{i=1}^m\sum_{j=1}^n\left.\frac{\partial(y^i \circ
         f\circ\mathbf{x})}{\partial
         x^j}\right|_{\mathbf{x}^{-1}(p)}v_\gamma\left( x^j\right)v_{\eta_i}.
@@ -542,23 +638,34 @@ Let $f:M_1\to M_2$ be a smooth map between smooth manifolds $(M_1,\tau_1,\Sigma_
     \]
 }
 
-\dfn{Tangent Mapping}{
-    The \textbf{tangent mapping} of $f:M_1\to M_2$ at point $p$ is defined as the mapping
+\dfn{Differential of a Smooth Map}{
+    The \textbf{differential} of a smooth map $f:M_1\to M_2$ at point $p$ is defined as the following mapping
     \[
     \begin{aligned}
-        (df)_p: T_pM_1&\longrightarrow T_{f(p)}M_2\\
+        (\d f)_p: T_pM_1&\longrightarrow T_{f(p)}M_2\\
         v_{\gamma}&\longmapsto v_{f(\gamma)}\\
     \end{aligned}
     \]
     Alternatively, we can utilize the definition based on sheaf theory
     \[
     \begin{aligned}
-        (df)_p: T_pM_1&\longrightarrow T_{f(p)}M_2\\
+        (\d f)_p: T_pM_1&\longrightarrow T_{f(p)}M_2\\
         v &\longmapsto v\left(\cdot\circ f\right)\\
     \end{aligned}
     \]
 }
-Corollary 2.3.1 guarantees that the tangent mapping is well-defined. Lemma 2.3.1 implies that the tangent mapping is linear. 
+Corollary 2.3.1 guarantees that the differential is well-defined. Lemma 2.3.1 implies that the differential is linear. 
+
+\dfn{Tangent Mapping}{
+    The \textbf{tangent mapping} of a smooth map $f:M_1\to M_2$ is defined as the following mapping
+    \[
+    \begin{aligned}
+        \d f: TM_1&\longrightarrow TM_2\\
+        (p,v) &\longmapsto \left(f(p),v\left(\cdot\circ f\right)\right)\\
+    \end{aligned}
+    \]
+}
+
 \prop{}{
     The matrix representation of the tangent mapping $(df)_p$ in terms of the natural basis is the Jacobian matrix of the function $\mathbf{y}^{-1}\circ f\circ\mathbf{x}$ at $\mathbf{x}^{-1}(p)$, i.e.
     \[
@@ -654,7 +761,7 @@ Since $T_pM\subset \left(C^\infty_p\right)^*$, we have $T_p^*M\subset \left(C^\i
 \[
     \begin{aligned}
     \langle\cdot,\cdot\rangle:T_pM\times C^\infty_p&\longrightarrow\mathbb{R}\\
-    (v_\gamma,f)&\longmapsto\langle v_\gamma,f\rangle:=v_\gamma(f)=\left.\frac{d(f\circ \gamma)}{dt}\right|_{0}.
+    (v_\gamma,f)&\longmapsto\langle v_\gamma,f\rangle:=v_\gamma(f)=\left.\frac{\d(f\circ \gamma)}{\d t}\right|_{0}.
     \end{aligned}
 \]
 For any given $f\in C^\infty_p$, define
@@ -675,7 +782,7 @@ then we have $h(C^\infty_p)=T_p^*M$.
 
 Notice that
 \[
-    \langle v_{\varepsilon_i}, x^j\rangle=\left.\frac{d( x^j\circ\varepsilon_i)}{dt}\right|_0=\delta_{ij}\qquad(i=1,2\cdots,n,\;j=1,2\cdots,n).
+    \langle v_{\varepsilon_i}, x^j\rangle=\left.\frac{\d( x^j\circ\varepsilon_i)}{\d t}\right|_0=\delta_{ij}\qquad(i=1,2\cdots,n,\;j=1,2\cdots,n).
 \]
 
 Covector $\langle\cdot,\tilde{x}_1\rangle,\langle\cdot,\tilde{x}_2\rangle,\cdots,\langle\cdot,\tilde{x}_n\rangle$ is the dual basis of the natural basis.

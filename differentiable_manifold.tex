@@ -197,7 +197,7 @@ By replacing ``differentiable" with ``$C^r$-differentiable" or ``smooth", we can
     \mathbf{x}_2(x_1,\cdots,x_{n+1})&=\left(\frac{x_1}{1+x_{n+1}},\frac{x_2}{1+x_{n+1}},\cdots,\frac{x_n}{1+x_{n+1}}\right),
     \end{aligned}
     \]
-    where $p_N=(0,0,\cdots,0,1)$ and $p_S=(0,0,\cdots,0,-1)$. It is easy to verify that $\mathbf{x}_1$ and $\mathbf{x}_2$ are homeomorphisms. Therefore, $(S^n,\tau,\Sigma)$ is a topological manifold, where $\tau$ is the topology induced by the Euclidean topology on $\mathbb{R}^{n+1}$ and $\Sigma=\{(\mathbb{R}^n,\mathbf{x}_1),(\mathbb{R}^n,\mathbf{x}_2)\}$ is an atlas of $S^n$. We can verify that $\Sigma$ is a compatible atlas. Therefore, $(S^n,\tau,\Sigma_{\max})$ is a differentiable manifold.
+    where $p_N=(0,0,\cdots,0,1)$ and $p_S=(0,0,\cdots,0,-1)$. It is easy to verify that $\mathbf{x}_1$ and $\mathbf{x}_2$ are homeomorphisms. Therefore, $(S^n,\tau,\Sigma)$ is a topological manifold, where $\tau$ is the topology induced by the Euclidean topology on $\mathbb{R}^{n+1}$ and $\Sigma=\{(\mathbb{R}^n,\mathbf{x}_1),(\mathbb{R}^n,\mathbf{x}_2)\}_{\max}$ is an atlas of $S^n$. We can verify that $\Sigma$ is a compatible atlas. Therefore, $(S^n,\tau,\Sigma_{\max})$ is a differentiable manifold.
 }
 
 \dfn{Open Submanifolds}{
@@ -482,9 +482,10 @@ When studying a smooth manifold $M$, we choose $\mathsf{C}$ to be the category w
 The functor $C^\infty(\cdot)$ can be illustrated as follows:
 \begin{equation*}
     \begin{tikzcd}
-        X  \arrow[dd, "i"{name=L, left}] &[-25pt] & [+10pt] & [-30pt] C^\infty(X) \arrow[dd, "i^*"{name=R}]\\ [-10pt] 
+        \mathsf{Open}_M&[-25pt] & [+10pt] & [-25pt]\mathbb{R}\text{-}\mathsf{CAlg}\\[-14pt] 
+        X  \arrow[dd, "\iota"{name=L, left}] & & &  C^\infty(X) \\ [-10pt] 
                                         &  \phantom{.}\arrow[r, "C^\infty", squigarrow]&\phantom{.}  &   \\[-10pt] 
-        Y & & & C^\infty(Y)
+        Y & & & C^\infty(Y)\arrow[uu, "\iota^*"']
     \end{tikzcd}
 \end{equation*}  
 Depending on our needs, $C^\infty(\cdot)$ can be a presheaf of real vector spaces, a presheaf of rings, or a presheaf of commutative real algebras.
@@ -525,50 +526,7 @@ Furthermore, we can provide a concise definition of a tangent vector without the
 }
 Due to the equivalence of the three distinct definitions of tangent space, we will adopt the notation $T_pM$ to refer to the tangent space of a manifold $M$ at a given point $p$, without explicitly specifying the definition being used.
 
-\ex{The Tangent Space to an Open Submanifold}{
-    Let $M$ be a smooth manifold and $N$ be an open submanifold of $M$. Let $\iota: N \to M$ be the inclusion map. Then for any point $p$ in $N$, we have 
-}
 
-\ex{The Tangent Space to a Finite-Dimensional Vector Space}{
-    Let $V$ be a finite-dimensional vector space over $\mathbb{R}$ with its standard smooth structure, and let $p$ be a point in $V$. For any $v\in V$, we can define the directional derivative of a smooth function $f$ at point $p$ in the direction of $v$ as
-    \begin{align*}
-        \left. D_v\right|_p:C^\infty_p&\longrightarrow \mathbb{R} \\
-        [f]_p&\longmapsto \left.\frac{\d f(p+tv)}{\d t}\right|_0 
-    \end{align*}
-    And we can verify that $\left. D_v\right|_p$ satisfies the Leibniz rule as follows:
-    \begin{align*}
-        \left. D_v\right|_p([f]_p[g]_p)&=\left.\frac{\d \left(f(p+tv)g(p+tv)\right)}{\d t}\right|_0\\
-        &=\left.\frac{\d f(p+tv)}{\d t}\right|_0g(p)+f(p)\left.\frac{\d g(p+tv)}{\d t}\right|_0\\
-        &=\left. D_v\right|_p([f]_p)[g]_p+[f]_p\left. D_v\right|_p([g]_p),
-    \end{align*} 
-    which means that $\left. D_v\right|_p\in T_pM$. Therefore, we can define a mapping
-    \begin{align*}
-        D_{V,p}:V&\longrightarrow T_pV\\
-        v&\longmapsto \left. D_v\right|_p
-    \end{align*}
-    which is a natural isomorphism between linear spaces $V$ and $T_pM$. The naturality is shown as the following commutative diagram:
-    \begin{equation*}
-        \begin{tikzcd}[ampersand replacement=\&, row sep=3em]
-            V \arrow[d, "D_{V,p}"'] \arrow[r, "f"] \& W \arrow[d, "D_{W,f(p)}"] \\
-            T_pV \arrow[r, "(\d f)_p"'] \& T_{f(p)}W
-        \end{tikzcd} 
-    \end{equation*}
-}
-
-The natural basis can also be defined without the use of curves. 
-
-\dfn{Natural Basis}{
-    Let $M$ be a smooth manifold with a chart $(U,\mathbf{x})$ and $p\in U$. Then we have the following isomorphisms:
-    \[
-        T_pM\xleftarrow{(\d \iota)_p}T_pU\xrightarrow{(\d\mathbf{x})_p}T_{\mathbf{x}(p)} \mathbb{R}^n\xleftarrow{D_{\mathbb{R}^n,\mathbf{x}(p)}}\mathbb{R}^n.
-    \] 
-    Therefore, we can define the \textbf{natural basis} of $T_pM$ under the chart $(U,\mathbf{x})$ as the image of the standard basis of $\mathbb{R}^n$ under the isomorphism $$ (\d \iota)_p\circ (\d\mathbf{x})_p^{-1}\circ D_{\mathbb{R}^n,\mathbf{x}(p)}.$$
-
-    The $i$-th element of the natural basis is given by 
-    \[
-        \left. \frac{\d}{\d x^i}\right|_p=\left. \frac{\d}{\d x^i}\right|_{\mathbf{x}(p)}.
-    \]
-}
 
 \subsection{Tagent Bundle}
 
@@ -655,9 +613,19 @@ Let $f:M_1\to M_2$ be a smooth map between smooth manifolds $(M_1,\tau_1,\Sigma_
     \]
 }
 Corollary 2.3.1 guarantees that the differential is well-defined. Lemma 2.3.1 implies that the differential is linear. 
+\dfn{Tangent Space Functor}{
+    \[
+        \begin{tikzcd}[ampersand replacement=\&]
+            \mathsf{Diff}^\infty_* \&[-25pt] \& [+10pt] \& [-25pt]\mathbb{R}\text{-}\mathsf{Vec}\\[-14pt] 
+            (M_1,p) \arrow[dd, "f"{name=L, left}] \& \& \& T_{p}M_1\arrow[dd, "(df)_p"] \\ [-10pt] 
+                                            \&  \phantom{.}\arrow[r, "T_{*}", squigarrow]\&\phantom{.}  \&   \\[-10pt] 
+            (M_2,f(p)) \& \& \& T_{f(p)}M_2
+        \end{tikzcd}
+    \] 
+}
 
-\dfn{Tangent Mapping}{
-    The \textbf{tangent mapping} of a smooth map $f:M_1\to M_2$ is defined as the following mapping
+\dfn{Tangent Map}{
+    The \textbf{(global) tangent map} of a smooth map $f:M_1\to M_2$ is defined as the following mapping
     \[
     \begin{aligned}
         \d f: TM_1&\longrightarrow TM_2\\
@@ -666,29 +634,117 @@ Corollary 2.3.1 guarantees that the differential is well-defined. Lemma 2.3.1 im
     \]
 }
 
+\prop{Tangent Map is Smooth}{
+    The tangent map $\d f$ is a smooth map.
+}
+
+\dfn{Tangent Bundle Functor}{
+    \[
+        \begin{tikzcd}[ampersand replacement=\&]
+            \mathsf{Diff}^\infty \&[-25pt] \& [+10pt] \& [-25pt]\mathsf{Diff}^\infty\\[-14pt] 
+            M_1 \arrow[dd, "f"{name=L, left}] \& \& \& TM_1\arrow[dd, "df"] \\ [-10pt] 
+                                            \&  \phantom{.}\arrow[r, "T", squigarrow]\&\phantom{.}  \&   \\[-10pt] 
+            M_2 \& \& \& TM_2
+        \end{tikzcd}
+    \] 
+}
+
+
+\ex{The Tangent Space to an Open Submanifold}{
+    Let $M$ be a smooth manifold and $N$ be an open submanifold of $M$. Let $\iota: N \to M$ be the inclusion map. Then for any point $p\in N$, the differential 
+    \[
+        \begin{aligned}
+            \left(\d \iota\right)_p: T_pN&\longrightarrow T_pM\\
+            v &\longmapsto v\left(\cdot\circ \iota \right)\\
+        \end{aligned}
+        \]
+    is an isomorphism. 
+}
+
+\ex{The Tangent Space to a Finite-Dimensional Vector Space}{
+    Let $V$ be a finite-dimensional vector space over $\mathbb{R}$ with its standard smooth structure, and let $p$ be a point in $V$. For any $v\in V$, we can define the directional derivative of a smooth function $f$ at point $p$ in the direction of $v$ as
+    \begin{align*}
+        \left. D_v\right|_p:C^\infty_p&\longrightarrow \mathbb{R} \\
+        [f]_p&\longmapsto \left.\frac{\d f(p+tv)}{\d t}\right|_0 
+    \end{align*}
+    And we can verify that $\left. D_v\right|_p$ satisfies the Leibniz rule as follows:
+    \begin{align*}
+        \left. D_v\right|_p([f]_p[g]_p)&=\left.\frac{\d \left(f(p+tv)g(p+tv)\right)}{\d t}\right|_0\\
+        &=\left.\frac{\d f(p+tv)}{\d t}\right|_0g(p)+f(p)\left.\frac{\d g(p+tv)}{\d t}\right|_0\\
+        &=\left. D_v\right|_p([f]_p)[g]_p+[f]_p\left. D_v\right|_p([g]_p),
+    \end{align*} 
+    which means that $\left. D_v\right|_p\in T_pM$. Therefore, we can define a mapping
+    \begin{align*}
+        D_{V,p}:V&\longrightarrow T_pV\\
+        v&\longmapsto \left. D_v\right|_p
+    \end{align*}
+    which is a natural isomorphism between linear spaces $V$ and $T_pM$. The naturality is shown as the following commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}[ampersand replacement=\&, row sep=3em]
+            V \arrow[d, "D_{V,p}"'] \arrow[r, "f"] \& W \arrow[d, "D_{W,f(p)}"] \\
+            T_pV \arrow[r, "(\d f)_p"'] \& T_{f(p)}W
+        \end{tikzcd} 
+    \end{equation*}
+}
+The natural basis can also be defined without the use of curves. 
+
+\dfn{Natural Basis}{
+    Let $M$ be a smooth manifold with a chart $(U,\mathbf{x})$ and $p\in U$. Then we have the following isomorphisms:
+    \[
+        T_pM\xleftarrow{(\d \iota)_p}T_pU\xrightarrow{(\d\mathbf{x})_p}T_{\mathbf{x}(p)} \mathbb{R}^n\xleftarrow{D_{\mathbb{R}^n,\mathbf{x}(p)}}\mathbb{R}^n.
+    \] 
+    Therefore, we can define the \textbf{natural basis} of $T_pM$ under the chart $(U,\mathbf{x})$ as the image of the standard basis of $\mathbb{R}^n$ under the isomorphism 
+    $$
+     (\d \iota)_p\circ (\d\mathbf{x})_p^{-1}\circ D_{\mathbb{R}^n,\mathbf{x}(p)}.
+     $$
+    Let $e_i$ be the $i$-th element of the standard basis of $\mathbb{R}^n$, then the $i$-th element of the natural basis is
+    \[
+        (\d \iota)_p\circ (\d\mathbf{x})_p^{-1}\circ D_{\mathbb{R}^n,\mathbf{x}(p)}(e_i)=\left.\frac{\partial \left(\cdot \circ \mathbf{x}^{-1}\right)}{\partial x^i}\right|_{\mathbf{x}(p)},
+    \]
+    which coincides with our definition of the natural basis using curves.
+}
+\pf{
+    Let's compute the image of $e_i$ step by step. For any smooth function $f:\mathbb{R}^n\to\mathbb{R}$, we have
+    \[
+        D_{\mathbb{R}^n,\mathbf{x}(p)}(e_i)(f)=\left.D_{e_i}\right|_{\mathbf{x}(p)}(f)=\left.\frac{\d f(\mathbf{x}(p)+te_i)}{\d t}\right|_0 =\left.\frac{\partial }{\partial x^i}\right|_{\mathbf{x}(p)}(f).
+    \]
+    Since 
+    \[
+        (\d\mathbf{x})_p\left(\left.\frac{\partial \left(\cdot \circ \mathbf{x}^{-1}\right)}{\partial x^i}\right|_{\mathbf{x}(p)}\right)(f)=\left.\frac{\partial \left(f \circ \mathbf{x}\circ \mathbf{x}^{-1}\right)}{\partial x^i}\right|_{\mathbf{x}(p)}=\left.\frac{\partial }{\partial x^i}\right|_{\mathbf{x}(p)}(f),
+    \] 
+    we have
+    \[
+    (\d\mathbf{x})_p^{-1}\left(\left.\frac{\partial }{\partial x^i}\right|_{\mathbf{x}(p)}\right)=\left.\frac{\partial \left(\cdot \circ \mathbf{x}^{-1}\right)}{\partial x^i}\right|_{\mathbf{x}(p)}.
+    \] 
+    Note 
+    \[
+        (\d \iota)_p\left(\left.\frac{\partial \left(\cdot \circ \mathbf{x}^{-1}\right)}{\partial x^i}\right|_{\mathbf{x}(p)}\right)= \left.\frac{\partial \left(\cdot \circ \iota\circ \mathbf{x}^{-1}\right)}{\partial x^i}\right|_{\mathbf{x}(p)}=\left.\frac{\partial \left(\cdot \circ \mathbf{x}^{-1}\right)}{\partial x^i}\right|_{\mathbf{x}(p)}.
+    \]
+    Therefore, we complete the proof.
+}
 \prop{}{
-    The matrix representation of the tangent mapping $(df)_p$ in terms of the natural basis is the Jacobian matrix of the function $\mathbf{y}^{-1}\circ f\circ\mathbf{x}$ at $\mathbf{x}^{-1}(p)$, i.e.
+    The matrix representation of the tangent map $(df)_p$ in terms of the natural basis is the Jacobian matrix of the function $\mathbf{y}^{-1}\circ f\circ\mathbf{x}$ at $\mathbf{x}^{-1}(p)$, i.e.
     \[
         J_pf:=\begin{pmatrix}
             J_{i,j}
-         \end{pmatrix}_{m\times n},\qquad J_{i,j}=\left.\frac{\partial(y^i \circ f\circ\mathbf{x})}{\partial x^j}\right|_{\mathbf{x}^{-1}(p)}.
+         \end{pmatrix}_{m\times n},\qquad J_{i,j}=\left.\frac{\partial(y^i \circ f\circ\mathbf{x}^{-1})}{\partial x^j}\right|_{\mathbf{x}(p)}.
         \]
 }
 \pf{
     We choose coordinate charts $(U,\mathbf{x})\in\Sigma_1$ and $(V,\mathbf{y})\in\Sigma_2$ at $p$ and $f(p)$, respectively. The natural bases of $T_pM_1$ and $T_{f(p)}M_2$ are denoted by $v_{\varepsilon_1},v_{\varepsilon_2},\cdots,v_{\varepsilon_n}$ and $v_{\eta_1},v_{\eta_2},\cdots,v_{\eta_m}$, respectively. From Lemma 2.3.1, we have
     \[
         \begin{aligned}
-            v_{f(\varepsilon_k)}&=\sum_{i=1}^m\sum_{j=1}^n\left.\frac{\partial(y^i \circ f\circ\mathbf{x})}{\partial x^j}\right|_{\mathbf{x}^{-1}(p)}v_{\varepsilon_k}\left( x^j\right)v_{\eta_i}\\
-            &=\sum_{i=1}^m\sum_{j=1}^n\left.\frac{\partial(y^i \circ f\circ\mathbf{x})}{\partial x^j}\right|_{\mathbf{x}^{-1}(p)}\delta_{jk}v_{\eta_i}\\
-            &=\sum_{i=1}^m\left.\frac{\partial(y^i \circ f\circ\mathbf{x})}{\partial x_k}\right|_{\mathbf{x}^{-1}(p)}v_{\eta_i}\\
+            v_{f(\varepsilon_k)}&=\sum_{i=1}^m\sum_{j=1}^n\left.\frac{\partial(y^i \circ f\circ\mathbf{x})}{\partial x^j}\right|_{\mathbf{x}(p)}v_{\varepsilon_k}\left( x^j\right)v_{\eta_i}\\
+            &=\sum_{i=1}^m\sum_{j=1}^n\left.\frac{\partial(y^i \circ f\circ\mathbf{x})}{\partial x^j}\right|_{\mathbf{x}(p)}\delta_{jk}v_{\eta_i}\\
+            &=\sum_{i=1}^m\left.\frac{\partial(y^i \circ f\circ\mathbf{x})}{\partial x_k}\right|_{\mathbf{x}(p)}v_{\eta_i}\\
             &=\begin{pmatrix}
             v_{\eta_1}&v_{\eta_2}&\cdots&v_{\eta_m}
             \end{pmatrix}
             \begin{pmatrix}
-            \left.\frac{\partial(y^1 \circ f\circ\mathbf{x})}{\partial x_k}\right|_{\mathbf{x}^{-1}(p)}\\
-            \left.\frac{\partial(y^2 \circ f\circ\mathbf{x})}{\partial x_k}\right|_{\mathbf{x}^{-1}(p)}\\
+            \left.\frac{\partial(y^1 \circ f\circ\mathbf{x})}{\partial x_k}\right|_{\mathbf{x}(p)}\\
+            \left.\frac{\partial(y^2 \circ f\circ\mathbf{x})}{\partial x_k}\right|_{\mathbf{x}(p)}\\
             \vdots\\
-            \left.\frac{\partial(y^m \circ f\circ\mathbf{x})}{\partial x_k}\right|_{\mathbf{x}^{-1}(p)}
+            \left.\frac{\partial(y^m \circ f\circ\mathbf{x})}{\partial x_k}\right|_{\mathbf{x}(p)}
             \end{pmatrix}.
         \end{aligned}
     \]
@@ -711,12 +767,14 @@ Corollary 2.3.1 guarantees that the differential is well-defined. Lemma 2.3.1 im
             \begin{pmatrix}
             v_{\eta_1}&v_{\eta_2}&\cdots&v_{\eta_m}
             \end{pmatrix}
+            \renewcommand{\arraystretch}{1.5}
             \left.\begin{pmatrix}
                 \frac{\partial(y^1 \circ f\circ\mathbf{x})}{\partial x^1}&\frac{\partial(y^1 \circ f\circ\mathbf{x})}{\partial x^2}&\cdots&\frac{\partial(y^1 \circ f\circ\mathbf{x})}{\partial x^n}\\
                 \frac{\partial(y^2 \circ f\circ\mathbf{x})}{\partial x^1}&\frac{\partial(y^2 \circ f\circ\mathbf{x})}{\partial x^2}&\cdots&\frac{\partial(y^2 \circ f\circ\mathbf{x})}{\partial x^n}\\
                 \vdots&\vdots&&\vdots\\
                 \frac{\partial(y^m \circ f\circ\mathbf{x})}{\partial x^1}&\frac{\partial(y^m \circ f\circ\mathbf{x})}{\partial x^2}&\cdots&\frac{\partial(y^m \circ f\circ\mathbf{x})}{\partial x^n}
-            \end{pmatrix}\right|_{\mathbf{x}^{-1}(p)}\\
+            \end{pmatrix}\right|_{\mathbf{x}(p)}
+            \renewcommand{\arraystretch}{1}\\
             &=
             \begin{pmatrix}
             v_{\eta_1}&v_{\eta_2}&\cdots&v_{\eta_m}
@@ -728,7 +786,7 @@ Corollary 2.3.1 guarantees that the differential is well-defined. Lemma 2.3.1 im
     \]
     where
     \[
-        J_{i,j}=\left.\frac{\partial(y^i \circ f\circ\mathbf{x})}{\partial x^j}\right|_{\mathbf{x}^{-1}(p)}
+        J_{i,j}=\left.\frac{\partial(y^i \circ f\circ\mathbf{x})}{\partial x^j}\right|_{\mathbf{x}(p)}
         \]
 }
 
@@ -744,7 +802,7 @@ If we wish to define the cotangent space directly without the assistance of tang
 \]
 $\mathfrak{m}_p$ can be considered as the set of functions that vanish at point $p$. We can imagine functions in $\mathfrak{m}_p$ have Taylor expansions as follows:
 \[
-    f(x)=\sum_{i=1}^n\frac{\partial f}{\partial x_i}(p)x_i+\sum_{i=1}^n\sum_{j=1}^n\frac{\partial^2 f}{\partial x_i\partial x^j}(p)x_ix^j+\cdots.
+    f(x)=\sum_{i=1}^n\frac{\partial f}{\partial x^i}(p)x^i+\sum_{i=1}^n\sum_{j=1}^n\frac{\partial^2 f}{\partial x^i\partial x^j}(p)x^ix^j+\cdots.
 \] 
 Then we define a subalgebra of $\mathfrak{m}_p$:
 \[
@@ -752,7 +810,7 @@ Then we define a subalgebra of $\mathfrak{m}_p$:
 \]
 We can imagine functions in $\mathfrak{m}_p^2$ have Taylor expansions as follows:
 \[
-    f(x)=\sum_{i=1}^n\sum_{j=1}^n\frac{\partial^2 f}{\partial x_i\partial x^j}(p)x_ix^j+\cdots.
+    f(x)=\sum_{i=1}^n\sum_{j=1}^n\frac{\partial^2 f}{\partial x^i\partial x^j}(p)x^ix^j+\cdots.
 \] 
 The cotangent space of the manifold at point $p$ can be defined as $T_p^*M=\mathfrak{m}_p/\mathfrak{m}^2_p$, which only keeps the first order terms in the Taylor expansion.
 
@@ -787,9 +845,9 @@ Notice that
 
 Covector $\langle\cdot,\tilde{x}_1\rangle,\langle\cdot,\tilde{x}_2\rangle,\cdots,\langle\cdot,\tilde{x}_n\rangle$ is the dual basis of the natural basis.
 
-\subsubsection{Dual Basis and Tangent Mapping}
-The dual basis $\langle\cdot,{x}^i\rangle$ and tangent mapping are intimately related. 
-Next we choose a coordinate chart $(U,\mathbf{x})$ of $M$ and consider the tangent mapping of the coordinate function ${x}^i: M\to \mathbb{R}$:
+\subsubsection{Dual Basis and Tangent Map}
+The dual basis $\langle\cdot,{x}^i\rangle$ and tangent map are intimately related. 
+Next we choose a coordinate chart $(U,\mathbf{x})$ of $M$ and consider the tangent map of the coordinate function ${x}^i: M\to \mathbb{R}$:
 \[
     \begin{aligned}
         d{x}^i:T_pM&\longrightarrow T_{{x}^i(p)}\mathbb{R}\\

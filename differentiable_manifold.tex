@@ -606,7 +606,7 @@ Due to the equivalence of the three distinct definitions of tangent space, we wi
 
 \dfn{Derivation on an $R$-algebra}{
     Let $R$ be a commutative ring. A \textbf{derivation} on an $R$-algebra $A$ is a map $D:A\to A$ such that
-    \begin{enumerate}[label=(\roman*)]
+    \begin{enumerate}[(i)]
         \item $R$-linear: $D(\lambda a+\mu b)=\lambda D(a)+\mu D(b)$ for any $\lambda,\mu\in R$ and $a,b\in A$,
         \item Leibniz rule: $D(ab)=D(a)b+aD(b)$ for any $a,b\in A$.
     \end{enumerate}
@@ -614,7 +614,7 @@ Due to the equivalence of the three distinct definitions of tangent space, we wi
 
 \dfn{Derivation on $C^\infty(M)$}{
     Let $M$ be a smooth manifold. A \textbf{derivation} on $C^\infty(M)$ is a map $D:C^\infty(M)\to C^\infty(M)$ such that
-    \begin{enumerate}[label=(\roman*)]
+    \begin{enumerate}[(i)]
         \item $\mathbb{R}$-linear: $D(\lambda f+\mu g)=\lambda D(f)+\mu D(g)$ for any $\lambda,\mu\in\mathbb{R}$ and $f,g\in C^\infty(M)$,
         \item Leibniz rule: $D(fg)=D(f)g+fD(g)$ for any $f,g\in C^\infty(M)$.
     \end{enumerate}
@@ -917,8 +917,8 @@ The natural basis can also be defined without the use of curves.
     \]
 }
 
-\subsection{Cotangent Vector and Cotangent Space}
-\subsubsection{Definition}
+\section{Cotangent Vector and Cotangent Space}
+\subsection{Definition}
 The most common way to define the cotangent space is to use the dual space of the tangent space.
 \dfn{Cotangent Space}{
     The \textbf{cotangent space} at point $p$ of a manifold is the dual space of the tangent space $T_pM$, denoted as $T_p^*M$. Vectors in the cotangent space are called \textbf{cotangent vectors}.
@@ -942,7 +942,7 @@ We can imagine functions in $\mathfrak{m}_p^2$ have Taylor expansions as follows
 The cotangent space of the manifold at point $p$ can be defined as $T_p^*M=\mathfrak{m}_p/\mathfrak{m}^2_p$, which only keeps the first order terms in the Taylor expansion.
 
 \prop{Differential as a Cotangent Vector}{
-    Let $f\in C^\infty(M)$ and $p\in M$. Then the differential $(\d f)_p$ can be considered as a cotangent vector in $T_p^*M$ by composing it with the natural isomorphism $T_{f(p)}\mathbb{R}\cong \mathbb{R}:\lambda \left.\partial\right|_{f(p)}$
+    Let $f\in C^\infty(M)$ and $p\in M$. Then the differential $(\d f)_p$ can be considered as a cotangent vector in $T_p^*M$ by composing it with the natural isomorphism $T_{f(p)}\mathbb{R}\cong \mathbb{R}:\lambda \left.\partial\right|_{f(p)}\mapsto\lambda$
     \[
         T_p M \xrightarrow{(\d f)_p} T_{f(p)}\mathbb{R}\xrightarrow{\left(D_{\mathbb{R},f(p)}\right)^{-1}} \mathbb{R}
     \]
@@ -988,7 +988,7 @@ The cotangent space of the manifold at point $p$ can be defined as $T_p^*M=\math
 
 % Covector $\langle\cdot,\tilde{x}_1\rangle,\langle\cdot,\tilde{x}_2\rangle,\cdots,\langle\cdot,\tilde{x}_n\rangle$ is the dual basis of the natural basis.
 
-\subsubsection{Dual Basis and Tangent Map}
+\subsection{Dual Basis and Tangent Map}
 The dual basis $\langle\cdot,{x}^i\rangle$ and tangent map are intimately related. 
 Next we choose a coordinate chart $(U,\mathbf{x})$ of $M$ and consider the tangent map of the coordinate function ${x}^i: M\to \mathbb{R}$:
 \[
